@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet Azenn</title>
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <!-- Line awesome -->
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+  <link rel="stylesheet" href="./assets/css/app.css">
+
+  <link href="../../assets/img/favicon.png" rel="icon">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="container">
+    <a href="https://www.linkedin.com/in/romain-sieurin/" class="brand">Romain SIEURIN<span class="orange">.</span></a>
+    <ul class="nav-links">
+      <li>
+        <a href="index.html#hero2">Accueil</a>
+        <ul class="sub-menu">
+          <li><a href="index.html#azenn">Azenn</a></li>
+          <li><a href="index.html#collegue">Mes collègues</a></li>
+          <li><a href="index.html#locaux">Les locaux</a></li>
+          <li><a href="index.html#blog">Le Blog</a></li>
+        </ul>
+      </li>
+      <li class="active">
+        <a href="projet.html">Le projet</a>
+        <ul class="sub-menu">
+          <li><a href="#projet">Gestion du Projet</a></li>
+          <li><a href="#collegue">Outils</a></li>
+          <li><a href="#remerciement">Remerciement</a></li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+</div>
+<!-- //Navbar -->
+
+<!-- Hero -->
+<div id="hero2">
+  <div class="container">
+    <p class="explication">
+      Pendant mes six semaines de stage, Mouhamadou m'a confié la responsabilité d'un projet. L'objectif principal est
+      de moderniser le processus de pointage des employés de la section informatique lorsqu'ils arrivent à l'entreprise.
+      Actuellement, ce processus se fait sur une liste papier. Lorsque les salariés arrivent, ils cochent leurs noms sur
+      la liste. L'idée à donc été de numériser ce registre des présences.<br><br>
+
+      Mon travail a commencé par l'identification des besoins du client, et au cours des six semaines suivantes, j'ai
+      progressé jusqu'à un stade avancé de développement de l'application. À chaque étape, j'ai collaboré avec différentes
+      personnes, dont par exemple des discussions avec le client, l'architecte web et mon tuteur de stage, pour m'assurer
+      que ce que je faisais était en ligne avec les attentes.<br><br>
+
+      Pour cela, j'ai suivi les recommandations de l'architecte Philippe, pour déterminer quel outil utiliser. Il m'a
+      indiqué que la base de données serait du PostgreSQL, le framework Angular et le langage backend java. J'ai
+      également pu utiliser l'outil JHipster pour garantir une solution solide et à la page. En effet, cet outil de
+      développement open-source génère automatiquement des applications Web offrant ainsi une architecture robuste.<br><br>
+
+      En résumé, ce projet a été une expérience enrichissante où j'ai pu prendre en charge l'ensemble du processus, de
+      la compréhension des besoins du client à la mise en œuvre d'une solution moderne de gestion des présences,
+      marquant ainsi une évolution significative dans la manière dont l'entreprise aborde ces aspects.<br>
+      Ci-dessous, vous trouverez un aperçu de l'interface du projet de digitalisation des présences.</p>
+
+    <a href="javascript:void(0)" class="btnspe btn droite" id="open-modal_bienvenue" style="color: white;">Illustration du projet</a>
+
+    <div class="modalspe" id="modal-bienvenue">
+      <div class="modal__contentspe2">
+        <button class="modal__closespe">&times;</button>
+
+        <h2 style="color: var(--c-brand); text-align: center;">Illustration de l'interface du projet de digitalisation des
+          présences sur le site de Satolas-et-Bonce</h2>
+
+        <div class="carousel">
+          <div class="carousel-container">
+            <div class="carousel-item active">
+              <img src="assets/images/illustrationProjet(2).PNG" alt="Image 2">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(1).PNG" alt="Image 1">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(3).PNG" alt="Image 3">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(4).PNG" alt="Image 4">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(5).PNG" alt="Image 5">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(6).PNG" alt="Image 6">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/illustrationProjet(7).PNG" alt="Image 7">
+            </div>
+          </div>
+          <a class="carousel-prev" onclick="changeSlide(-1)">&#10094;</a>
+          <a class="carousel-next" onclick="changeSlide(1)">&#10095;</a>
+          <ul class="carousel-indicators">
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+            <li class="carousel-indicator"></li>
+
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <a href="#projet" class="scroll-to-down"><i class="las la-arrow-down"></i></a>
+  </div>
+</div>
+<!-- //Hero -->
+
+<!-- Projet -->
+<section id="projet">
+  <div class="container">
+    <div class="section-intro">
+      <h1 class="heading-2">La Gestion du Projet</h1>
+    </div>
+    <p>
+      Bienvenue dans la section "Gestion du Projet" de mon portfolio ! Au cours de mon stage, j'ai eu la super opportunité
+      de prendre les commandes d'un projet de A à Z. Cette expérience a été une véritable immersion dans le monde de la
+      gestion de projet. Dans cette section, je vais détailler chacune de ces étapes.
+    </p><br>
+
+    <h2>1. Introduction</h2>
+
+    <p>
+      Durant mon stage de six semaines, j'ai dirigé un projet visant à moderniser le processus de pointage des employés
+      de la section informatique de l'entreprise. Dès mon tout premier jour de stage, Mouhamadou m'a annoncé que
+      j'allais être le seul développeur en charge de mener à bien ce projet. L'objectif fixé était clair : terminer le
+      projet en six semaines.<br><br>
+    </p>
+
+    <h2>2. Reccueil du besoin</h2>
+
+    <p>
+      Pour réussir ce projet, nous avons suivi les étapes habituelles de création en commençant par la première étape
+      essentielle : comprendre les besoins des utilisateurs. Cela m'a conduit à rencontrer Annabelle, l'utilisatrice du
+      système, qui a partagé avec nous ses exigences spécifiques.
+
+      Au fil du stage, j'ai affiné le compte rendu du projet à travers quatre versions successives, toutes disponibles
+      dans la section du blog. Cependant, ci-dessous, vous trouverez la version définitive du compte rendu accompagnée de
+      toutes les maquettes.<br>
+
+    <div class="button-containerspe">
+      <a href="assets/images/rapports/finalRecueilBesoin.pdf" class="btnspe btn" id="rapportfinale">Voir le rapport</a>
+    </div>
+    </p>
+
+    <h2>3. L'organisation de l'équipe</h2>
+
+    Une fois les besoins recueillis, Mouhamadou m'a présenté à Philippe, avec qui j'aurais de nombreuses discussions sur
+    le projet. Ensuite, il m'a présenté à d'autres développeurs avec lesquels j'aurais moins d'opportunités d'échanger,
+    notamment Toky, Driss, Ibrahim et Gwendal, d'autres développeurs des sites de Satolas et Montauban de Bretagne.<br><br>
+
+    En ce qui concerne le programme des réunions, voici un aperçu :
+
+      <li class="listereu"><span class='highlight'>Daily :</span> (Chaque matin à 9h15) - Réunion qui permet aux développeurs
+        de connaître les tâches de chacun et de les prioriser.</li>
+
+      <li class="listereu"><span class='highlight'>Echange DSI : </span> (Chaque vendredi à 14h) - Réunion où toute l'équipe
+        informatique discute des grandes lignes de la semaine côté projets, cybersécurité et réseaux.</li>
+
+      <li class="listereu"><span class='highlight'>Sprint Review : </span> (Toutes les deux semaines le vendredi à 9h30h) -
+        Réunion de revue de sprint qui met en lumière les problèmes rencontrés par chacun durant le sprint.</li>
+
+      <li class="listereu"><span class='highlight'>Planning Poker : </span> (Toutes les deux semaines le lundi à 10h) -
+        Réunion de planification du sprint qui permet d'estimer les points de vélocité et d'attribuer le temps nécessaire
+        aux tâches pour le sprint suivant.</li>
+
+    <li class="listereu"><span class='highlight'>Start Sprint : </span> (Toutes les deux semaines le mardi à 9h30) - Réunion
+      de lancement de sprint où l'équipe se fixe des objectifs.</li><br>
+
+    Une fois ces réunions mises en place, je me suis organisé pour suivre des cours en ligne les deux premières semaines
+    sur l'outil JHipster ainsi que sa mise en place. J'ai pu suivre différents tutoriels et suivre les conseils de Philippe
+    pour un apprentissage optimal.<br><br>
+
+
+    <h2>4. Mes difficultés</h2>
+
+    Durant ce projet, contrairement à ce à quoi je m'attendais, mes difficultés ont été davantage d'ordre logistique et
+    organisationnel que technique. En effet, la disponibilité de mes interlocuteurs était compliquée. De plus, parvenir
+    à trouver un consensus au sein de l'équipe a été un défi. Deux opinions divergeaient au sein de l'équipe informatique
+    : celle de Mouhamadou, le lead dev, préconisant un front et un back générés séparément par Jhipster, et celle de Philippe,
+    l'architecte, où le front et le back sont générés ensemble par Jhipster dans un même dossier mais séparés ensuite par
+    mes soins.<br><br>
+
+
+    <h2>5. Proposition de solution</h2>
+
+    Pour des raisons logistiques, comme Philippe étant à Montauban-de-Bretagne, j'ai finalement suivi les directives de
+    Mouhamadou. Cependant, en tant que lead dev, ses disponibilités étaient limitées. J'ai alors proposé la mise en place
+    d'une réunion hebdomadaire, tous les deux jours. Nous avons donc décidé de tenir des entretiens le lundi (à 16h),
+    mercredi (à 10h) et vendredi (à 10h). Cette méthode m'a beaucoup aidé à avancer, car il me fixait des objectifs à
+    atteindre pour le surlendemain.<br>
+
+    En clôture de mon stage, j'ai réalisé une réunion "démo" avec Annabelle et Mouhamadou dont vous pourrez trouver un
+    compte rendu détaillé dans le rapport ci-dessous.<br>
+
+    <div class="button-containerspe">
+      <a href="javascript:void(0)" class="btnspe btn" id="open-modalspe">Voir le rapport</a>
+    </div>
+    <div class="modalspe" id="modal-locspe">
+      <div class="modal__contentspe">
+        <button class="modal__closespe">&times;</button>
+        <h2 class="titreOrange">Rapport de la démo du vendredi 16 février sur l'application.</h2><br>
+
+        <p><b>Retour d'Annabelle :</b><br>
+          -Le RGPD demande de caché les numéros de téléphone des autres employés.<br>
+          -Comment font les visiteurs qui sont présents à la journée. Les ajoute-t-on dans la liste des employés malgré
+          tout pour une journée ?<br>
+          -Qui aura les droits administrateurs ?
+          </p><br>
+
+        <p>
+          <b>Solution à mettre en place : </b><br>
+
+          -Les numéros de téléphone vont être caché sur l'appli mais sont bien présents en base de donnée. (voir ci-dessous)<br>
+          <img src="assets/images/employe.PNG" class="image-cadre-spe">
+          -Il y aura deux moyens de connexion : Soit en tant qu'administrateur, celui-ci pourra ajouter /supprimer /modifier<br>
+          la liste des employés. Soit en tant qu'utilisateur lambda. Celui-ci pourra seulement se cocher "absent" ou "présent".
+          Plus tard, l'idée de créer un compte pour chaque empoyé est envisageable mais pas privilégié pour le moment.<br>
+          -Le bouton d'impression à finaliser
+
+        </p>
+      </div>
+    </div>
+
+    Pour apercevoir le résultat final de mon stage, rendez-vous en haut de cette page. En revanche, ci-dessous, vous
+    trouverez l'architecture de mon projet. Comme vous pourrez le constater, le back-end et le front-end sont clairement
+    séparés. Les fichiers Liquibase sont situés dans le back-end pour assurer la liaison avec PostgreSQL. Dans le front-
+    end, vous trouverez entre autres tous les composants nécessaires au bon fonctionnement du projet.<br>
+
+    <div class="flex-container">
+    <img src="./assets/images/architectureBack.PNG" alt="architectureBack" style="width: 25%; height: 100%; max-height:610px;" class="image-cadre">
+    <img src="./assets/images/architectureFront.PNG" alt="architectureFront" style="width: 25%; height: 60%; max-height:610px;" class="image-cadre">
+    </div><br>
+
+    <h2>6. Conclusion </h2>
+
+    Tout d'abord, j'ai pu apprécier l'utilité de la méthode agile ainsi que des réunions quotidiennes. Ces pratiques
+    permettent une efficacité remarquable même lors d'une courte réunion de quinze minutes qu'est le daily. La méthode
+    agile permet aux développeurs de se fixer des objectifs, stimulant ainsi la collaboration au sein de l'équipe en
+    favorisant une communication et une adaptabilité aux changements.<br><br>
+
+    Également, j'ai pris conscience de l'importance de la cybersécurité au sein d'une entreprise. Le fait que tous les
+    employés doivent suivre intégralement la formation sur l'outil DCC Cyber Safe dès leur arrivée souligne l'importance
+    accordée à la sécurité informatique. L'entreprise ne prend pas cette question à la légère, car quel que soit le poste
+    de l'employé, s'il utilise un ordinateur, il doit suivre cette formation. Cela met en évidence le caractère crucial
+    de la cybersécurité.<br><br>
+
+    Enfin, contrairement à mon stage de l'an dernier, j'ai été surpris de constater que la notion d'écoconception
+    n'était pas d'actualité dans les activités de l'entreprise. En effet, chez <b>Norsys</b>, où l'environnement est au cœur des
+    préoccupations, le déploiement d'une application sur un serveur et toute manipulation ayant un impact sur l'environnement
+    sont soumis à des règles strictes. Chez <entreprise>Exertis Azenn</entreprise>, cette pratique n'est pas exigée.
+
+  </div>
+</section>
+<!-- //Projet -->
+
+<!-- Work -->
+<section id="collegue">
+  <div class="container">
+    <div class="section-intro">
+      <h1 class="heading-2">Mes outils</h1>
+    </div>
+    <p>
+      Bienvenue dans la section "Mes Outils" de mon portfolio. Lors de mon stage chez Norsys l'an passé, j'ai eu l'opportunité
+      de présenter 12 outils que j'ai utilisés. Cette année, chez <entreprise>Exertis Azenn</entreprise>, j'ai pu de réutiliser
+      plusieurs de ces outils, notamment Jira, Teams ou encore IntelliJ. Par conséquent, je ne vais pas les réexposer à
+      nouveau. Cependant, je m'apprête à vous présenter dans cette section 5 nouveaux outils que je n'avais jamais
+      utilisés auparavant. Lorsque vous survolez les logos des outils, vous découvrirez en quelques mots la fonction
+      principale de l'application. Bonne visite !"<br><br>
+    </p>
+
+    <h2 class="highlight centre">JHIPSTER</h2><br>
+    <div class="grid two-col-grid">
+      <div class="project">
+        <img src="./assets/images/outils/jhipster.jpeg" alt="logoJhipster">
+        <div class="overlay">
+          <div>
+            <h2 class="heading-3">Jhipster</h2>
+            <p>JHipster est un outil de développement qui simplifie la création d'applications web en combinant différentes
+              technologies telles que Spring Boot et Angular. L'outil permet de construire des applications modernes et
+              puissantes plus rapidement et plus facilement.</p>
+          </div>
+        </div>
+      </div>
+      <span>Sur une période de six semaines, jugée trop courte par l'architecte Philippe ROUVRAY, il a été recommandé que
+        j'utilise un outil offrant une base d'application préconçue. C'est ainsi qu'il m'a présenté l'outil JHipster.<br><br>
+        Après m'être documenté sur cet outil, j'ai pu l'utiliser pour créer mon application. JHipster peut être utilisé
+        entièrement en ligne de commande via Git Bash ou via leur site web en ligne. Peu importe la méthode utilisée, il
+        est possible de créer des entités, de modifier le framework utilisé, la langue de l'application générée, ainsi
+        que de nombreux autres paramètres que je vous invite à regarder
+        <u><a href="https://start.jhipster.tech/generate-application">ici</a></u>.</span>
+    </div><br><br>
+
+    <h2 class="highlight centre">DCC Cyber Safe</h2><br>
+    <div class="grid two-col-grid">
+      <span>Lorsqu'un employé arrive dans l'entreprise, quelque soit son expérience professionnelle ou ses compétences
+        informatiques, et peu importe le poste qu'il va occuper, une sensibilisation aux risques cyberinformatiques
+        est une étape obligatoire pour tous les nouveaux arrivants.<br><br>L'outil présente sous forme de modules les
+        pratiques à éviter sur différents supports (les sites web, les boîtes mail, les informations partagées aux collègues
+        etc.) En fonction du poste occupé dans l'entreprise, l'équipe de sécurité informatique d'Azenn attribue certains
+        modules plutôt que d'autres en se basant sur le domaine dans lequel l'employé va exercer. Certains modules étant
+        plus importants, l'entreprise demande qu'ils soient repris tous les ans.</span>
+      <div class="project">
+        <img src="./assets/images/outils/dcc.jpg" alt="logoDccCyberSafe">
+        <div class="overlay">
+          <div>
+            <h2 class="heading-3">DCC Cyber Safe</h2>
+            <p>
+              DCC Cyber Safe est une plateforme conçue pour renforcer la sécurité numérique des entreprises en proposant
+              une suite d'outils et de services qui permettent de détecter, prévenir et répondre aux cybermenaces.</p>
+          </div>
+        </div>
+      </div>
+    </div><br><br>
+
+    <h2 class="highlight centre">Bitbucket</h2><br>
+    <div class="grid two-col-grid">
+      <div class="project">
+        <img src="./assets/images/outils/bitbucket.png" alt="logoBitbucket">
+        <div class="overlay">
+          <div>
+            <h2 class="heading-3">Bitbucket</h2>
+            <p>Bitbucket est une plateforme de gestion de code source basée sur Git, conçue pour permettre aux équipes de
+              développeurs de collaborer efficacement sur des projets logiciels.</p>
+          </div>
+        </div>
+      </div>
+    <span>Durant mon stage, j'ai pu discuter avec Mouhamadou des outils que j'utilisais pendant mes cours. Il m'a informé
+      qu'en entreprise, GitHub n'était pas utilisé. En effet, Exertis Azenn utilise l'outil Bitbucket pour son intégration
+      avec d'autres outils utilisés également par Azenn, tels que Jira ou Confluence.<br><br>Cette compatibilité étendue
+      avec d'autres outils favorise une logistique opérationnelle plus efficace. Par exemple, les employés n'ont besoin
+      que d'un seul compte pour accéder à tous ces outils, ce qui renforce également la sécurité informatique. (En cas
+      de départ de l'employé notamment puisque la suppression de ses accès est davantage centralisé) .</span>
+    </div><br><br>
+
+    <h2 class="highlight centre">Confluence</h2><br>
+    <div class="grid two-col-grid">
+      <span>Bien que je n'aie pas eu beaucoup l'occasion de l'utiliser personnellement, je tiens tout de même à mentionner
+        cet outil car il est important pour les équipes de développement. En effet, dans l'espace document de cet outil,
+        les développeurs exposaient tous leurs bugs et problèmes de code récurrents avec une méthode s'ils parvenaient à
+        résoudre le problème. Cette approche collaborative permet donc à chaque développeur de potentiellement résoudre
+        son problème rapidement, car il se peut qu'un autre développeur ait déjà rencontré ce problème.<br><br>
+        De plus, cet outil favorise l'efficacité opérationnelle en permettant une intégration fluide avec les autres
+        outils utilisés par l'équipe de développement, tels que Jira et Bitbucket. Cela facilite la collaboration en
+        centralisant les informations et en simplifiant le suivi des projets, des problèmes et des solutions.
+      </span>
+      <div class="project">
+        <img src="./assets/images/outils/confluence.png" alt="logoConfluence">
+        <div class="overlay">
+          <div>
+            <h2 class="heading-3">Confluence</h2>
+            <p>Confluence est une plateforme de collaboration en ligne qui permet aux équipes de travailler ensemble de
+              manière efficace en centralisant et en organisant les informations, les documents et les idées dans un espace
+              partagé et facilement accessible.</p>
+          </div>
+        </div>
+      </div>
+    </div><br><br>
+
+    <h2 class="highlight centre">PgAdmin</h2><br>
+    <div class="grid two-col-grid">
+      <div class="project">
+        <img src="./assets/images/outils/pgAdmin.png" alt="logoPgAdmin">
+        <div class="overlay">
+          <div>
+            <h2 class="heading-3">PgAdmin</h2>
+            <p>pgAdmin est une interface graphique permettant de gérer les bases de données PostgreSQL. Elle
+              offre aux utilisateurs la possibilité d'interagir facilement avec leurs bases de données en leur offrant un
+              accès visuel aux différentes fonctionnalités de PostgreSQL, simplifiant ainsi le processus de gestion et
+              d'administration des données.</p>
+          </div>
+        </div>
+      </div>
+      <span>
+        Choisi conjointement par Mouhamadou et Philippe, cet outil m'a permis de gérer de manière efficace et simple les
+        données pour mon application. Après avoir élaboré mon fichier JDL sur la plateforme en ligne de JHipster (
+        tables "presence" et "employe"), j'ai simplement inclus ces entités dans PostgreSQL en ajustant les paramètres
+        du fichier "application-dev.yml" comme suit :
+        <img src="assets/images/pgAdminconfig.JPG" class="image-cadre">
+        A la fin de mon stage, j'ai utilisé PgAdmin pour effectuer un "backup" de la base de données (c'est une sauvegarde).
+        Cette sauvegarde englobait à la fois la structure de la base de données et les données elles-mêmes en vue du déploiement de l'application en production.</span>
+    </div>
+
+
+    </div>
+  </div>
+</section>
+<!-- //Work -->
+
+<!-- Remerciement -->
+<section id="remerciement">
+  <div class="container">
+    <div class="section-intro">
+      <h1 class="heading-2">Remerciement</h1>
+    </div>
+    <p class="merci">
+      <b>Objet : Remerciements pour l'opportunité de stage</b><br><br>
+
+      Madame/Monsieur,<br><br>
+
+      Je tiens à exprimer ma profonde gratitude pour l'opportunité qui m'a été offerte de réaliser mon stage au sein de
+      <entreprise>Exertis Azenn</entreprise>. C'était une expérience enrichissante et instructive qui a grandement contribué
+      à ma formation professionnelle.<br><br>
+
+      Je suis reconnaissant envers toute l'équipe pour son soutien tout au long de cette période. Les missions qui m'ont
+      été confiées m'ont permis d'acquérir de nouvelles compétences et connaissances dans le domaine du développement,
+      et j'ai particulièrement apprécié la possibilité de tenter de mettre en pratique les connaissances acquises au cours
+      de mon BTS. Je repars de cette expérience avec un bagage de compétences notamment en ce qui concerne la Gestion de
+      projet.<br><br>
+
+      Je tiens à remercier spécialement Mouhamadou LO pour sa patience et ses conseils. Ses enseignements, son humour et
+      sa bienveillance ont rendu mon expérience de stage d'autant plus agréable.<br><br>
+
+      Je souhaite rester en contact avec l'entreprise et ses collaborateurs, et je me tiens à votre disposition pour
+      toute collaboration future. Merci encore de m'avoir offert cette opportunité et pour l'accueil que j'ai reçu.<br><br>
+
+      Je vous prie d'agréer, Madame/Monsieur, l'expression de mes salutations distinguées.<br><br>
+
+      Cordialement,<br><br>
+
+      Romain SIEURIN<br>
+
+    </p>
+
+  </div>
+</section>
+<!-- //Remerciement -->
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>Portfolio <a href="https://www.linkedin.com/in/romain-sieurin/" style="color: var(--c-brand)">Romain SIEURIN</a></p>
+    <div class="social-icons">
+      <a href="https://twitter.com/ExertisFrance"><i class="lab la-twitter"></i></a>
+      <a href="https://www.facebook.com/exertisfrance"><i class="lab la-facebook"></i></a>
+      <a href="https://www.linkedin.com/company/azenn/"><i class="lab la-linkedin"></i></a>
+      <a href="https://www.instagram.com/exertisfrance/"><i class="lab la-instagram"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- typed js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<!-- AOS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="./assets/js/app.js"></script>
+
+<script>
+  /*Modale illustration du projet*/
+  var modalBtnBienvenue = document.getElementById("open-modal_bienvenue");
+  var modalBienvenue = document.getElementById("modal-bienvenue");
+  var modalCloseBtnBienvenue = modalBienvenue.querySelector(".modal__closespe");
+
+
+  function openModalBienvenue() {
+    modalBienvenue.style.display = "block";
+  }
+
+  function closeModalBienvenue() {
+    modalBienvenue.style.display = "none";
+  }
+
+  modalBtnBienvenue.addEventListener("click", openModalBienvenue);
+  modalCloseBtnBienvenue.addEventListener("click", closeModalBienvenue);
+
+  // Sélectionner les éléments du carrousel
+  const carouselContainer = document.querySelector('.carousel-container');
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  const prevButton = document.querySelector('.carousel-prev');
+  const nextButton = document.querySelector('.carousel-next');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+
+  // Variables de suivi
+  let currentIndex = 0;
+  let intervalId;
+
+  // Fonction pour changer la diapositive
+  function changeSlide(index) {
+    // Mettre à jour l'index de la diapositive active
+    currentIndex += index;
+
+    // Vérifier les limites du carrousel
+    if (currentIndex < 0) {
+      currentIndex = carouselItems.length - 1;
+    } else if (currentIndex >= carouselItems.length) {
+      currentIndex = 0;
+    }
+
+    // Déplacer le conteneur du carrousel pour afficher la diapositive active
+    carouselContainer.style.transform = `translateX(${currentIndex * -100}%)`;
+
+    // Mettre à jour l'indicateur actif
+    updateIndicator();
+  }
+
+  // Fonction pour mettre à jour l'indicateur actif
+  function updateIndicator() {
+    indicators.forEach((indicator, index) => {
+      if (index === currentIndex) {
+        indicator.classList.add('active');
+      } else {
+        indicator.classList.remove('active');
+      }
+    });
+  }
+
+  // Fonction pour démarrer le carrousel automatique
+  function startCarousel() {
+    intervalId = setInterval(() => {
+      changeSlide(1);
+    }, 6000); // Changer de diapositive toutes les 6 secondes
+  }
+
+  // Fonction pour réinitialiser le carrousel automatique
+  function resetCarousel() {
+    clearInterval(intervalId);
+    startCarousel();
+  }
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      const indicatorIndex = Array.from(indicators).indexOf(indicator);
+      changeSlide(indicatorIndex - currentIndex);
+      resetCarousel(); // Réinitialiser le carrousel automatique lors du clic sur les indicateurs
+    });
+  });
+
+  // Écouteur d'événement pour les touches de gauche/droite du clavier
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+      changeSlide(-1);
+      resetCarousel(); // Réinitialiser le carrousel automatique lors de l'utilisation des touches de gauche/droite du clavier
+    } else if (event.key === 'ArrowRight') {
+      changeSlide(1);
+      resetCarousel(); // Réinitialiser le carrousel automatique lors de l'utilisation des touches de gauche/droite du clavier
+    }
+  });
+
+  // Mettre en surbrillance de l'indicateur actif initial
+  updateIndicator();
+
+  // Démarrer le carrousel automatique
+  startCarousel();
+
+  /*Modale compte rendu*/
+  var modalBtn = document.getElementById("open-modalspe");
+  var modal = document.getElementById("modal-locspe");
+  var modalCloseBtn = modal.querySelector(".modal__closespe");
+
+  function openModalspe() {
+    console.log("Ouverture de la modale");
+    modal.style.display = "block";
+  }
+
+  function closeModalspe() {
+    modal.style.display = "none";
+  }
+
+  modalBtn.addEventListener("click", openModalspe);
+  modalCloseBtn.addEventListener("click", closeModalspe);
+
+</script>
+
+</body>
+</html>

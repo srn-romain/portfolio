@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             " j'ai effectué une visite des locaux de l'entreprise, me familiarisant avec les équipes. De plus, j'ai eu " +
             "l'opportunité de visiter la salle serveur de l'entreprise avec Yann, l'admnistrateur réseau. En fin de matinée," +
             " Yann m'a remis mon ordinateur configuré que je pourrai utiliser durant les six semaines de stage.<br>" +
-            "<span class='highlight'>APRES-MIDI</span> : Cet après-midi, Mouhamadou m'a informé sur le projet que je vais" +
+            "<span class='highlight'>APRES-MIDI</span> : Mouhamadou m'a informé du projet que je vais" +
             " réaliser pendant mes six semaines de stage. Nous avons donc entamé le processus de réalisation classique d'un" +
             " projet en débutant par une rencontre avec Annabelle, notre cliente. L'objectif de ce projet est de digitaliser" +
             " le registre de présence des employés actuellement géré sous forme de liste papier. En collaboration avec " +
@@ -122,7 +122,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "<h2>Mercredi 10 Janvier</h2><p><span class='highlight'>MATIN</span> : \n" +
             "Pour la première fois, j'ai entamé ma journée en participant à une réunion quotidienne daily portant sur " +
             "divers projets. Une capture d'écran de cette réunion figure ci-dessous. L'objectif était d'en apprendre " +
-            "davantage sur ce type de réunion. Ensuite, j'ai eu une seconde réunion avec un architecte d'application web" +
+            "davantage sur ce type de réunion. En effet Exertis Azenn utilise la méthode Agile pour l'ensemble de ses " +
+            "projets informatique. Ensuite, j'ai eu une seconde réunion avec un architecte d'application web" +
             " nommé Philippe ROUVRAY afin de définir le langage informatique à utiliser pour mon projet. À la fin de cette" +
             " réunion, Philippe m'a informé que nous allons utiliser JHipster pour générer une sorte de \"socle\" " +
             "pour notre apllication qui utilisera les lanagages Java et Angular.<br>" +

@@ -307,6 +307,31 @@ h6 {
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
+.resume-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formation-logo {
+  width: 60px; /* Ajustez la taille du logo */
+  height: auto; /* Conserve les proportions */
+  margin-left: 15px; /* Espace entre le titre et le logo */
+}
+
+@media only screen and (max-width: 768px) {
+  .resume-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .formation-logo {
+    margin-top: 10px;
+    margin-left: 0;
+    width: 50px; /* Réduire la taille du logo sur mobile */
+  }
+}
+
 section {
   padding: 60px 0;
   overflow: hidden;
@@ -501,6 +526,24 @@ section {
 }
 
 /*BOUTON VOIR MES COLOS*/
+
+#mobile-message {
+  display: none;
+}
+
+/* Afficher le message seulement sur les écrans dont la largeur est inférieure à 768px */
+@media only screen and (max-width: 768px) {
+  #mobile-message {
+    display: block;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    text-align: center;
+  }
+}
 
 .button-containerspe {
   margin: 7px 0;

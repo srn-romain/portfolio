@@ -46,11 +46,12 @@ h4 {
 a {
   color: #292929;
   text-decoration: none !important;
-  transition: all 0.5s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
 }
 
 a:hover {
-  transition: all 0.5s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+  color: #c4d600;
 }
 
 p {
@@ -456,7 +457,7 @@ p {
 
 #hero .hero-content {
   height: 100vh;
-  text-align: left;
+  text-align: right;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -482,7 +483,7 @@ p {
 }
 
 .hero-content .list-social li {
-  float: left;
+  float: right;
   margin-right: 20px;
 }
 
@@ -681,12 +682,20 @@ p {
   margin-bottom: 30px;
 }
 
+#portfolio .portfolio-item img {
+  transition: transform 0.3s ease-in-out;
+}
+
+#portfolio .portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
 #portfolio .portfolio-item .portfolio-info {
-  opacity: 0;
+  opacity: 1; /* L'info est toujours visible */
   position: absolute;
   left: 30px;
   right: 30px;
-  bottom: 0;
+  bottom: 20px; /* Position finale */
   z-index: 3;
   transition: all ease-in-out 0.3s;
   background: rgba(255, 255, 255, 0.9);
@@ -725,10 +734,11 @@ p {
   right: 10px;
 }
 
-#portfolio .portfolio-item:hover .portfolio-info {
+/*#portfolio .portfolio-item:hover .portfolio-info {
   opacity: 1;
   bottom: 20px;
-}
+}*/
+
 
 /*--------------------------------------------------------------
 # Portfolio Details

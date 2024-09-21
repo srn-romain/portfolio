@@ -314,7 +314,7 @@ h6 {
 }
 
 .formation-logo {
-  width: 60px; /* Ajustez la taille du logo */
+  width: 60px; /* Taille par défaut du logo */
   height: auto; /* Conserve les proportions */
   margin-left: 15px; /* Espace entre le titre et le logo */
   border: 1px solid rgba(0, 0, 0, 0.8); /* Léger cadre autour de l'image */
@@ -325,13 +325,18 @@ h6 {
   width: 60px; /* Taille du carré */
   height: 60px; /* Taille du carré */
   object-fit: cover; /* Assure que l'image remplit le carré sans déformer */
-  margin-left: 15px; /* Espace entre le titre et l'image */
+  margin: 10px; /* Espacement uniforme autour de chaque image */
   border: 1px solid rgba(0, 0, 0, 0.1); /* Léger cadre autour de l'image */
-  border-radius: 5px; /* Arrondir légèrement les coins (optionnel) */
+  border-radius: 5px; /* Arrondir légèrement les coins */
 }
 
+.logos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrer les images */
+}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1290px) {
   .resume-header {
     flex-direction: column;
     align-items: flex-start;
@@ -341,6 +346,27 @@ h6 {
     margin-top: 10px;
     margin-left: 0;
     width: 50px; /* Réduire la taille du logo sur mobile */
+  }
+
+  .logos-container {
+    justify-content: space-around; /* Répartir les images */
+  }
+
+  .image-carrée {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Media query pour les très petits écrans (moins de 480px) */
+@media only screen and (max-width: 480px) {
+  .image-carrée {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logos-container {
+    justify-content: space-between; /* Ajuster l'espacement entre les images */
   }
 }
 
@@ -608,10 +634,14 @@ section {
   background-color: transparent;
 }
 
-table {
+.table-container {
   width: 100%;
+  overflow-x: auto; /* Permet la barre de défilement horizontale */
+}
+
+table {
+  min-width: 800px; /* Largeur minimale pour éviter le rétrécissement */
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 th, td {

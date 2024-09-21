@@ -317,7 +317,19 @@ h6 {
   width: 60px; /* Ajustez la taille du logo */
   height: auto; /* Conserve les proportions */
   margin-left: 15px; /* Espace entre le titre et le logo */
+  border: 1px solid rgba(0, 0, 0, 0.8); /* Léger cadre autour de l'image */
+  border-radius: 4px;
 }
+
+.image-carrée {
+  width: 60px; /* Taille du carré */
+  height: 60px; /* Taille du carré */
+  object-fit: cover; /* Assure que l'image remplit le carré sans déformer */
+  margin-left: 15px; /* Espace entre le titre et l'image */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Léger cadre autour de l'image */
+  border-radius: 5px; /* Arrondir légèrement les coins (optionnel) */
+}
+
 
 @media only screen and (max-width: 768px) {
   .resume-header {

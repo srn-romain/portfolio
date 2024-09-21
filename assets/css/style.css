@@ -73,7 +73,7 @@ h6 {
   bottom: 0;
   width: 300px;
   transition: all ease-in-out 0.5s;
-  z-index: 9997;
+  z-index: 9;
   transition: all 0.5s;
   padding: 0 15px;
   background: #50644c;
@@ -570,7 +570,7 @@ section {
 }
 
 /* Afficher le message seulement sur les écrans dont la largeur est inférieure à 768px */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1155px) {
   #mobile-message {
     display: block;
     background-color: #f8d7da;
@@ -607,7 +607,7 @@ section {
 .modalspe {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;
@@ -914,7 +914,7 @@ tr:nth-child(even) {
   left: 0;
   bottom: 0;
   width: 300px;
-  z-index: 9999;
+  z-index: 9;
   background: #50644c;
   border-right: none;
 }

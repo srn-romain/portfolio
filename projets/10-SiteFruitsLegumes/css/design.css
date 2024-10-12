@@ -1,0 +1,285 @@
+@font-face {
+    font-family: "POLICE";
+    src: url(../polices/Gabriola.ttf);
+}
+
+body {
+    margin-top: 20px;           /* Pour éviter de coller avec le haut du navigateur */
+}
+
+.TouteLaPage {
+    background-image: url(../images/FD0.jpeg);
+    background-size: cover;
+    background-attachment:initial;
+    width: auto;
+    max-height: fit-content;
+    font-family: "POLICE";
+}
+
+.TouteLaPage2 {
+    background-image: url(../images/FD1.jpeg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage3 {
+    background-image: url(../images/FD2.jpeg);
+}
+
+.TouteLaPage4 {
+    background-image: url(../images/FD3.jpeg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage5 {
+    background-image: url(../images/FD4.jpeg);
+}
+
+.TouteLaPage6 {
+    background-image: url(../images/FD5.jpeg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage7 {
+    background-image: url(../images/FD6.jpeg);
+}
+
+.TouteLaPage8 {
+    background-image: url(../images/FD7.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage9 {
+    background-image: url(../images/FD8.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage10 {
+    background-image: url(../images/FD9.webp);
+}
+
+.TouteLaPage11 {
+    background-image: url(../images/FD10.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    width: "500%";
+    float: center;
+    width: auto;
+    height: auto;
+}
+
+.TouteLaPage12 {
+    background-image: url(../images/FD11.jpeg);
+}
+
+.TouteLaPage13 {
+    background-image: url(../images/FD12.jpeg);
+}
+
+.EnTete {
+    display: flex;
+    justify-content: space-around;
+    color: rgb(0, 0, 0);
+    font-size: x-large;
+    background-color: beige;
+}
+
+.EnTete3 {
+    display: flex;
+    justify-content: space-around;
+    color: rgb(8, 8, 6);
+    font-size: x-large;
+    background-color: beige;
+}
+
+.Adroite{
+    float: right;
+    font-size: 10px ;
+    background-color: rgba(255, 255, 255, 0.74);
+}
+
+h1 {
+    text-align: center;
+    color: rgb(1, 1, 1);
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-top: solid;
+    border-bottom: solid;
+    background-color: burlywood;
+}
+
+
+.TitreBio {
+    text-align: center;
+    color: blue;
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.TitreImage{
+    color: black;
+    text-align: center;
+    font-family: "POLICE";
+    background-color: rgba(255, 255, 255, 0.658);
+    border-radius: 10px;
+    font-size: 35px;
+    /*border-color: rgba(0, 0, 0, 0.61);
+    border: 1px solid;*/
+}
+
+.TitreImage2 {
+    color: black;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.658);
+    border-radius: 10px;
+    font-size: 20px;
+    /*border-color: rgba(0, 0, 0, 0.61);
+    border: 1px solid;*/
+}
+
+
+.ImagePersonaliter {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+}
+
+
+.Image {
+    border: 7px solid black;
+    border-radius: 20px;
+    width: 350px;
+    height: 240px;
+}
+
+.Ingrédient {
+    border-radius: 20px;
+    width: 100px;
+}
+
+p {
+    text-align: left;
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h2 {
+    text-align: left;
+    color: black;
+    font-size: x-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* .Gras {
+    font-weight: bold;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+} */
+
+.Tableau {
+    background-color: rgb(228, 153, 153);
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau2 {
+    background-color: #F5DEB3;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau3 {
+    background-color: burlywood;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau4 {
+    background-color: #a8f03d;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau5 {
+    background-color:#F7962F;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau6 {
+    background-color: #82FDD0;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Tableau7 {
+    background-color: #BDB8EB;
+    color: black;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Retour {
+    display: flex;
+    justify-content: center;
+}
+
+.Retourr {
+    display: flex;
+    justify-content: right;
+}
+
+.lien{
+    text-decoration: none;
+    color: black;
+}
+
+.lien:hover{
+    text-decoration: none;
+    font-style: italic ;
+    color: rgb(12, 85, 12);
+}
+
+article,aside{          /* propriétés pour les 2 attributs */
+    display: inline-block;
+    width: 397px;
+    overflow: auto;
+    /* pour les positionner côte à côte */
+    vertical-align: top;
+    /* Tous deux alignés en haut */
+    text-align: justify;
+    /* texte justifié (aligné à droite et à gauche) */
+}

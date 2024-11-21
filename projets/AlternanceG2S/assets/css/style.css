@@ -1,11 +1,3 @@
-/**
-* Template Name: Folio
-* Updated: Sep 18 2023 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/folio-bootstrap-portfolio-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -87,6 +79,26 @@ p {
 .btn:hover,
 .btn:focus {
   color: #fff;
+}
+
+.btn-retour {
+  display: flex;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-retour:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
 }
 
 .padDiv {
@@ -734,12 +746,6 @@ p {
   right: 10px;
 }
 
-/*#portfolio .portfolio-item:hover .portfolio-info {
-  opacity: 1;
-  bottom: 20px;
-}*/
-
-
 /*--------------------------------------------------------------
 # Portfolio Details
 --------------------------------------------------------------*/
@@ -1130,15 +1136,6 @@ blockquote {
   font-size: 13px;
 }
 
-/** Width between 1200x to 0
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-/** Width between 992px to 1199px
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-/** Width between 768px to 991px
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 @media (min-width: 768px) and (max-width: 991px) {
 
   /* Navbar */
@@ -1219,9 +1216,6 @@ blockquote {
   }
 }
 
-/** Width between 767px to 0
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 @media (max-width: 767px) {
 
   /* Navbar */
@@ -1302,9 +1296,6 @@ blockquote {
   }
 }
 
-/** Width between 600px to 0
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 @media (max-width: 600px) {
 
   /* Navbar */
@@ -1385,9 +1376,6 @@ blockquote {
   }
 }
 
-/** Width between 480px to 0
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 @media (max-width: 480px) {
 
   /* Navbar */
@@ -1467,9 +1455,6 @@ blockquote {
   }
 }
 
-/** Width between 320px to 0
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 @media (max-width: 320px) {
 
   /* Navbar */
@@ -1554,3 +1539,10 @@ blockquote {
     margin-right: 0;
   }
 }
+
+/*
+Sources :
+https://bootstrapmade.com/license/
+https://bootstrapmade.com/folio-bootstrap-portfolio-template/
+https://bootstrapmade.com/buy/?theme=Folio
+*/

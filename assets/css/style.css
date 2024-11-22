@@ -314,20 +314,24 @@ h6 {
 }
 
 .formation-logo {
-  width: 60px; /* Taille par défaut du logo */
-  height: auto; /* Conserve les proportions */
-  margin-left: 15px; /* Espace entre le titre et le logo */
-  border: 1px solid rgba(0, 0, 0, 0.8); /* Léger cadre autour de l'image */
+  width: 60px;
+  height: auto;
+  margin-left: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
   border-radius: 4px;
 }
 
+.image-about {
+  border-radius: 9px;
+}
+
 .image-carrée {
-  width: 60px; /* Taille du carré */
-  height: 60px; /* Taille du carré */
-  object-fit: cover; /* Assure que l'image remplit le carré sans déformer */
-  margin: 10px; /* Espacement uniforme autour de chaque image */
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Léger cadre autour de l'image */
-  border-radius: 5px; /* Arrondir légèrement les coins */
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 .logos-container {

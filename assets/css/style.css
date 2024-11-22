@@ -322,6 +322,8 @@ h6 {
 }
 
 .image-about {
+  max-width:100%;
+  height:auto;
   border-radius: 9px;
 }
 

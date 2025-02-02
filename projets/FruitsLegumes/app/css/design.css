@@ -4,7 +4,10 @@
 }
 
 body {
-    margin-top: 20px;           /* Pour éviter de coller avec le haut du navigateur */
+    transform: scale(1.5);
+    transform-origin: top left;
+    margin-top: 20px;
+    width: 66.67%;
 }
 
 .TouteLaPage {

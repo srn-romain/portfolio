@@ -148,8 +148,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.658);
     border-radius: 10px;
     font-size: 35px;
-    /*border-color: rgba(0, 0, 0, 0.61);
-    border: 1px solid;*/
 }
 
 .TitreImage2 {
@@ -157,9 +155,9 @@ h1 {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.658);
     border-radius: 10px;
-    font-size: 20px;
-    /*border-color: rgba(0, 0, 0, 0.61);
-    border: 1px solid;*/
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px;
 }
 
 

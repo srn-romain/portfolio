@@ -4,10 +4,7 @@
 }
 
 body {
-    transform: scale(1.5);
-    transform-origin: top left;
     margin-top: 20px;
-    width: 66.67%;
 }
 
 .TouteLaPage {

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listes des Présents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="present">
+        <h2>Liste des Présents du 9 Janvier 2024</h2>
+        <table id="presentTable">
+            <thead>
+                <tr>
+                    <th>Nom complet</th>
+                    <th>Matricule</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- données -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="equipe">
+        <h2>Équipe Azenn</h2>
+        <table id="equipeTable">
+            <thead>
+                <tr>
+                    <th>Nom complet</th>
+                    <th>Matricule</th>
+                    <th>Je suis présent</th>
+                    <th>Je suis absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Émilie Dubois</td>
+                    <td>IT123</td>
+                    <td><input type="radio" name="presence_1" onclick="updateTable('Émilie Dubois', 'IT123', true)">Présent</td>
+                    <td><input type="radio" name="presence_1" onclick="updateTable('Émilie Dubois', 'IT123', false)">Absent</td>
+                </tr>
+                <tr>
+                    <td>Julien Lefevre</td>
+                    <td>IT124</td>
+                    <td><input type="radio" name="presence_2" onclick="updateTable('Julien Lefevre', 'IT124', true)">Présent</td>
+                    <td><input type="radio" name="presence_2" onclick="updateTable('Julien Lefevre', 'IT124', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Camille Martin</td>
+                    <td>IT125</td>
+                    <td><input type="radio" name="presence_3" onclick="updateTable('Camille Martin', 'IT125', true)">Présent</td>
+                    <td><input type="radio" name="presence_3" onclick="updateTable('Camille Martin', 'IT125', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Nicolas Robert</td>
+                    <td>IT126</td>
+                    <td><input type="radio" name="presence_4" onclick="updateTable('Nicolas Robert', 'IT126', true)">Présent</td>
+                    <td><input type="radio" name="presence_4" onclick="updateTable('Nicolas Robert', 'IT126', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Charlotte Dupont</td>
+                    <td>IT127</td>
+                    <td><input type="radio" name="presence_5" onclick="updateTable('Charlotte Dupont', 'IT127', true)">Présent</td>
+                    <td><input type="radio" name="presence_5" onclick="updateTable('Charlotte Dupont', 'IT127', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Adrien Leroy</td>
+                    <td>IT128</td>
+                    <td><input type="radio" name="presence_6" onclick="updateTable('Adrien Leroy', 'IT128', true)">Présent</td>
+                    <td><input type="radio" name="presence_6" onclick="updateTable('Adrien Leroy', 'IT128', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Sophie Dumas</td>
+                    <td>IT129</td>
+                    <td><input type="radio" name="presence_7" onclick="updateTable('Sophie Dumas', 'IT129', true)">Présent</td>
+                    <td><input type="radio" name="presence_7" onclick="updateTable('Sophie Dumas', 'IT129', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Luc Richard</td>
+                    <td>IT130</td>
+                    <td><input type="radio" name="presence_8" onclick="updateTable('Luc Richard', 'IT130', true)">Présent</td>
+                    <td><input type="radio" name="presence_8" onclick="updateTable('Luc Richard', 'IT130', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Manon Leclerc</td>
+                    <td>IT131</td>
+                    <td><input type="radio" name="presence_9" onclick="updateTable('Manon Leclerc', 'IT131', true)">Présent</td>
+                    <td><input type="radio" name="presence_9" onclick="updateTable('Manon Leclerc', 'IT131', false)">Absent</td>
+                </tr>
+                
+                <tr>
+                    <td>Guillaume Moreau</td>
+                    <td>IT132</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Guillaume Moreau', 'IT132', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Guillaume Moreau', 'IT132', false)">Absent</td>
+                </tr>
+
+                <tr>
+                    <td>Louis Durond</td>
+                    <td>IT133</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Louis Durond', 'IT133', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Louis Durond', 'IT133', false)">Absent</td>
+                </tr>
+
+                <tr>
+                    <td>Maxime Rogeat</td>
+                    <td>IT134</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Maxime Rogeat', 'IT134', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Maxime Rogeat', 'IT134', false)">Absent</td>
+                </tr>
+
+                <tr>
+                    <td>Aurelien Rigeau</td>
+                    <td>IT135</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Aurelien Rigeau', 'IT135', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Aurelien Rigeau', 'IT135', false)">Absent</td>
+                </tr>
+
+                <tr>
+                    <td>Candice Puget</td>
+                    <td>IT136</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Candice Puget', 'IT136', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Candice Puget', 'IT136', false)">Absent</td>
+                </tr>
+
+                <tr>
+                    <td>Manon Ducombe</td>
+                    <td>IT137</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Manon Ducombe', 'IT137', true)">Présent</td>
+                    <td><input type="radio" name="presence_10" onclick="updateTable('Manon Ducombe', 'IT137', false)">Absent</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function updateTable(nom, prenom, present) {
+            var presentTable = document.getElementById('presentTable');
+            var equipeTable = document.getElementById('equipeTable');
+            var presentRow = presentTable.insertRow(-1);
+            var presentCell1 = presentRow.insertCell(0);
+            var presentCell2 = presentRow.insertCell(1);
+
+            presentCell1.innerHTML = nom;
+            presentCell2.innerHTML = prenom;
+
+            if (present) {
+                // Retirer la ligne de la table d'équipe si présent
+                var rowIndex = equipeTable.rows.namedItem('presence_' + nom + '_' + prenom).rowIndex;
+                equipeTable.deleteRow(rowIndex);
+            } else {
+                // Retirer la ligne de la table des présents si absent
+                var rowIndex = presentTable.rows.namedItem(nom + '_' + prenom).rowIndex;
+                presentTable.deleteRow(rowIndex);
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -668,7 +668,6 @@ tr:nth-child(even) {
 }
 
 .portfolio #portfolio-flters {
-  padding: 0;
   margin: 0 auto 35px auto;
   list-style: none;
   text-align: center;
@@ -706,10 +705,6 @@ tr:nth-child(even) {
   z-index: 1;
 }
 
-
-
-
-
 .portfolio .portfolio-wrap .portfolio-links {
   opacity: 1;
   left: 0;
@@ -720,6 +715,12 @@ tr:nth-child(even) {
   transition: all ease-in-out 0.3s;
   display: flex;
   justify-content: center;
+}
+
+.portfolio .portfolio-wrap img {
+  width: 800px;
+  height: 300px;
+  object-fit: cover;
 }
 
 /*--------------------------------------------------------------

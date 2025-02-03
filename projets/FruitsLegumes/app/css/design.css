@@ -271,13 +271,10 @@ h2 {
     color: rgb(12, 85, 12);
 }
 
-article,aside{          /* propriétés pour les 2 attributs */
+article,aside{
     display: inline-block;
     width: 397px;
     overflow: auto;
-    /* pour les positionner côte à côte */
     vertical-align: top;
-    /* Tous deux alignés en haut */
     text-align: justify;
-    /* texte justifié (aligné à droite et à gauche) */
 }

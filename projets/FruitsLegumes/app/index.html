@@ -5,17 +5,17 @@
         <title>Projet bouffe</title>
         <link rel="stylesheet" type="text/css" href="css/design.css">
     </head>
-    <body>
+    <body class="index-page">
         <header class="EnTete">
            
             <div>Romain SIEURIN</div>
             <div><i>Cuisiner c'est la vie !</i></div>
             <div>Novembre 2022</div>
         </header>
-        <section>
-        
-            <h1>Régalez-vous avec ces recettes uniques !</h1>
 
+        <h1>Régalez-vous avec ces recettes uniques !</h1>
+
+        <section>
             <article>
                 <div class="ImagePersonaliter">
                     <div>
@@ -78,11 +78,66 @@
 
         </section>
 
-        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br>
         
         <footer class="Adroite">
             <p>| Made by Romain SIEURIN |</p>
         </footer>
     </body>
+
+<style>
+    .index-page section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .index-page article, aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .index-page ImagePersonaliter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2em;
+        overflow-x : hidden;
+    }
+
+    .index-page TitreImage2 {
+        color: black;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.658);
+        border-radius: 10px;
+        font-size: 30px;
+        font-weight: bold;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .index-page .Image {
+        border: 7px solid black;
+        border-radius: 20px;
+        max-width: 350px;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        section {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        section {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>
     
 </html>

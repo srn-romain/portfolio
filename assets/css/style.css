@@ -330,6 +330,10 @@ h6 {
   border-radius: 5px;
 }
 
+.image-carrée:hover {
+  border: 2px solid black;
+}
+
 .logos-container {
   display: flex;
   flex-wrap: wrap;

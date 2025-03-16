@@ -254,20 +254,34 @@
 
 })()
 
+/*--------------------------------------------------------------
+# Modal
+--------------------------------------------------------------*/
 
+const openModalBtns = document.querySelectorAll('.openModalBtn');
+const closeModalBtns = document.querySelectorAll('.modal__closespe');
+const modals = document.querySelectorAll('.modalspe');
 
+// Ouvrir la bonne modale
+openModalBtns.forEach(button => {
+  button.addEventListener('click', () => {
+    const modalId = button.getAttribute('data-modal');
+    document.getElementById(modalId).style.display = 'block';
+  });
+});
 
-var modalBtn = document.getElementById("open-modalspe");
-var modal = document.getElementById("modal-locspe");
-var modalCloseBtn = modal.querySelector(".modal__closespe");
+// Fermer la modale en cliquant sur la croix
+closeModalBtns.forEach(button => {
+  button.addEventListener('click', () => {
+    button.closest('.modalspe').style.display = 'none';
+  });
+});
 
-function openModalspe() {
-  modal.style.display = "block";
-}
-
-function closeModalspe() {
-  modal.style.display = "none";
-}
-
-modalBtn.addEventListener("click", openModalspe);
-modalCloseBtn.addEventListener("click", closeModalspe);
+// Fermer la modale en cliquant en dehors du contenu
+window.addEventListener('click', (event) => {
+  modals.forEach(modal => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});

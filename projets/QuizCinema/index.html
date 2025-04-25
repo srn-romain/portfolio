@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Cinéma & Séries TV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+
+        .character-image {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .character-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .blur-effect {
+            filter: blur(5px);
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .bounce {
+            animation: bounce 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+        }
+
+        .badge.unlocked {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+
+        .platform-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .category-selector {
+            transition: all 0.3s ease;
+        }
+
+        .category-selector.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+
+        .platform-option.selected {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+            background-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .share-option {
+            transition: all 0.3s ease;
+        }
+
+        .share-option.selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+
+        #share-preview {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .game-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <!-- En-tête -->
+        <header class="text-center mb-12 fade-in">
+            <h1
+                class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text mb-4">
+                Quiz Cinéma & Séries
+            </h1>
+            <p class="text-xl text-gray-300">Devinez les films et séries à partir des personnages</p>
+        </header>
+
+        <!-- Zone de jeu principale -->
+        <div id="game-container" class="max-w-4xl mx-auto hidden">
+            <!-- Tableau de bord -->
+            <div
+                class="flex flex-col md:flex-row justify-between items-center mb-8 bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-blue-600 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <i class="fas fa-trophy text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">Score</p>
+                        <p id="score" class="text-2xl font-bold">0</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-red-600 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <i class="fas fa-clock text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">Temps restant</p>
+                        <p id="timer" class="text-2xl font-bold">30</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="bg-green-600 rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        <i class="fas fa-question text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">Question</p>
+                        <p id="question-count" class="text-2xl font-bold">1/10</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barre de progression -->
+            <div class="w-full bg-gray-700 rounded-full h-4 mb-8">
+                <div id="progress-bar"
+                    class="progress-bar bg-gradient-to-r from-purple-500 to-blue-500 h-4 rounded-full"
+                    style="width: 10%"></div>
+            </div>
+
+            <!-- Zone de la question -->
+            <div id="question-area" class="bg-gray-800 rounded-xl p-6 mb-8 shadow-lg fade-in">
+                <h2 class="text-2xl font-semibold mb-6">Quel est ce <span id="media-type-text">film/série</span> ?</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <!-- Les images des personnages seront insérées ici par JavaScript -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Les options de réponse seront insérées ici par JavaScript -->
+                </div>
+            </div>
+
+            <!-- Boutons de contrôle -->
+            <div class="flex justify-between">
+                <button id="hint-btn"
+                    class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition flex items-center">
+                    <i class="fas fa-lightbulb mr-2"></i> Indice
+                </button>
+                <button id="next-btn"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition opacity-50 cursor-not-allowed flex items-center">
+                    Suivant <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Écran de démarrage -->
+        <div id="start-screen"
+            class="fixed inset-0 bg-gray-900 bg-opacity-95 flex flex-col items-center justify-center z-50 fade-in">
+            <div class="bg-gray-800 rounded-xl p-8 max-w-2xl w-full mx-4 shadow-2xl">
+                <h2
+                    class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text text-center">
+                    Quiz Cinéma & Séries</h2>
+                <p class="text-gray-300 mb-8 text-center">Devinez les films et séries à partir des photos de leurs
+                    personnages. Choisissez vos préférences pour personnaliser votre expérience!</p>
+
+                <!-- Sélection du type de média -->
+                <div class="mb-6">
+                    <p class="text-gray-400 mb-3">Je veux jouer avec :</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div id="movies-btn"
+                            class="category-selector bg-gray-700 rounded-lg p-4 text-center cursor-pointer active">
+                            <i class="fas fa-film text-3xl mb-2 text-purple-400"></i>
+                            <p class="font-semibold">Films</p>
+                            <p class="text-sm text-gray-400">Classiques du cinéma</p>
+                        </div>
+                        <div id="series-btn"
+                            class="category-selector bg-gray-700 rounded-lg p-4 text-center cursor-pointer">
+                            <i class="fas fa-tv text-3xl mb-2 text-blue-400"></i>
+                            <p class="font-semibold">Séries TV</p>
+                            <p class="text-sm text-gray-400">Séries cultes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtre par plateforme (optionnel) -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <p class="text-gray-400">Plateforme (optionnel) :</p>
+                        <button id="reset-platform"
+                            class="text-xs text-blue-400 hover:text-blue-300">Réinitialiser</button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
+                            data-platform="netflix">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"
+                                alt="Netflix" class="h-8 mx-auto mb-1">
+                            <p class="text-xs">Netflix</p>
+                        </div>
+                        <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
+                            data-platform="disney">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"
+                                alt="Disney+" class="h-8 mx-auto mb-1">
+                            <p class="text-xs">Disney+</p>
+                        </div>
+                        <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
+                            data-platform="canal">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Canal%2B.svg" alt="Canal+"
+                                class="h-8 mx-auto mb-1">
+                            <p class="text-xs">Canal+</p>
+                        </div>
+                        <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
+                            data-platform="tv">
+                            <i class="fas fa-tower-broadcast text-3xl text-gray-300"></i>
+                            <p class="text-xs">Télévision</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sélection de la difficulté -->
+                <div class="mb-8">
+                    <label for="difficulty" class="block text-gray-400 mb-2">Niveau de difficulté :</label>
+                    <select id="difficulty" class="bg-gray-700 text-white rounded-lg px-4 py-2 w-full">
+                        <option value="easy">Facile - Images nettes</option>
+                        <option value="medium">Moyen - Certaines images floues</option>
+                        <option value="hard">Difficile - Toutes les images floues</option>
+                    </select>
+                </div>
+
+                <button id="start-btn"
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition w-full">
+                    Commencer <i class="fas fa-play ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Écran de résultats -->
+        <div id="result-screen"
+            class="fixed inset-0 bg-gray-900 bg-opacity-95 flex flex-col items-center justify-center z-50 hidden">
+            <div class="bg-gray-800 rounded-xl p-8 max-w-2xl w-full mx-4 shadow-2xl text-center fade-in">
+                <div class="text-6xl mb-6">
+                    <i class="fas fa-trophy text-yellow-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4">Quiz Terminé!</h2>
+                <p class="text-xl mb-2">Votre score final:</p>
+                <p id="final-score"
+                    class="text-5xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text mb-6">
+                    0</p>
+
+                <div class="bg-gray-700 rounded-lg p-4 mb-6 text-left">
+                    <div class="flex justify-between mb-2">
+                        <span>Questions correctes:</span>
+                        <span id="correct-answers">0/10</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Temps moyen par réponse:</span>
+                        <span id="average-time">0s</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Score maximum possible:</span>
+                        <span>3000</span>
+                    </div>
+                </div>
+
+                <!-- Section Badges -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Badges obtenus</h3>
+                    <div id="badges-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Badges seront ajoutés dynamiquement -->
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button id="restart-btn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1">
+                        Rejouer <i class="fas fa-redo ml-2"></i>
+                    </button>
+                    <button id="share-btn"
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1">
+                        Partager <i class="fas fa-share-alt ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup de partage -->
+        <div id="share-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+            <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full mx-4 shadow-2xl fade-in">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold"><i class="fas fa-share-alt text-blue-400 mr-2"></i> Partager mon score
+                    </h3>
+                    <button id="close-share" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3">Options de partage</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="share-option bg-gray-700 rounded-lg p-3 text-center cursor-pointer selected"
+                            data-option="score">
+                            <i class="fas fa-star text-yellow-400 text-2xl mb-2"></i>
+                            <p>Score</p>
+                        </div>
+                        <div class="share-option bg-gray-700 rounded-lg p-3 text-center cursor-pointer selected"
+                            data-option="badges">
+                            <i class="fas fa-medal text-blue-400 text-2xl mb-2"></i>
+                            <p>Badges</p>
+                        </div>
+                        <div class="share-option bg-gray-700 rounded-lg p-3 text-center cursor-pointer selected"
+                            data-option="stats">
+                            <i class="fas fa-chart-bar text-green-400 text-2xl mb-2"></i>
+                            <p>Statistiques</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="share-message" class="block text-gray-400 mb-2">Message personnalisé:</label>
+                        <textarea id="share-message" class="bg-gray-700 text-white rounded-lg px-4 py-2 w-full" rows="2"
+                            placeholder="Ajoutez un message personnel..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-400 mb-2">Style du PDF:</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div
+                                class="share-style bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-1 cursor-pointer">
+                                <div class="bg-gray-800 rounded-md p-2 text-center">
+                                    <p class="text-xs">Moderne</p>
+                                </div>
+                            </div>
+                            <div
+                                class="share-style bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg p-1 cursor-pointer">
+                                <div class="bg-gray-800 rounded-md p-2 text-center">
+                                    <p class="text-xs">Classique</p>
+                                </div>
+                            </div>
+                            <div
+                                class="share-style bg-gradient-to-br from-yellow-600 to-red-600 rounded-lg p-1 cursor-pointer">
+                                <div class="bg-gray-800 rounded-md p-2 text-center">
+                                    <p class="text-xs">Cinéma</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aperçu du partage -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3">Aperçu</h4>
+                    <div id="share-preview" class="bg-gray-700 rounded-lg p-4">
+                        <h3
+                            class="text-xl font-bold mb-2 bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">
+                            Mon Score au Quiz Cinéma & Séries</h3>
+                        <div id="preview-score" class="text-4xl font-bold my-4">1250 points</div>
+                        <div id="preview-stats" class="grid grid-cols-2 gap-2 mb-4">
+                            <div class="bg-gray-800 rounded p-2">
+                                <p class="text-sm text-gray-400">Questions</p>
+                                <p class="font-bold">7/10</p>
+                            </div>
+                            <div class="bg-gray-800 rounded p-2">
+                                <p class="text-sm text-gray-400">Temps moyen</p>
+                                <p class="font-bold">12.5s</p>
+                            </div>
+                        </div>
+                        <div id="preview-badges" class="grid grid-cols-4 gap-2">
+                            <div class="bg-gray-800 rounded p-1 text-center">
+                                <i class="fas fa-trophy text-yellow-400"></i>
+                                <p class="text-xs mt-1">Maître</p>
+                            </div>
+                            <div class="bg-gray-800 rounded p-1 text-center">
+                                <i class="fas fa-bolt text-blue-400"></i>
+                                <p class="text-xs mt-1">Rapide</p>
+                            </div>
+                        </div>
+                        <div id="preview-message" class="mt-4 text-sm italic text-gray-300">"J'ai adoré ce quiz! À vous
+                            de relever le défi!"</div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button id="generate-pdf"
+                        class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1 flex items-center justify-center">
+                        <i class="fas fa-file-pdf mr-2"></i> Générer PDF
+                    </button>
+                    <button id="share-social"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1 flex items-center justify-center">
+                        <i class="fas fa-share-square mr-2"></i> Partager
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indice popup -->
+        <div id="hint-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+            <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl fade-in">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold"><i class="fas fa-lightbulb text-yellow-400 mr-2"></i> Indice</h3>
+                    <button id="close-hint" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p id="hint-text" class="text-gray-300 mb-4">Chargement de l'indice...</p>
+                <div class="bg-gray-700 rounded-lg p-3 text-sm text-gray-400">
+                    <i class="fas fa-info-circle mr-2"></i> L'utilisation d'un indice réduit votre gain de points
+                    possible de 20%
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons de contrôle pendant le jeu -->
+        <div id="game-controls" class="game-controls hidden">
+            <button id="menu-btn" class="control-btn bg-purple-600 hover:bg-purple-700 text-white">
+                <i class="fas fa-home"></i>
+            </button>
+            <button id="restart-game-btn" class="control-btn bg-blue-600 hover:bg-blue-700 text-white">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Déclaration de jsPDF
+        const { jsPDF } = window.jspdf;
+
+        // Données du quiz - Films
+        const moviesData = [
+            {
+                question: "Pulp Fiction",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/7/7f/John_Travolta_Pulp_Fiction_1994.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/0/0b/Samuel_L_Jackson_Pulp_Fiction_1994.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/3b/Uma_Thurman_Pulp_Fiction_1994.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/4/46/Bruce_Willis_Pulp_Fiction_1994.jpg"
+                ],
+                options: ["Reservoir Dogs", "Pulp Fiction", "Jackie Brown", "Kill Bill"],
+                hint: "Ce film culte de Quentin Tarantino présente des histoires entrelacées avec des dialogues mémorables et une bande-son exceptionnelle.",
+                platform: "canal"
+            },
+            {
+                question: "The Dark Knight",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/82/Joker_Dark_Knight.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/7/76/Harvey_Dent.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/9/95/Gordon_TDK.jpg"
+                ],
+                options: ["Batman Begins", "The Dark Knight", "Joker", "Watchmen"],
+                hint: "Ce film de super-héros est surtout connu pour la performance légendaire de Heath Ledger dans le rôle du Joker.",
+                platform: "disney"
+            },
+            {
+                question: "Inception",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/3/3e/Inception_%282010%29_theatrical_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/7/7f/Inception_%282010%29_theatrical_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/b/b9/Inception_%282010%29_theatrical_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/1/14/Inception_%282010%29_theatrical_poster.jpg"
+                ],
+                options: ["The Matrix", "Inception", "Interstellar", "Shutter Island"],
+                hint: "Ce film de science-fiction de Christopher Nolan explore les rêves et les différents niveaux de conscience.",
+                platform: "netflix"
+            },
+            {
+                question: "The Shawshank Redemption",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/9/96/ShawshankRedemptionMoviePoster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/7/7e/ShawshankRedemptionMoviePoster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/6/68/ShawshankRedemptionMoviePoster.jpg"
+                ],
+                options: ["The Green Mile", "The Shawshank Redemption", "Escape from Alcatraz", "Cool Hand Luke"],
+                hint: "Ce drame carcéral basé sur une nouvelle de Stephen King est souvent considéré comme l'un des meilleurs films de tous les temps.",
+                platform: "tv"
+            },
+            {
+                question: "The Godfather",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4a/Godfather_ver2.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/2/2c/Godfather_ver3.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/e/e7/Godfather_ver4.jpg"
+                ],
+                options: ["Goodfellas", "The Godfather", "Scarface", "Casino"],
+                hint: "Ce classique du cinéma suit la famille Corleone, une puissante dynastie mafieuse italo-américaine.",
+                platform: "canal"
+            },
+            {
+                question: "Fight Club",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/8a/Fight_Club_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/5f/Fight_Club_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/6/6a/Fight_Club_poster.jpg"
+                ],
+                options: ["American Psycho", "Fight Club", "The Game", "Se7en"],
+                hint: "Ce film culte avec Brad Pitt et Edward Norton explore les thèmes de la masculinité, de la consommation et de l'identité.",
+                platform: "netflix"
+            },
+            {
+                question: "Forrest Gump",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/6/67/Forrest_Gump_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4e/Forrest_Gump_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/3f/Forrest_Gump_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/2/27/Forrest_Gump_poster.jpg"
+                ],
+                options: ["The Curious Case of Benjamin Button", "Forrest Gump", "Rain Man", "Big Fish"],
+                hint: "Ce film suit la vie extraordinaire d'un homme simple d'esprit qui assiste à plusieurs événements historiques majeurs du 20ème siècle.",
+                platform: "disney"
+            },
+            {
+                question: "The Matrix",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/5f/The_Matrix_Poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/9/9b/The_Matrix_Poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4b/The_Matrix_Poster.jpg"
+                ],
+                options: ["The Matrix", "Inception", "Blade Runner", "The Thirteenth Floor"],
+                hint: "Ce film révolutionnaire de science-fiction présente un monde où la réalité n'est qu'une simulation informatique.",
+                platform: "tv"
+            },
+            {
+                question: "Titanic",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png",
+                    "https://upload.wikimedia.org/wikipedia/en/2/22/Titanic_%28Official_Film_Poster%29.png",
+                    "https://upload.wikimedia.org/wikipedia/en/3/3c/Titanic_%28Official_Film_Poster%29.png",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4e/Titanic_%28Official_Film_Poster%29.png"
+                ],
+                options: ["Pearl Harbor", "Titanic", "The Notebook", "A Walk to Remember"],
+                hint: "Ce film catastrophe romantique raconte l'histoire d'amour entre deux passagers de classes sociales différentes à bord du célèbre paquebot.",
+                platform: "disney"
+            },
+            {
+                question: "Avengers: Endgame",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/2/27/Avengers_Endgame_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/7/7a/Avengers_Endgame_poster.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/8a/Avengers_Endgame_poster.jpg"
+                ],
+                options: ["Avengers: Infinity War", "Avengers: Endgame", "Justice League", "Guardians of the Galaxy"],
+                hint: "Ce film marque le point culminant de 22 films du MCU, avec les héros voyageant dans le temps pour inverser le claquement de doigts de Thanos.",
+                platform: "disney"
+            }
+        ];
+
+        // Données du quiz - Séries
+        const seriesData = [
+            {
+                question: "Friends",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/6/68/Monica_Geller-Bing_Season_7.png",
+                    "https://upload.wikimedia.org/wikipedia/en/e/ec/Jennifer_Aniston_as_Rachel_Green.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/0/0b/Courteney_Cox_as_Monica_Geller.jpg"
+                ],
+                options: ["How I Met Your Mother", "Friends", "The Big Bang Theory", "Seinfeld"],
+                hint: "Cette série se déroule à New York et compte 10 saisons. Le générique commence par 'I'll be there for you'.",
+                platform: "netflix"
+            },
+            {
+                question: "Game of Thrones",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/d/d0/Emilia_Clarke_as_Daenerys_Targaryen.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/50/Kit_Harington_as_Jon_Snow.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/30/Peter_Dinklage_as_Tyrion_Lannister.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/a/a0/Lena_Headey_as_Cersei_Lannister.jpg"
+                ],
+                options: ["The Witcher", "Vikings", "Game of Thrones", "The Last Kingdom"],
+                hint: "Cette série fantastique is based on a book series and features different families fighting for the Iron Throne.",
+                platform: "canal"
+            },
+            {
+                question: "Breaking Bad",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/0/03/Walter_White_S5B.png",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4b/Jesse_Pinkman_S5B.png",
+                    "https://upload.wikimedia.org/wikipedia/en/c/c6/Saul_Goodman_BCS_S4.png",
+                    "https://upload.wikimedia.org/wikipedia/en/7/6b/Gustavo_Fring_S5B.png"
+                ],
+                options: ["Narcos", "Breaking Bad", "Better Call Saul", "Ozark"],
+                hint: "This series follows a chemistry teacher who starts manufacturing meth. The main character often wears a hat and glasses.",
+                platform: "netflix"
+            },
+            {
+                question: "Stranger Things",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/7/7a/Millie_Bobby_Brown_as_Eleven.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/a/ad/Finn_Wolfhard_as_Mike_Wheeler.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/5e/Gaten_Matarazzo_as_Dustin_Henderson.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/8a/David_Harbour_as_Jim_Hopper.jpg"
+                ],
+                options: ["Dark", "Stranger Things", "The Umbrella Academy", "Locke & Key"],
+                hint: "This sci-fi series is set in the 1980s and features a group of kids facing supernatural phenomena.",
+                platform: "netflix"
+            },
+            {
+                question: "The Office (US)",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/7/7e/Steve_Carell_as_Michael_Scott.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/34/Jimhalpert.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/6/67/Pam_Beesley.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/9/9a/Dwight_Schrute.jpg"
+                ],
+                options: ["Parks and Recreation", "Brooklyn Nine-Nine", "The Office (US)", "Superstore"],
+                hint: "This comedy is set in an office and is filmed as a mockumentary. The main character is an awkward and self-centered boss.",
+                platform: "disney"
+            },
+            {
+                question: "The Big Bang Theory",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/7/7b/SheldonCooper.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/38/Leonard_Hofstadter.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/2/22/Penny_-_The_Big_Bang_Theory.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/5e/Rajesh_Koothrappali.jpg"
+                ],
+                options: ["Silicon Valley", "The IT Crowd", "The Big Bang Theory", "Young Sheldon"],
+                hint: "This sitcom follows a group of socially awkward scientist friends, including a particularly eccentric theoretical physicist.",
+                platform: "tv"
+            },
+            {
+                question: "The Mandalorian",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/9/9e/The_Mandalorian.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/0/00/Baby_Yoda.png",
+                    "https://upload.wikimedia.org/wikipedia/en/8/8f/Cara_Dune.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/5/5e/Greef_Karga.jpg"
+                ],
+                options: ["The Book of Boba Fett", "The Mandalorian", "Star Wars: Rebels", "Obi-Wan Kenobi"],
+                hint: "This Star Wars series follows a lone bounty hunter traveling through the galaxy with a mysterious child of the same species as Yoda.",
+                platform: "disney"
+            },
+            {
+                question: "Peaky Blinders",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/5/5e/Thomas_Shelby.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/1/1a/Arthur_Shelby_%28Peaky_Blinders%29.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/8a/Polly_Gray.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/6/6e/Alfie_Solomons_%28Peaky_Blinders%29.jpg"
+                ],
+                options: ["Boardwalk Empire", "Peaky Blinders", "Taboo", "Gangs of London"],
+                hint: "This British series follows a family of gangsters in interwar England. The main character often wears a cap with razor blades sewn inside.",
+                platform: "netflix"
+            },
+            {
+                question: "The Witcher",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/d/d6/Henry_Cavill_as_Geralt_of_Rivia.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/1/14/Anya_Chalotra_as_Yennefer_of_Vengerberg.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/9/9e/Freya_Allan_as_Ciri.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/3/3e/Joey_Batey_as_Jaskier.jpg"
+                ],
+                options: ["The Witcher", "Shadow and Bone", "The Wheel of Time", "Cursed"],
+                hint: "This fantasy series follows a mutant monster hunter with limited magical powers. He's often accompanied by an annoying bard.",
+                platform: "netflix"
+            },
+            {
+                question: "Money Heist",
+                characters: [
+                    "https://upload.wikimedia.org/wikipedia/en/5/5f/Professor.png",
+                    "https://upload.wikimedia.org/wikipedia/en/9/96/Tokyo.png",
+                    "https://upload.wikimedia.org/wikipedia/en/1/1b/Berlin.png",
+                    "https://upload.wikimedia.org/wikipedia/en/4/4b/Rio.png"
+                ],
+                options: ["Money Heist", "Lupin", "Narcos", "Prison Break"],
+                hint: "This Spanish series follows a group of thieves attempting to pull off the heist of the century at the Spanish Mint. They all wear red jumpsuits and Salvador Dalí masks.",
+                platform: "netflix"
+            }
+        ];
+
+        // Badge definitions
+        const badges = [
+            {
+                id: 'high-score',
+                title: 'Quiz Master',
+                description: 'Score over 1500 points',
+                icon: 'fa-trophy',
+                color: 'text-yellow-400',
+                condition: (score, avgTime, correct) => score >= 1500
+            },
+            {
+                id: 'fast-answers',
+                title: 'Lightning Answers',
+                description: 'Average under 6 seconds per answer',
+                icon: 'fa-bolt',
+                color: 'text-blue-400',
+                condition: (score, avgTime, correct) => avgTime <= 6
+            },
+            {
+                id: 'perfect-score',
+                title: 'Perfect!',
+                description: 'Answer all questions correctly',
+                icon: 'fa-star',
+                color: 'text-purple-400',
+                condition: (score, avgTime, correct) => correct === 10
+            },
+            {
+                id: 'no-hints',
+                title: 'Independent',
+                description: 'Finish quiz without using hints',
+                icon: 'fa-lightbulb',
+                color: 'text-green-400',
+                condition: (score, avgTime, correct, hintsUsed) => hintsUsed === 0
+            },
+            {
+                id: 'hard-mode',
+                title: 'Hard Mode',
+                description: 'Finish quiz on "Hard" difficulty',
+                icon: 'fa-skull',
+                color: 'text-red-400',
+                condition: (score, avgTime, correct, hintsUsed, difficulty) => difficulty === 'hard'
+            },
+            {
+                id: 'quick-thinker',
+                title: 'Quick Thinker',
+                description: 'Score over 2000 points',
+                icon: 'fa-brain',
+                color: 'text-pink-400',
+                condition: (score, avgTime, correct) => score >= 2000
+            },
+            {
+                id: 'half-way',
+                title: 'Halfway There',
+                description: 'Answer at least 5 questions correctly',
+                icon: 'fa-check-circle',
+                color: 'text-orange-400',
+                condition: (score, avgTime, correct) => correct >= 5
+            },
+            {
+                id: 'time-master',
+                title: 'Time Master',
+                description: 'Finish with over 2500 points',
+                icon: 'fa-stopwatch',
+                color: 'text-indigo-400',
+                condition: (score, avgTime, correct) => score >= 2500
+            }
+        ];
+
+        // Game variables
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 30;
+        let timerInterval;
+        let hintUsed = false;
+        let hintsUsedTotal = 0;
+        let correctAnswers = 0;
+        let totalTime = 0;
+        let shuffledQuestions = [];
+        let difficulty = 'medium';
+        let mediaType = 'movies'; // 'movies' or 'series'
+        let selectedPlatform = null; // 'netflix', 'disney', 'canal', 'tv' or null
+        let unlockedBadges = [];
+        let shareOptions = {
+            score: true,
+            badges: true,
+            stats: true,
+            style: 'modern',
+            message: ''
+        };
+
+        // DOM elements
+        const startScreen = document.getElementById('start-screen');
+        const gameContainer = document.getElementById('game-container');
+        const resultScreen = document.getElementById('result-screen');
+        const scoreElement = document.getElementById('score');
+        const timerElement = document.getElementById('timer');
+        const questionCountElement = document.getElementById('question-count');
+        const progressBar = document.getElementById('progress-bar');
+        const hintBtn = document.getElementById('hint-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const finalScoreElement = document.getElementById('final-score');
+        const correctAnswersElement = document.getElementById('correct-answers');
+        const averageTimeElement = document.getElementById('average-time');
+        const hintPopup = document.getElementById('hint-popup');
+        const closeHintBtn = document.getElementById('close-hint');
+        const hintText = document.getElementById('hint-text');
+        const difficultySelect = document.getElementById('difficulty');
+        const badgesContainer = document.getElementById('badges-container');
+        const moviesBtn = document.getElementById('movies-btn');
+        const seriesBtn = document.getElementById('series-btn');
+        const platformOptions = document.querySelectorAll('.platform-option');
+        const resetPlatformBtn = document.getElementById('reset-platform');
+        const mediaTypeText = document.getElementById('media-type-text');
+        const sharePopup = document.getElementById('share-popup');
+        const closeShareBtn = document.getElementById('close-share');
+        const shareOptionsElements = document.querySelectorAll('.share-option');
+        const shareStyleElements = document.querySelectorAll('.share-style');
+        const shareMessage = document.getElementById('share-message');
+        const generatePdfBtn = document.getElementById('generate-pdf');
+        const shareSocialBtn = document.getElementById('share-social');
+        const previewScore = document.getElementById('preview-score');
+        const previewStats = document.getElementById('preview-stats');
+        const previewBadges = document.getElementById('preview-badges');
+        const previewMessage = document.getElementById('preview-message');
+        const gameControls = document.getElementById('game-controls');
+        const menuBtn = document.getElementById('menu-btn');
+        const restartGameBtn = document.getElementById('restart-game-btn');
+
+        // Initialize game
+        function initGame() {
+            // Select data based on chosen media type
+            const dataSource = mediaType === 'movies' ? moviesData : seriesData;
+
+            // Filter by platform if selected
+            let filteredQuestions = [...dataSource];
+            if (selectedPlatform) {
+                filteredQuestions = dataSource.filter(item => item.platform === selectedPlatform);
+
+                // If filter returns less than 10 questions, complete with others
+                if (filteredQuestions.length < 10) {
+                    const remainingQuestions = dataSource.filter(item => item.platform !== selectedPlatform);
+                    const needed = 10 - filteredQuestions.length;
+                    filteredQuestions = [...filteredQuestions, ...remainingQuestions.slice(0, needed)];
+                }
+            }
+
+            // Shuffle questions
+            shuffledQuestions = [...filteredQuestions];
+            for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
+            }
+
+            // Keep only 10 questions
+            shuffledQuestions = shuffledQuestions.slice(0, 10);
+
+            currentQuestion = 0;
+            score = 0;
+            correctAnswers = 0;
+            totalTime = 0;
+            hintsUsedTotal = 0;
+            updateScore();
+            loadQuestion();
+
+            // Show game controls
+            gameControls.classList.remove('hidden');
+        }
+
+        // Load a question
+        function loadQuestion() {
+            hintUsed = false;
+            timeLeft = 30;
+            updateTimer();
+
+            // Update media type text
+            mediaTypeText.textContent = mediaType === 'movies' ? 'film' : 'série';
+
+            // Update question counter
+            questionCountElement.textContent = `${currentQuestion + 1}/${shuffledQuestions.length}`;
+
+            // Update progress bar
+            progressBar.style.width = `${((currentQuestion) / shuffledQuestions.length) * 100}%`;
+
+            // Disable next button
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            nextBtn.disabled = true;
+
+            // Re-enable hint button
+            hintBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            hintBtn.disabled = false;
+
+            // Start timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer, 1000);
+
+            // Display characters
+            const questionArea = document.querySelector('#question-area > div:first-of-type');
+            questionArea.innerHTML = '';
+
+            shuffledQuestions[currentQuestion].characters.forEach((character, index) => {
+                const characterDiv = document.createElement('div');
+                characterDiv.className = 'character-image bg-gray-700 rounded-lg overflow-hidden relative';
+
+                // Add blur effect based on difficulty
+                if (difficulty === 'hard') {
+                    characterDiv.classList.add('blur-effect');
+                    characterDiv.onmouseenter = () => characterDiv.classList.remove('blur-effect');
+                    characterDiv.onmouseleave = () => characterDiv.classList.add('blur-effect');
+                } else if (difficulty === 'medium' && index > 1) {
+                    characterDiv.classList.add('blur-effect');
+                    characterDiv.onmouseenter = () => characterDiv.classList.remove('blur-effect');
+                    characterDiv.onmouseleave = () => characterDiv.classList.add('blur-effect');
+                }
+
+                const img = document.createElement('img');
+                img.src = character;
+                img.alt = `Character ${index + 1}`;
+                img.className = 'w-full h-48 object-cover';
+
+                characterDiv.appendChild(img);
+
+                // Add platform tag if available
+                if (shuffledQuestions[currentQuestion].platform) {
+                    const platformTag = document.createElement('div');
+                    platformTag.className = 'platform-tag text-xs font-bold';
+
+                    switch (shuffledQuestions[currentQuestion].platform) {
+                        case 'netflix':
+                            platformTag.innerHTML = '<i class="fab fa-netflix text-red-500 mr-1"></i> Netflix';
+                            break;
+                        case 'disney':
+                            platformTag.innerHTML = '<i class="fab fa-disney text-blue-400 mr-1"></i> Disney+';
+                            break;
+                        case 'canal':
+                            platformTag.innerHTML = '<i class="fas fa-plus text-red-500 mr-1"></i> Canal+';
+                            break;
+                        case 'tv':
+                            platformTag.innerHTML = '<i class="fas fa-tv text-blue-400 mr-1"></i> TV';
+                            break;
+                    }
+
+                    characterDiv.appendChild(platformTag);
+                }
+
+                questionArea.appendChild(characterDiv);
+            });
+
+            // Display answer options
+            const optionsArea = document.querySelector('#question-area > div:last-of-type');
+            optionsArea.innerHTML = '';
+
+            // Shuffle options
+            const shuffledOptions = [...shuffledQuestions[currentQuestion].options];
+            for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+            }
+
+            shuffledOptions.forEach(option => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = 'bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 px-4 rounded-lg transition text-left pl-6 flex items-center';
+                optionBtn.innerHTML = `<span class="bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-4">${String.fromCharCode(65 + shuffledOptions.indexOf(option))}</span> ${option}`;
+
+                optionBtn.addEventListener('click', () => checkAnswer(option));
+                optionsArea.appendChild(optionBtn);
+            });
+
+            // Update hint
+            hintText.textContent = shuffledQuestions[currentQuestion].hint;
+        }
+
+        // Check answer
+        function checkAnswer(selectedOption) {
+            clearInterval(timerInterval);
+
+            const correctAnswer = shuffledQuestions[currentQuestion].question;
+            const isCorrect = selectedOption === correctAnswer;
+
+            // Calculate score based on time left and if hint was used
+            let questionScore = timeLeft * 10; // Base of 10 points per second
+            if (hintUsed) {
+                questionScore *= 0.8; // 20% reduction if hint used
+                hintsUsedTotal++;
+            }
+
+            if (isCorrect) {
+                score += Math.round(questionScore);
+                correctAnswers++;
+
+                // Positive feedback animation
+                document.querySelectorAll('#question-area button').forEach(btn => {
+                    if (btn.textContent.includes(selectedOption)) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-green-600', 'hover:bg-green-700', 'bounce');
+                    }
+                });
+            } else {
+                // Negative feedback animation and show correct answer
+                document.querySelectorAll('#question-area button').forEach(btn => {
+                    if (btn.textContent.includes(selectedOption)) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-red-600', 'hover:bg-red-700', 'bounce');
+                    }
+                    if (btn.textContent.includes(correctAnswer)) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-green-600', 'hover:bg-green-700', 'bounce');
+                    }
+                });
+            }
+
+            // Add total time
+            totalTime += (30 - timeLeft);
+
+            // Enable next button
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.disabled = false;
+
+            // Disable hint button
+            hintBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            hintBtn.disabled = true;
+
+            // Update score
+            updateScore();
+        }
+
+        // Update timer
+        function updateTimer() {
+            timerElement.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                checkAnswer(''); // Empty answer to indicate time out
+                return;
+            }
+
+            timeLeft--;
+        }
+
+        // Update score
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        // Go to next question
+        function nextQuestion() {
+            currentQuestion++;
+
+            if (currentQuestion < shuffledQuestions.length) {
+                loadQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        // End game
+        function endGame() {
+            clearInterval(timerInterval);
+
+            // Calculate average time per answer
+            const avgTime = totalTime / shuffledQuestions.length;
+
+            // Display results
+            finalScoreElement.textContent = score;
+            correctAnswersElement.textContent = `${correctAnswers}/${shuffledQuestions.length}`;
+            averageTimeElement.textContent = `${avgTime.toFixed(1)}s`;
+
+            // Determine earned badges
+            unlockedBadges = badges.filter(badge =>
+                badge.condition(score, avgTime, correctAnswers, hintsUsedTotal, difficulty)
+            );
+
+            // Display earned badges
+            badgesContainer.innerHTML = '';
+            badges.forEach(badge => {
+                const isUnlocked = badge.condition(score, avgTime, correctAnswers, hintsUsedTotal, difficulty);
+
+                const badgeElement = document.createElement('div');
+                badgeElement.className = `badge bg-gray-700 rounded-lg p-3 text-center ${isUnlocked ? 'unlocked' : 'opacity-40'}`;
+                badgeElement.innerHTML = `
+                    <i class="fas ${badge.icon} ${badge.color} text-2xl mb-2"></i>
+                    <h4 class="font-bold">${badge.title}</h4>
+                    <p class="text-xs text-gray-400">${badge.description}</p>
+                `;
+
+                badgesContainer.appendChild(badgeElement);
+            });
+
+            // Update share preview
+            updateSharePreview(score, correctAnswers, avgTime, unlockedBadges);
+
+            // Hide game controls
+            gameControls.classList.add('hidden');
+
+            // Display result screen
+            gameContainer.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+        }
+
+        // Update share preview
+        function updateSharePreview(score, correct, avgTime, badges) {
+            previewScore.textContent = `${score} points`;
+
+            previewStats.innerHTML = `
+                <div class="bg-gray-800 rounded p-2">
+                    <p class="text-sm text-gray-400">Questions</p>
+                    <p class="font-bold">${correct}/10</p>
+                </div>
+                <div class="bg-gray-800 rounded p-2">
+                    <p class="text-sm text-gray-400">Average Time</p>
+                    <p class="font-bold">${avgTime.toFixed(1)}s</p>
+                </div>
+            `;
+
+            previewBadges.innerHTML = '';
+            badges.forEach(badge => {
+                const badgeElement = document.createElement('div');
+                badgeElement.className = 'bg-gray-800 rounded p-1 text-center';
+                badgeElement.innerHTML = `
+                    <i class="fas ${badge.icon} ${badge.color}"></i>
+                    <p class="text-xs mt-1">${badge.title.split(' ')[0]}</p>
+                `;
+                previewBadges.appendChild(badgeElement);
+            });
+
+            previewMessage.textContent = shareOptions.message || '"I loved this quiz! Can you beat my score?"';
+        }
+
+        // Generate PDF with results
+        async function generatePDF() {
+            try {
+                const doc = new jsPDF();
+
+                // PDF style based on options
+                let primaryColor, secondaryColor, bgColor;
+                switch (shareOptions.style) {
+                    case 'modern':
+                        primaryColor = [99, 102, 241]; // indigo-500
+                        secondaryColor = [124, 58, 237]; // purple-600
+                        bgColor = [31, 41, 55]; // gray-800
+                        break;
+                    case 'classic':
+                        primaryColor = [55, 65, 81]; // gray-700
+                        secondaryColor = [17, 24, 39]; // gray-900
+                        bgColor = [31, 41, 55]; // gray-800
+                        break;
+                    case 'cinema':
+                        primaryColor = [234, 88, 12]; // orange-600
+                        secondaryColor = [220, 38, 38]; // red-600
+                        bgColor = [31, 41, 55]; // gray-800
+                        break;
+                }
+
+                // Add colored background
+                doc.setFillColor(bgColor[0], bgColor[1], bgColor[2]);
+                doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+
+                // Title
+                doc.setFontSize(24);
+                doc.setTextColor(255, 255, 255);
+                doc.text('My Cinema & Series Quiz Score', 105, 20, { align: 'center' });
+
+                // Decorative line
+                doc.setDrawColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                doc.setLineWidth(1);
+                doc.line(50, 25, 160, 25);
+
+                // Score
+                if (shareOptions.score) {
+                    doc.setFontSize(36);
+                    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                    doc.text(`${score} points`, 105, 50, { align: 'center' });
+                }
+
+                // Statistics
+                if (shareOptions.stats) {
+                    doc.setFontSize(14);
+                    doc.setTextColor(255, 255, 255);
+                    doc.text('Statistics:', 30, 70);
+
+                    const avgTime = totalTime / shuffledQuestions.length;
+
+                    doc.setFillColor(bgColor[0], bgColor[1], bgColor[2]);
+                    doc.roundedRect(30, 75, 80, 30, 3, 3, 'F');
+                    doc.setTextColor(200, 200, 200);
+                    doc.text(`Correct answers:`, 35, 85);
+                    doc.setTextColor(255, 255, 255);
+                    doc.text(`${correctAnswers}/${shuffledQuestions.length}`, 35, 95);
+
+                    doc.roundedRect(120, 75, 80, 30, 3, 3, 'F');
+                    doc.setTextColor(200, 200, 200);
+                    doc.text(`Average time:`, 125, 85);
+                    doc.setTextColor(255, 255, 255);
+                    doc.text(`${avgTime.toFixed(1)} seconds`, 125, 95);
+                }
+
+                // Badges
+                if (shareOptions.badges && unlockedBadges.length > 0) {
+                    doc.setFontSize(14);
+                    doc.setTextColor(255, 255, 255);
+                    doc.text('Earned Badges:', 30, 120);
+
+                    let x = 30;
+                    let y = 130;
+
+                    unlockedBadges.forEach((badge, index) => {
+                        if (index % 4 === 0 && index !== 0) {
+                            x = 30;
+                            y += 30;
+                        }
+
+                        // Badge icon
+                        doc.setFontSize(16);
+                        doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+                        doc.text(`• ${badge.title}`, x, y);
+
+                        x += 45;
+                    });
+                }
+
+                // Custom message
+                if (shareOptions.message) {
+                    doc.setFontSize(12);
+                    doc.setTextColor(200, 200, 200);
+                    doc.text(shareOptions.message, 30, y + 30, { maxWidth: 150 });
+                }
+
+                // Footer
+                doc.setFontSize(10);
+                doc.setTextColor(150, 150, 150);
+                doc.text('Generated with Cinema & Series Quiz', 105, 280, { align: 'center' });
+
+                // Save PDF
+                doc.save(`Cinema-Series-Quiz-Score-${score}.pdf`);
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('There was an error generating the PDF. Please try again.');
+            }
+        }
+
+        // Share on social media
+        function shareOnSocial() {
+            const shareText = `I scored ${score} points in the Cinema & Series Quiz! ${shareOptions.message || ''}`;
+            const shareUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Quiz Score',
+                    text: shareText,
+                    url: shareUrl
+                }).catch(err => {
+                    console.log('Share error:', err);
+                    fallbackShare();
+                });
+            } else {
+                fallbackShare();
+            }
+        }
+
+        // Fallback share solution
+        function fallbackShare() {
+            const shareText = `I scored ${score} points in the Cinema & Series Quiz! ${shareOptions.message || ''}`;
+            const shareUrl = window.location.href;
+
+            // Twitter
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+
+            // Facebook
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+
+            // Display options
+            alert(`Share your score:\n\nTwitter: ${twitterUrl}\n\nFacebook: ${facebookUrl}\n\nCopy this link: ${shareUrl}`);
+        }
+
+        // Return to menu
+        function returnToMenu() {
+            clearInterval(timerInterval);
+            gameContainer.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            gameControls.classList.add('hidden');
+        }
+
+        // Restart game with same settings
+        function restartGame() {
+            clearInterval(timerInterval);
+            gameContainer.classList.remove('hidden');
+            resultScreen.classList.add('hidden');
+            startScreen.classList.add('hidden');
+            initGame();
+        }
+
+        // Event listeners
+        startBtn.addEventListener('click', () => {
+            // Get selected difficulty
+            difficulty = difficultySelect.value;
+
+            // Hide start screen and show game
+            startScreen.classList.add('hidden');
+            gameContainer.classList.remove('hidden');
+
+            // Initialize game
+            initGame();
+        });
+
+        nextBtn.addEventListener('click', nextQuestion);
+
+        hintBtn.addEventListener('click', () => {
+            hintPopup.classList.remove('hidden');
+            hintUsed = true;
+        });
+
+        closeHintBtn.addEventListener('click', () => {
+            hintPopup.classList.add('hidden');
+        });
+
+        restartBtn.addEventListener('click', () => {
+            resultScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        });
+
+        shareBtn.addEventListener('click', () => {
+            sharePopup.classList.remove('hidden');
+        });
+
+        closeShareBtn.addEventListener('click', () => {
+            sharePopup.classList.add('hidden');
+        });
+
+        // Share options selection
+        shareOptionsElements.forEach(option => {
+            option.addEventListener('click', () => {
+                const optionType = option.dataset.option;
+                shareOptions[optionType] = !shareOptions[optionType];
+
+                if (shareOptions[optionType]) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+
+                // Update preview
+                const avgTime = totalTime / shuffledQuestions.length;
+                updateSharePreview(score, correctAnswers, avgTime, unlockedBadges);
+            });
+        });
+
+        // Share style selection
+        shareStyleElements.forEach((style, index) => {
+            style.addEventListener('click', () => {
+                const styles = ['modern', 'classic', 'cinema'];
+                shareOptions.style = styles[index];
+
+                // Update preview
+                document.getElementById('share-preview').className = `bg-gray-700 rounded-lg p-4 ${index === 0 ? 'bg-gradient-to-br from-purple-600 to-blue-600' :
+                    index === 1 ? 'bg-gradient-to-br from-gray-700 to-gray-900' :
+                        'bg-gradient-to-br from-yellow-600 to-red-600'
+                    }`;
+            });
+        });
+
+        // Update custom message
+        shareMessage.addEventListener('input', () => {
+            shareOptions.message = shareMessage.value;
+            previewMessage.textContent = shareOptions.message || '"I loved this quiz! Can you beat my score?"';
+        });
+
+        // Generate PDF
+        generatePdfBtn.addEventListener('click', generatePDF);
+
+        // Share on social media
+        shareSocialBtn.addEventListener('click', shareOnSocial);
+
+        // Media type selection
+        moviesBtn.addEventListener('click', () => {
+            mediaType = 'movies';
+            moviesBtn.classList.add('active');
+            seriesBtn.classList.remove('active');
+        });
+
+        seriesBtn.addEventListener('click', () => {
+            mediaType = 'series';
+            seriesBtn.classList.add('active');
+            moviesBtn.classList.remove('active');
+        });
+
+        // Platform selection
+        platformOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                if (selectedPlatform === option.dataset.platform) {
+                    // Deselect if already selected
+                    selectedPlatform = null;
+                    option.classList.remove('selected');
+                } else {
+                    // Select new option
+                    selectedPlatform = option.dataset.platform;
+                    platformOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                }
+            });
+        });
+
+        // Reset platform
+        resetPlatformBtn.addEventListener('click', () => {
+            selectedPlatform = null;
+            platformOptions.forEach(opt => opt.classList.remove('selected'));
+        });
+
+        // Game control buttons
+        menuBtn.addEventListener('click', returnToMenu);
+        restartGameBtn.addEventListener('click', restartGame);
+
+        // Initialize start screen
+        startScreen.classList.remove('hidden');
+    </script>
+</body>
+
+</html>

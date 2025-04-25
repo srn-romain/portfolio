@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Collection de Séries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .series-card {
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+
+        .series-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .password-input {
+            letter-spacing: 0.2em;
+        }
+
+        .year-section {
+            transition: all 0.3s ease;
+        }
+
+        .year-header {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .year-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsed .year-content {
+            max-height: 0;
+        }
+
+        .expanded .year-content {
+            max-height: 5000px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-indigo-800">
+                <i class="fas fa-tv mr-2"></i> Ma Collection de Séries
+            </h1>
+            <button id="addSeriesBtn"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
+                <i class="fas fa-plus mr-2"></i> Ajouter une série
+            </button>
+        </header>
+
+        <!-- Years Container -->
+        <div id="yearsContainer">
+            <!-- Les années seront ajoutées ici dynamiquement -->
+        </div>
+
+        <!-- No Series Message -->
+        <div id="noSeriesMessage" class="text-center py-12 hidden">
+            <i class="fas fa-tv text-5xl text-gray-300 mb-4"></i>
+            <h2 class="text-2xl text-gray-500">Aucune série dans votre collection</h2>
+            <p class="text-gray-400">Cliquez sur "Ajouter une série" pour commencer</p>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden modal">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Authentification requise</h3>
+                <button id="closePasswordModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-4">Veuillez entrer le mot de passe pour continuer</p>
+            <div class="mb-4 relative">
+                <input type="password" id="passwordInput" class="w-full px-4 py-2 border rounded-lg password-input"
+                    placeholder="Mot de passe">
+                <button id="togglePassword" class="absolute right-3 top-2 text-gray-500">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <p id="passwordError" class="text-red-500 text-sm mb-4 hidden">Mot de passe incorrect</p>
+            <div class="flex justify-end">
+                <button id="confirmPassword"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    Confirmer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden modal">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Confirmer la suppression</h3>
+                <button id="closeDeleteModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-4">Voulez-vous vraiment supprimer cette série ?</p>
+            <div class="flex justify-end space-x-3">
+                <button id="cancelDelete"
+                    class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                    Annuler
+                </button>
+                <button id="confirmDelete"
+                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Series Modal -->
+    <div id="addSeriesModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden modal">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Ajouter une nouvelle série</h3>
+                <button id="closeAddSeriesModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="seriesForm" class="space-y-4">
+                <div>
+                    <label for="seriesName" class="block text-sm font-medium text-gray-700 mb-1">Nom de la série</label>
+                    <input type="text" id="seriesName" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label for="seriesDate" class="block text-sm font-medium text-gray-700 mb-1">Date de
+                        visionnage</label>
+                    <input type="month" id="seriesDate" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label for="seriesImage" class="block text-sm font-medium text-gray-700 mb-1">Image de la
+                        série</label>
+                    <div
+                        class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                        <div class="space-y-1 text-center">
+                            <div class="flex text-sm text-gray-600">
+                                <label for="seriesImage"
+                                    class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none">
+                                    <span>Télécharger une image</span>
+                                    <input id="seriesImage" name="seriesImage" type="file" accept="image/*" required
+                                        class="sr-only">
+                                </label>
+                                <p class="pl-1">ou glisser-déposer</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 5MB</p>
+                        </div>
+                    </div>
+                    <div id="imagePreview" class="mt-2 hidden">
+                        <p class="text-sm text-gray-700 mb-1">Aperçu:</p>
+                        <img id="previewImage" class="max-h-32 rounded" src="#" alt="Aperçu de l'image">
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" id="cancelAddSeries"
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        Annuler
+                    </button>
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        Ajouter la série
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Éléments du DOM
+            const yearsContainer = document.getElementById('yearsContainer');
+            const noSeriesMessage = document.getElementById('noSeriesMessage');
+            const addSeriesBtn = document.getElementById('addSeriesBtn');
+            const passwordModal = document.getElementById('passwordModal');
+            const addSeriesModal = document.getElementById('addSeriesModal');
+            const deleteModal = document.getElementById('deleteModal');
+            const closePasswordModal = document.getElementById('closePasswordModal');
+            const closeAddSeriesModal = document.getElementById('closeAddSeriesModal');
+            const closeDeleteModal = document.getElementById('closeDeleteModal');
+            const cancelAddSeries = document.getElementById('cancelAddSeries');
+            const cancelDelete = document.getElementById('cancelDelete');
+            const confirmDelete = document.getElementById('confirmDelete');
+            const passwordInput = document.getElementById('passwordInput');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const passwordError = document.getElementById('passwordError');
+            const togglePassword = document.getElementById('togglePassword');
+            const seriesForm = document.getElementById('seriesForm');
+            const seriesImage = document.getElementById('seriesImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImage = document.getElementById('previewImage');
+
+            // Mot de passe correct
+            const correctPassword = 'c0l0';
+
+            // Variables pour la suppression
+            let seriesToDeleteIndex = null;
+
+            // Charger les séries depuis le localStorage
+            let series = JSON.parse(localStorage.getItem('series')) || [];
+
+            // Afficher les séries par année
+            function displaySeriesByYear() {
+                yearsContainer.innerHTML = '';
+
+                if (series.length === 0) {
+                    noSeriesMessage.classList.remove('hidden');
+                    return;
+                }
+
+                noSeriesMessage.classList.add('hidden');
+
+                // Grouper les séries par année
+                const seriesByYear = {};
+                series.forEach(serie => {
+                    const date = new Date(serie.date);
+                    const year = date.getFullYear();
+
+                    if (!seriesByYear[year]) {
+                        seriesByYear[year] = [];
+                    }
+
+                    seriesByYear[year].push(serie);
+                });
+
+                // Trier les années par ordre décroissant
+                const sortedYears = Object.keys(seriesByYear).sort((a, b) => b - a);
+
+                // Créer les sections pour chaque année
+                sortedYears.forEach(year => {
+                    const yearSection = document.createElement('div');
+                    yearSection.className = 'year-section mb-8 expanded';
+                    yearSection.dataset.year = year;
+
+                    const yearHeader = document.createElement('div');
+                    yearHeader.className = 'year-header flex items-center justify-between bg-indigo-100 px-4 py-3 rounded-lg mb-4';
+
+                    const yearTitle = document.createElement('h2');
+                    yearTitle.className = 'text-xl font-bold text-indigo-800';
+                    yearTitle.textContent = year;
+
+                    const toggleIcon = document.createElement('i');
+                    toggleIcon.className = 'fas fa-chevron-down text-indigo-600';
+
+                    yearHeader.appendChild(yearTitle);
+                    yearHeader.appendChild(toggleIcon);
+
+                    const yearContent = document.createElement('div');
+                    yearContent.className = 'year-content';
+
+                    const seriesGrid = document.createElement('div');
+                    seriesGrid.className = 'series-grid';
+
+                    // Trier les séries par date (du plus récent au plus ancien)
+                    seriesByYear[year].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    // Ajouter les séries de cette année
+                    seriesByYear[year].forEach((serie, index) => {
+                        const globalIndex = series.findIndex(s => s === serie);
+                        const serieCard = createSeriesCard(serie, globalIndex);
+                        seriesGrid.appendChild(serieCard);
+                    });
+
+                    yearContent.appendChild(seriesGrid);
+                    yearSection.appendChild(yearHeader);
+                    yearSection.appendChild(yearContent);
+                    yearsContainer.appendChild(yearSection);
+
+                    // Ajouter l'événement de clic pour plier/déplier
+                    yearHeader.addEventListener('click', function () {
+                        const isExpanded = yearSection.classList.contains('expanded');
+
+                        if (isExpanded) {
+                            yearSection.classList.remove('expanded');
+                            yearSection.classList.add('collapsed');
+                            toggleIcon.classList.remove('fa-chevron-down');
+                            toggleIcon.classList.add('fa-chevron-right');
+                        } else {
+                            yearSection.classList.remove('collapsed');
+                            yearSection.classList.add('expanded');
+                            toggleIcon.classList.remove('fa-chevron-right');
+                            toggleIcon.classList.add('fa-chevron-down');
+                        }
+                    });
+                });
+            }
+
+            // Créer une carte de série
+            function createSeriesCard(serie, index) {
+                const serieCard = document.createElement('div');
+                serieCard.className = 'series-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer relative group';
+
+                const date = new Date(serie.date);
+                const month = date.toLocaleString('fr-FR', { month: 'long' });
+                const year = date.getFullYear();
+
+                serieCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${serie.image}" alt="${serie.name}" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h3 class="font-bold text-lg truncate">${serie.name}</h3>
+                            <p class="text-sm">${month} ${year}</p>
+                        </div>
+                        <button class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity delete-btn" data-index="${index}">
+                            <i class="fas fa-trash text-xs"></i>
+                        </button>
+                    </div>
+                `;
+
+                // Ajouter l'événement de suppression
+                const deleteBtn = serieCard.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    seriesToDeleteIndex = parseInt(this.getAttribute('data-index'));
+                    showPasswordModal('delete');
+                });
+
+                return serieCard;
+            }
+
+            // Ajouter une série
+            function addSeries(name, date, image) {
+                const newSerie = { name, date, image };
+                series.push(newSerie);
+                localStorage.setItem('series', JSON.stringify(series));
+                displaySeriesByYear();
+
+                // Ouvrir la section de l'année si elle était pliée
+                const dateObj = new Date(date);
+                const year = dateObj.getFullYear();
+                const yearSection = document.querySelector(`.year-section[data-year="${year}"]`);
+
+                if (yearSection && yearSection.classList.contains('collapsed')) {
+                    yearSection.classList.remove('collapsed');
+                    yearSection.classList.add('expanded');
+                    const toggleIcon = yearSection.querySelector('.year-header i');
+                    toggleIcon.classList.remove('fa-chevron-right');
+                    toggleIcon.classList.add('fa-chevron-down');
+                }
+            }
+
+            // Supprimer une série
+            function deleteSeries(index) {
+                series.splice(index, 1);
+                localStorage.setItem('series', JSON.stringify(series));
+                displaySeriesByYear();
+            }
+
+            // Afficher le modal de mot de passe avec un contexte
+            function showPasswordModal(context) {
+                passwordModal.dataset.context = context;
+                passwordModal.classList.remove('hidden');
+                passwordInput.focus();
+            }
+
+            // Afficher le modal d'ajout de série
+            addSeriesBtn.addEventListener('click', function () {
+                showPasswordModal('add');
+            });
+
+            // Fermer le modal de mot de passe
+            closePasswordModal.addEventListener('click', function () {
+                passwordModal.classList.add('hidden');
+                passwordInput.value = '';
+                passwordError.classList.add('hidden');
+            });
+
+            // Basculer la visibilité du mot de passe
+            togglePassword.addEventListener('click', function () {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordInput.type = 'password';
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+
+            // Confirmer le mot de passe
+            confirmPassword.addEventListener('click', function () {
+                if (passwordInput.value === correctPassword) {
+                    passwordModal.classList.add('hidden');
+                    passwordInput.value = '';
+                    passwordError.classList.add('hidden');
+
+                    // Selon le contexte, ouvrir le bon modal
+                    const context = passwordModal.dataset.context;
+                    if (context === 'add') {
+                        addSeriesModal.classList.remove('hidden');
+                    } else if (context === 'delete') {
+                        deleteModal.classList.remove('hidden');
+                    }
+                } else {
+                    passwordError.classList.remove('hidden');
+                    passwordInput.focus();
+                }
+            });
+
+            // Fermer le modal d'ajout de série
+            closeAddSeriesModal.addEventListener('click', function () {
+                addSeriesModal.classList.add('hidden');
+                seriesForm.reset();
+                imagePreview.classList.add('hidden');
+            });
+
+            // Annuler l'ajout de série
+            cancelAddSeries.addEventListener('click', function () {
+                addSeriesModal.classList.add('hidden');
+                seriesForm.reset();
+                imagePreview.classList.add('hidden');
+            });
+
+            // Fermer le modal de suppression
+            closeDeleteModal.addEventListener('click', function () {
+                deleteModal.classList.add('hidden');
+                seriesToDeleteIndex = null;
+            });
+
+            // Annuler la suppression
+            cancelDelete.addEventListener('click', function () {
+                deleteModal.classList.add('hidden');
+                seriesToDeleteIndex = null;
+            });
+
+            // Confirmer la suppression
+            confirmDelete.addEventListener('click', function () {
+                if (seriesToDeleteIndex !== null) {
+                    deleteSeries(seriesToDeleteIndex);
+                    deleteModal.classList.add('hidden');
+                    seriesToDeleteIndex = null;
+                }
+            });
+
+            // Aperçu de l'image
+            seriesImage.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Soumettre le formulaire
+            seriesForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById('seriesName').value;
+                const date = document.getElementById('seriesDate').value;
+                const file = document.getElementById('seriesImage').files[0];
+
+                if (!name || !date || !file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    addSeries(name, date + '-01', e.target.result);
+                    addSeriesModal.classList.add('hidden');
+                    seriesForm.reset();
+                    imagePreview.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Afficher les séries au chargement
+            displaySeriesByYear();
+
+            // Gestion du glisser-déposer pour l'image
+            const dropArea = document.querySelector('.border-dashed');
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropArea.classList.add('border-indigo-500', 'bg-indigo-50');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('border-indigo-500', 'bg-indigo-50');
+            }
+
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                document.getElementById('seriesImage').files = files;
+
+                // Déclencher l'événement change manuellement
+                const event = new Event('change');
+                document.getElementById('seriesImage').dispatchEvent(event);
+            }
+        });
+    </script>
+</body>
+
+</html>

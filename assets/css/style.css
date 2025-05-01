@@ -858,6 +858,19 @@ tr:nth-child(even) {
   right: 10px;
 }
 
+
+/* section quiz cinema */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 70%;
+  height: auto;
+}
+/* fin section quiz cinema */
 /*--Fin Rajout--*/
 
 /*--------------------------------------------------------------

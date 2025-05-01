@@ -288,11 +288,11 @@
                             <p class="text-xs">Disney+</p>
                         </div>
                         <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
-                            data-platform="canal">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Canal%2B.svg" alt="Canal+"
-                                class="h-8 mx-auto mb-1">
+                             data-platform="canal">
+                            <img src="canalplus.png" alt="Canal+" class="h-8 mx-auto mb-1">
                             <p class="text-xs">Canal+</p>
                         </div>
+
                         <div class="platform-option bg-gray-700 rounded-lg p-2 text-center cursor-pointer hover:bg-gray-600 transition"
                             data-platform="tv">
                             <i class="fas fa-tower-broadcast text-3xl text-gray-300"></i>
@@ -404,29 +404,6 @@
                             placeholder="Ajoutez un message personnel..."></textarea>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-400 mb-2">Style du PDF:</label>
-                        <div class="grid grid-cols-3 gap-3">
-                            <div
-                                class="share-style bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-1 cursor-pointer">
-                                <div class="bg-gray-800 rounded-md p-2 text-center">
-                                    <p class="text-xs">Moderne</p>
-                                </div>
-                            </div>
-                            <div
-                                class="share-style bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg p-1 cursor-pointer">
-                                <div class="bg-gray-800 rounded-md p-2 text-center">
-                                    <p class="text-xs">Classique</p>
-                                </div>
-                            </div>
-                            <div
-                                class="share-style bg-gradient-to-br from-yellow-600 to-red-600 rounded-lg p-1 cursor-pointer">
-                                <div class="bg-gray-800 rounded-md p-2 text-center">
-                                    <p class="text-xs">Cinéma</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Aperçu du partage -->
@@ -1300,20 +1277,29 @@
 
         // Share on social media
         function shareOnSocial() {
-            const shareText = `I scored ${score} points in the Cinema & Series Quiz! ${shareOptions.message || ''}`;
-            const shareUrl = window.location.href;
+            const shareText = `J'ai obtenu ${score} points au Quiz Séries TV! Saurez-vous faire mieux?`;
 
             if (navigator.share) {
                 navigator.share({
-                    title: 'My Quiz Score',
+                    title: 'Quiz Séries TV',
                     text: shareText,
-                    url: shareUrl
+                    url: window.location.href
                 }).catch(err => {
-                    console.log('Share error:', err);
+                    console.log('Erreur de partage:', err);
                     fallbackShare();
                 });
             } else {
                 fallbackShare();
+            }
+
+            function fallbackShare() {
+                // Copier dans le presse-papiers
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Résultats copiés dans le presse-papiers!');
+                }).catch(err => {
+                    console.log('Erreur de copie:', err);
+                    prompt('Copiez ce texte pour partager vos résultats:', shareText);
+                });
             }
         }
 

@@ -285,3 +285,13 @@ window.addEventListener('click', (event) => {
     }
   });
 });
+
+/*--------------------------------------------------------------
+# Nb de projets
+--------------------------------------------------------------*/
+document.addEventListener("DOMContentLoaded", function () {
+  const projects = document.querySelectorAll(".portfolio-item");
+  const total = projects.length;
+  const title = document.getElementById("project-title");
+  title.textContent = `Projets (${total})`;
+});

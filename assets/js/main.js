@@ -291,7 +291,34 @@ window.addEventListener('click', (event) => {
 --------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
   const projects = document.querySelectorAll(".portfolio-item");
-  const total = projects.length;
   const title = document.getElementById("project-title");
-  title.textContent = `Projets (${total})`;
+  const filters = document.querySelectorAll("#portfolio-flters li");
+
+  // Fonction pour mettre à jour le titre avec le bon nombre de projets
+  function updateProjectCount(filter) {
+    let visibleProjects;
+    if (filter === '*') {
+      visibleProjects = projects;
+    } else {
+      visibleProjects = Array.from(projects).filter(project => project.classList.contains(filter.substring(1)));
+    }
+    title.textContent = `Projets (${visibleProjects.length})`;
+  }
+
+  // Initialisation : nombre total
+  updateProjectCount('*');
+
+  // Écoute des clics sur les filtres
+  filters.forEach(filterBtn => {
+    filterBtn.addEventListener('click', () => {
+      const selectedFilter = filterBtn.getAttribute('data-filter');
+
+      // Mettre à jour l'état actif
+      filters.forEach(btn => btn.classList.remove('filter-active'));
+      filterBtn.classList.add('filter-active');
+
+      // Mettre à jour le compteur
+      updateProjectCount(selectedFilter);
+    });
+  });
 });

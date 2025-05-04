@@ -13,6 +13,7 @@
         body {
             overflow-y: auto;
             min-height: 100vh;
+            height: auto;
         }
 
         .character-image {
@@ -154,6 +155,17 @@
 
         .control-btn:hover {
             transform: scale(1.1);
+        }
+
+        @media (max-width: 640px) {
+            #start-screen > div,
+            #result-screen > div,
+            #share-popup > div,
+            #hint-popup > div {
+                margin: auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
@@ -693,6 +705,54 @@
                 options: ["The Book of Boba Fett", "The Mandalorian", "Star Wars: Rebels", "Obi-Wan Kenobi"],
                 hint: "Cette série Star Wars suit un chasseur de primes solitaire voyageant à travers la galaxie avec un mystérieux enfant de la même espèce que Yoda.",
                 platform: "disney"
+            },
+            {
+                question: "Peaky Blinders",
+                characters: [
+                    "persos/Thomas_Shelby.jpeg",
+                    "persos/Arthur_Shelby.jpeg",
+                    "persos/Polly_Gray.jpeg",
+                    "persos/Alfie_Solomons.jpeg"
+                ],
+                options: ["Boardwalk Empire", "Peaky Blinders", "Taboo", "Gangs of London"],
+                hint: "Cette série britannique suit une famille de gangsters dans l'Angleterre de l'entre-deux-guerres. Le personnage principal porte souvent une casquette avec des lames de rasoir cousues à l'intérieur.",
+                platform: "netflix"
+            },
+            {
+                question: "Peaky Blinders",
+                characters: [
+                    "persos/Thomas_Shelby.jpeg",
+                    "persos/Arthur_Shelby.jpeg",
+                    "persos/Polly_Gray.jpeg",
+                    "persos/Alfie_Solomons.jpeg"
+                ],
+                options: ["Boardwalk Empire", "Peaky Blinders", "Taboo", "Gangs of London"],
+                hint: "Cette série britannique suit une famille de gangsters dans l'Angleterre de l'entre-deux-guerres. Le personnage principal porte souvent une casquette avec des lames de rasoir cousues à l'intérieur.",
+                platform: "netflix"
+            },
+            {
+                question: "Peaky Blinders",
+                characters: [
+                    "persos/Thomas_Shelby.jpeg",
+                    "persos/Arthur_Shelby.jpeg",
+                    "persos/Polly_Gray.jpeg",
+                    "persos/Alfie_Solomons.jpeg"
+                ],
+                options: ["Boardwalk Empire", "Peaky Blinders", "Taboo", "Gangs of London"],
+                hint: "Cette série britannique suit une famille de gangsters dans l'Angleterre de l'entre-deux-guerres. Le personnage principal porte souvent une casquette avec des lames de rasoir cousues à l'intérieur.",
+                platform: "netflix"
+            },
+            {
+                question: "Peaky Blinders",
+                characters: [
+                    "persos/Thomas_Shelby.jpeg",
+                    "persos/Arthur_Shelby.jpeg",
+                    "persos/Polly_Gray.jpeg",
+                    "persos/Alfie_Solomons.jpeg"
+                ],
+                options: ["Boardwalk Empire", "Peaky Blinders", "Taboo", "Gangs of London"],
+                hint: "Cette série britannique suit une famille de gangsters dans l'Angleterre de l'entre-deux-guerres. Le personnage principal porte souvent une casquette avec des lames de rasoir cousues à l'intérieur.",
+                platform: "netflix"
             },
             {
                 question: "Peaky Blinders",

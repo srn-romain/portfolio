@@ -418,111 +418,67 @@ section {
 /*--------------------------------------------------------------
 # Section compétences
 --------------------------------------------------------------*/
-/* Style pour la section compétences */
-.skill-category {
+
+.skill-section {
   background: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   height: 100%;
+  transition: all 0.3s ease;
 }
 
-.skill-category h3 {
+.skill-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.skill-section h3 {
+  font-size: 1.4rem;
   color: #50644c;
-  font-size: 22px;
-  font-weight: 700;
   margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9f5e1;
-}
-
-.skill-group {
-  margin-bottom: 25px;
-}
-
-.skill-group h4 {
-  font-size: 18px;
-  color: #272829;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9e9e9;
   font-weight: 600;
 }
 
-.skill-group h4 i {
+.skill-section h3 i {
+  margin-right: 10px;
   color: #a6d866;
-  margin-right: 8px;
 }
 
 .skills-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill-badge {
-  background: #f5f5f5;
-  color: #484444;
-  padding: 6px 12px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 500;
-  display: inline-block;
-  border: 1px solid #eaeaea;
-  transition: all 0.3s ease;
-}
-
-.skill-badge:hover {
-  background: #a6d866;
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(166, 216, 102, 0.3);
-}
-
-/* Style pour les icônes dans les badges de compétences */
-.skill-icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 6px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
+  gap: 10px;
 }
 
 .skill-badge {
   display: inline-flex;
   align-items: center;
   background: #f5f5f5;
-  color: #484444;
   padding: 6px 12px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid #eaeaea;
-  transition: all 0.3s ease;
-  margin: 4px 0;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  border: 1px solid #e0e0e0;
 }
 
 .skill-badge:hover {
-  background: #a6d866;
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(166, 216, 102, 0.3);
+  background: #e9f7dd;
+  transform: scale(1.05);
 }
 
-/* Amélioration pour la section complète */
-.skill-category {
-  background: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
-  height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.skill-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 
-.skill-category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+@media (max-width: 768px) {
+  .skill-section {
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 768px) {

@@ -41,7 +41,7 @@
         <div class="social-links mt-3 text-center">
           <a href="https://github.com/srn-romain" class="github" target="_blank"><i class="bx bxl-github"></i></a>
           <a href="https://www.linkedin.com/in/romain-sieurin/" class="linkedin" target="_blank"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://www.facebook.com/profile.php?id=100073440168921" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>
+          <!--<a href="https://www.facebook.com/profile.php?id=100073440168921" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>-->
           <a href="https://stackoverflow.com/users/22588074/srn-romain" class="stack-overflow" target="_blank"><i class="bx bxl-stack-overflow"></i></a>
         </div>
       </div>
@@ -49,67 +49,306 @@
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Accueil</span></a></li>
+          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Projets</span></a></li>
           <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Compétences techniques</span></a></li>
           <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Mon parcours</span></a></li>
-          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Projets</span></a></li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
-      </nav><!-- .nav-menu -->
+      </nav>
     </div>
   </header><!-- End Header -->
+
+<!-- couleur de fond des icone, petit texte en dessous du nom, icone des langages de prog, viree cv en dessous, projets d'abord, source bootstrap, flutter.-->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
       <h1>Romain SIEURIN</h1>
-      <p>Je suis <span class="typed" data-typed-items="Etudiant, Alternant, Animateur"></span></p>
+      <p>Je suis <span class="typed" data-typed-items="Étudiant en BUT Informatique, Alternant chez Groupama, Animateur BAFA"></span></p>
+
     </div>
   </section><!-- End Hero -->
 
   <main id="main">
 
-    <!-- ======= About Section ======= -->
+    <!-- ======= Compétences Techniques Section ======= -->
     <section id="about" class="about">
       <div class="container">
         <div class="section-title">
           <h2>Compétences techniques</h2>
+          <p>Mon parcours m'a permis d'acquérir une expertise dans plusieurs domaines du développement informatique.</p>
         </div>
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img style="border-radius: 8px" src="assets/img/avatar.png" class="img-fluid" alt="">
+
+        <div class="row skills-content">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="skill-category">
+              <h3>Développement</h3>
+
+              <div class="skill-group">
+                <h4><i class="bi bi-code-slash"></i> Langages de programmation</h4>
+                <div class="skills-badges">
+                  <span class="skill-badge"><img src="assets/img/skills/java.svg" alt="Java" class="skill-icon">Java</span>
+                  <span class="skill-badge"><img src="assets/img/skills/csharp.svg" alt="C#" class="skill-icon">C#</span>
+                  <span class="skill-badge"><img src="assets/img/skills/javascript.svg" alt="JavaScript" class="skill-icon">JavaScript</span>
+                  <span class="skill-badge"><img src="assets/img/skills/python.svg" alt="Python" class="skill-icon">Python</span>
+                  <span class="skill-badge"><img src="assets/img/skills/php.svg" alt="PHP" class="skill-icon">PHP</span>
+                  <span class="skill-badge"><img src="assets/img/skills/html5.svg" alt="HTML5" class="skill-icon">HTML5</span>
+                  <span class="skill-badge"><img src="assets/img/skills/css3.svg" alt="CSS3" class="skill-icon">CSS3</span>
+                  <span class="skill-badge"><img src="assets/img/skills/tailwind.svg" alt="Tailwind" class="skill-icon">Tailwind CSS</span>
+                </div>
+              </div>
+
+              <div class="skill-group">
+                <h4><i class="bi bi-boxes"></i> Frameworks et Bibliothèques</h4>
+                <div class="skills-badges">
+                  <span class="skill-badge"><img src="assets/img/skills/angular.svg" alt="Angular" class="skill-icon">Angular</span>
+                  <span class="skill-badge"><img src="assets/img/skills/vue.svg" alt="Vue.js" class="skill-icon">Vue.js</span>
+                  <span class="skill-badge"><img src="assets/img/skills/bootstrap.svg" alt="Bootstrap" class="skill-icon">Bootstrap</span>
+                  <span class="skill-badge"><img src="assets/img/skills/laravel.svg" alt="Laravel" class="skill-icon">Laravel</span>
+                  <span class="skill-badge"><img src="assets/img/skills/dotnet.svg" alt=".NET Core" class="skill-icon">.NET Core</span>
+                  <span class="skill-badge"><img src="assets/img/skills/pygame.svg" alt="PyGame" class="skill-icon">PyGame</span>
+                  <span class="skill-badge"><img src="assets/img/skills/flutter.svg" alt="Flutter" class="skill-icon">Flutter</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <h3 class="color">Compétences techniques</h3><br>
-            <p>
-              Dans la section "About my tech stack", je vous présente mes actuels compétences techniques dans le
-              domaine de l'informatique.
-            </p>
 
-            <div class="row">
-              <br><br>
-              <ul>
-                <li><i class="bi bi-chevron-right"></i> <strong>Langages de programmation :</strong>
-                  <span>C#, Java, JavaScript, Python, PHP, HTML5, CSS3, Tailwind CSS</span>
-                </li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Frameworks et Bibliothèques :</strong>
-                  <span>Angular, Vue.js, Bootstrap, Laravel, .NET Core, PyGame, Flutter</span>
-                </li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Gestion de bases de données :</strong>
-                  <span>MySQL, PostgreSQL, SQLite, MongoDB, Oracle, Neo4J, Kibana, ElasticSearch</span>
-                </li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Outils DevOps et Cloud :</strong>
-                  <span>Git, GitLab, Github, Docker, Firebase, Azure, NPM, PNPM, Apache</span>
-                </li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Outils de Design :</strong>
-                  <span>Figma, Canva, Prezi, Monday.com, Trello, Notion, GanttProject</span>
-                </li>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="skill-category">
+              <h3>Infrastructure & Outils</h3>
 
-              </ul>
+              <div class="skill-group">
+                <h4><i class="bi bi-database"></i> Bases de données</h4>
+                <div class="skills-badges">
+                  <span class="skill-badge"><img src="assets/img/skills/mysql.svg" alt="MySQL" class="skill-icon">MySQL</span>
+                  <span class="skill-badge"><img src="assets/img/skills/postgresql.svg" alt="PostgreSQL" class="skill-icon">PostgreSQL</span>
+                  <span class="skill-badge"><img src="assets/img/skills/sqlite.svg" alt="SQLite" class="skill-icon">SQLite</span>
+                  <span class="skill-badge"><img src="assets/img/skills/mongodb.svg" alt="MongoDB" class="skill-icon">MongoDB</span>
+                  <span class="skill-badge"><img src="assets/img/skills/oracle.svg" alt="Oracle" class="skill-icon">Oracle</span>
+                  <span class="skill-badge"><img src="assets/img/skills/neo4j.svg" alt="Neo4J" class="skill-icon">Neo4J</span>
+                  <span class="skill-badge"><img src="assets/img/skills/elasticsearch.svg" alt="ElasticSearch" class="skill-icon">ElasticSearch</span>
+                  <span class="skill-badge"><img src="assets/img/skills/kibana.svg" alt="Kibana" class="skill-icon">Kibana</span>
+                </div>
+              </div>
+
+              <div class="skill-group">
+                <h4><i class="bi bi-rocket-takeoff"></i> DevOps & Cloud</h4>
+                <div class="skills-badges">
+                  <span class="skill-badge"><img src="assets/img/skills/git.svg" alt="Git" class="skill-icon">Git</span>
+                  <span class="skill-badge"><img src="assets/img/skills/gitlab.svg" alt="GitLab" class="skill-icon">GitLab</span>
+                  <span class="skill-badge"><img src="assets/img/skills/github.svg" alt="GitHub" class="skill-icon">GitHub</span>
+                  <span class="skill-badge"><img src="assets/img/skills/docker.svg" alt="Docker" class="skill-icon">Docker</span>
+                  <span class="skill-badge"><img src="assets/img/skills/firebase.svg" alt="Firebase" class="skill-icon">Firebase</span>
+                  <span class="skill-badge"><img src="assets/img/skills/azure.svg" alt="Azure" class="skill-icon">Azure</span>
+                  <span class="skill-badge"><img src="assets/img/skills/npm.svg" alt="NPM" class="skill-icon">NPM</span>
+                  <span class="skill-badge"><img src="assets/img/skills/apache.svg" alt="Apache" class="skill-icon">Apache</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Design & Productivité pleine largeur -->
+          <div class="col-12 mt-4" data-aos="fade-up">
+            <div class="skill-category">
+              <h3>Design & Productivité</h3>
+              <div class="skill-group">
+                <h4><i class="bi bi-pencil-square"></i> Outils de Design & Gestion de Projet</h4>
+                <div class="skills-badges">
+                  <span class="skill-badge"><img src="assets/img/skills/figma.svg" alt="Figma" class="skill-icon">Figma</span>
+                  <span class="skill-badge"><img src="assets/img/skills/canva.svg" alt="Canva" class="skill-icon">Canva</span>
+                  <span class="skill-badge"><img src="assets/img/skills/prezi.svg" alt="Prezi" class="skill-icon">Prezi</span>
+                  <span class="skill-badge"><img src="assets/img/skills/monday.svg" alt="Monday.com" class="skill-icon">Monday.com</span>
+                  <span class="skill-badge"><img src="assets/img/skills/trello.svg" alt="Trello" class="skill-icon">Trello</span>
+                  <span class="skill-badge"><img src="assets/img/skills/notion.svg" alt="Notion" class="skill-icon">Notion</span>
+                  <span class="skill-badge"><img src="assets/img/skills/ganttproject.svg" alt="GanttProject" class="skill-icon">GanttProject</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section><!-- End About Section -->
+    </section><!-- End Compétences Techniques Section -->
+
+    <!-- ======= Projets Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 id="project-title">Projets</h2>
+          <p>Mes différentes réalisations présentes sont classées en trois catégories : les projets réalisés en entreprise,
+            les projets développés lors de ma formation et enfin les projets personnels.</p>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">Tous les projets</li>
+              <li data-filter=".filter-entre">Entreprise</li>
+              <li data-filter=".filter-form">Formation</li>
+              <li data-filter=".filter-perso">Perso</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/G2S/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo0.jpg" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Alternance 3ieme année BUT</h4>
+                <p>Groupama Supports & Services</p>
+                <a href="projets/G2S/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/Bafa/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo11.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Animation BAFA & BAFD</h4>
+                <p>Projet Perso</p>
+                <a href="projets/Bafa/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/WebGL/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo1.jpeg" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Visualisation 3D</h4>
+                <p>Université Grenoble Alpes</p>
+                <a href="projets/WebGL/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/QuizCinema/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo13.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Quiz Cinéma</h4>
+                <p>Projet Perso</p>
+                <a href="projets/QuizCinema/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/AppHeroes/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo2.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Tour Of Heroes</h4>
+                <p>Université Grenoble Alpes</p>
+                <a href="projets/AppHeroes/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GameJamPython/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo3.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Game Jam 2024 - Explorace</h4>
+                <p>Université Grenoble Alpes</p>
+                <a href="projets/GameJamPython/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Azenn/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo4.jpeg" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Stage 2eme année BTS</h4>
+                <p>Exertis Azenn</p>
+                <a href="projets/Azenn/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/RepertoireSerie/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo14.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Répertoire Série</h4>
+                <p>Projet Perso</p>
+                <a href="projets/RepertoireSerie/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GSB/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo5.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Projet GSB</h4>
+                <p>BTS sio</p>
+                <a href="projets/GSB/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/BookMesVacs/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo6.jpeg" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Projet BookMesVacs</h4>
+                <p>BTS sio</p>
+                <a href="projets/BookMesVacs/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Norsys/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo7.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Stage 1ere année BTS</h4>
+                <p>Norsys</p>
+                <a href="projets/Norsys/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/Documentation/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo8.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Documentation technique C#</h4>
+                <p>BTS sio</p>
+                <a href="projets/Documentation/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/FruitsLegumes/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo9.png" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Recettes & Cie</h4>
+                <p>BTS sio</p>
+                <a href="projets/FruitsLegumes/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/StageTroisieme/detail.html';" style="cursor: pointer;">
+            <div class="portfolio-wrap">
+              <img src="assets/img/projets/Photo12.jpg" class="img-fluid zoomable" alt="">
+              <div class="portfolio-info">
+                <h4>Stage de Troisième</h4>
+                <p>Inetum</p>
+                <a href="projets/StageTroisieme/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Projets Section -->
 
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume section-bg">
@@ -118,8 +357,7 @@
         <div class="section-title">
           <h2>Mon parcours</h2>
           <p>
-            Bienvenue dans la section "Resume" de mon portfolio. Ici, je partage mon parcours éducatif et
-            professionnel. En fin de section, vous pourrez télécharger mon CV.
+            Je partage ici mon parcours éducatif et professionnel. En fin de section, vous pourrez télécharger mon CV.
           </p>
         </div>
 
@@ -751,259 +989,6 @@
       </div>
       
     </section><!-- End Resume Section -->
-
-    <!-- ======= Projets Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title">
-          <h2 id="project-title">Projets</h2>
-          <p>Bienvenue dans ma section "Projets", où vous trouverez mes différentes réalisations. Elles sont classées en
-            trois catégories : les projets réalisés en entreprise, les projets développés lors de ma formation et enfin
-            les projets personnels.</p>
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">Tous les projets</li>
-              <li data-filter=".filter-entre">Entreprise</li>
-              <li data-filter=".filter-form">Formation</li>
-              <li data-filter=".filter-perso">Perso</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/G2S/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo0.jpg" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Alternance 3ieme année BUT</h4>
-                <p>Groupama Supports & Services</p>
-                <a href="projets/G2S/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/Bafa/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo11.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Animation BAFA & BAFD</h4>
-                <p>Projet Perso</p>
-                <a href="projets/Bafa/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/WebGL/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo1.jpeg" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Visualisation 3D</h4>
-                <p>Université Grenoble Alpes</p>
-                <a href="projets/WebGL/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/QuizCinema/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo13.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Quiz Cinéma</h4>
-                <p>Projet Perso</p>
-                <a href="projets/QuizCinema/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/AppHeroes/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo2.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Tour Of Heroes</h4>
-                <p>Université Grenoble Alpes</p>
-                <a href="projets/AppHeroes/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GameJamPython/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo3.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Game Jam 2024 - Explorace</h4>
-                <p>Université Grenoble Alpes</p>
-                <a href="projets/GameJamPython/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Azenn/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo4.jpeg" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Stage 2eme année BTS</h4>
-                <p>Exertis Azenn</p>
-                <a href="projets/Azenn/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/RepertoireSerie/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo14.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Répertoire Série</h4>
-                <p>Projet Perso</p>
-                <a href="projets/RepertoireSerie/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GSB/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo5.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Projet GSB</h4>
-                <p>BTS sio</p>
-                <a href="projets/GSB/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/BookMesVacs/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo6.jpeg" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Projet BookMesVacs</h4>
-                <p>BTS sio</p>
-                <a href="projets/BookMesVacs/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Norsys/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo7.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Stage 1ere année BTS</h4>
-                <p>Norsys</p>
-                <a href="projets/Norsys/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/Documentation/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo8.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Documentation technique C#</h4>
-                <p>BTS sio</p>
-                <a href="projets/Documentation/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/FruitsLegumes/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo9.png" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Recettes & Cie</h4>
-                <p>BTS sio</p>
-                <a href="projets/FruitsLegumes/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/StageTroisieme/detail.html';" style="cursor: pointer;">
-            <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo12.jpg" class="img-fluid zoomable" alt="">
-              <div class="portfolio-info">
-                <h4>Stage de Troisième</h4>
-                <p>Inetum</p>
-                <a href="projets/StageTroisieme/detail.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section><!-- End Projets Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>N'hésitez pas à me contacter pour toute question ou simplement pour échanger.</p>
-        </div>
-
-        <div class="row" data-aos="fade-in">
-
-          <div class="col-lg-5 d-flex align-items-stretch">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@example.com</p>
-              </div>
-
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
-              </div>
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
-            </div>
-
-          </div>
-
-          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group">
-                <label for="name">Message</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 

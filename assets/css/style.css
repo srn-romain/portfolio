@@ -307,6 +307,10 @@ h6 {
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
+.about{
+  background-color: #F5F5F5;
+}
+
 .resume-header {
   display: flex;
   align-items: center;
@@ -412,75 +416,124 @@ section {
 }
 
 /*--------------------------------------------------------------
-# About
+# Section compétences
 --------------------------------------------------------------*/
-.about .content h3 {
-  font-weight: 700;
-  font-size: 26px;
-  color: #f39c12;
-}
-
-.about .content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.about .content ul li {
+/* Style pour la section compétences */
+.skill-category {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
+  height: 100%;
 }
 
-.about .content ul strong {
-  margin-right: 10px;
+.skill-category h3 {
+  color: #50644c;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9f5e1;
 }
 
-.about .content ul i {
-  font-size: 16px;
-  margin-right: 5px;
-  color:  #f39c12;
-  line-height: 0;
+.skill-group {
+  margin-bottom: 25px;
 }
 
-.about .content p:last-child {
-  margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-# Skills
---------------------------------------------------------------*/
-.skills .progress {
-  height: 60px;
-  display: block;
-  background: none;
-  border-radius: 0;
-}
-
-.skills .progress .skill {
-  padding: 0;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  display: block;
+.skill-group h4 {
+  font-size: 18px;
+  color: #272829;
+  margin-bottom: 15px;
   font-weight: 600;
-  font-family: "Poppins", sans-serif;
-  color: #050d18;
 }
 
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
+.skill-group h4 i {
+  color: #a6d866;
+  margin-right: 8px;
 }
 
-.skills .progress-bar-wrap {
-  background: #dce8f8;
-  height: 10px;
+.skills-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: #676565;
+.skill-badge {
+  background: #f5f5f5;
+  color: #484444;
+  padding: 6px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  border: 1px solid #eaeaea;
+  transition: all 0.3s ease;
+}
+
+.skill-badge:hover {
+  background: #a6d866;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(166, 216, 102, 0.3);
+}
+
+/* Style pour les icônes dans les badges de compétences */
+.skill-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #f5f5f5;
+  color: #484444;
+  padding: 6px 12px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #eaeaea;
+  transition: all 0.3s ease;
+  margin: 4px 0;
+}
+
+.skill-badge:hover {
+  background: #a6d866;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(166, 216, 102, 0.3);
+}
+
+/* Amélioration pour la section complète */
+.skill-category {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .skill-category {
+    padding: 20px 15px;
+  }
+
+  .skill-badge {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -662,7 +715,6 @@ th {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-
 
 /*--------------------------------------------------------------
 # Portfolio
@@ -858,7 +910,6 @@ tr:nth-child(even) {
   right: 10px;
 }
 
-
 /* section quiz cinema */
 .swiper-slide {
   display: flex;
@@ -870,239 +921,10 @@ tr:nth-child(even) {
   width: 70%;
   height: auto;
 }
+
 /* fin section quiz cinema */
 /*--Fin Rajout--*/
 
-/*--------------------------------------------------------------
-# Contact
---------------------------------------------------------------*/
-
-.contact {
-  padding-bottom: 130px;
-  background-color: #F5F5F5;
-}
-
-.contact .info {
-  padding: 30px;
-  background: #fff;
-  width: 100%;
-  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 5px;
-}
-
-.contact .info i {
-  font-size: 20px;
-  color: #50644c;
-  float: left;
-  width: 44px;
-  height: 44px;
-  background: #e9f5e1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  transition: all 0.3s ease-in-out;
-}
-
-.contact .info h4 {
-  padding: 0 0 0 60px;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #272829;
-  font-family: "Raleway", sans-serif;
-}
-
-.contact .info p {
-  padding: 0 0 10px 60px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #484444;
-}
-
-.contact .info .email p {
-  padding-top: 5px;
-}
-
-.contact .info .social-links {
-  padding-left: 60px;
-}
-
-.contact .info .social-links a {
-  font-size: 18px;
-  display: inline-block;
-  background: #a6d866;
-  color: #fff;
-  line-height: 1;
-  padding: 8px 0;
-  border-radius: 50%;
-  text-align: center;
-  width: 36px;
-  height: 36px;
-  transition: 0.3s;
-  margin-right: 10px;
-}
-
-.contact .info .social-links a:hover {
-  background: #f39c12;
-  transform: scale(1.28);
-  color: #fff;
-}
-
-.contact .info .email:hover i,
-.contact .info .address:hover i,
-.contact .info .phone:hover i {
-  background: #f39c12;
-  color: #fff;
-  transform: scale(1.08);
-}
-
-.contact .php-email-form {
-  width: 100%;
-  padding: 30px;
-  background: #fff;
-  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 5px;
-}
-
-.contact .php-email-form .form-group {
-  padding-bottom: 8px;
-  margin-bottom: 15px;
-}
-
-.contact .php-email-form .validate {
-  display: none;
-  color: #f39c12;
-  margin: 0 0 15px 0;
-  font-weight: 400;
-  font-size: 13px;
-}
-
-.contact .php-email-form .error-message {
-  display: none;
-  color: #fff;
-  background: #f39c12;
-  text-align: left;
-  padding: 15px;
-  font-weight: 600;
-  border-radius: 5px;
-}
-
-.contact .php-email-form .error-message br+br {
-  margin-top: 25px;
-}
-
-.contact .php-email-form .sent-message {
-  display: none;
-  color: #fff;
-  background: #a6d866;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-  border-radius: 5px;
-}
-
-.contact .php-email-form .loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-}
-
-.contact .php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #a6d866;
-  border-top-color: #eee;
-  animation: animate-loading 1s linear infinite;
-}
-
-.contact .php-email-form label {
-  padding-bottom: 8px;
-  color: #272829;
-  font-family: "Raleway", sans-serif;
-  font-weight: 600;
-}
-
-.contact .php-email-form input,
-.contact .php-email-form textarea {
-  border-radius: 4px;
-  box-shadow: none;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  padding: 10px 15px;
-  transition: border-color 0.3s ease;
-}
-
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
-  border-color: #a6d866;
-  outline: none;
-}
-
-.contact .php-email-form input {
-  height: 44px;
-}
-
-.contact .php-email-form textarea {
-  padding: 10px 15px;
-  resize: none;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: #a6d866;
-  border: 0;
-  padding: 10px 24px;
-  color: #fff;
-  transition: 0.3s;
-  border-radius: 7px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: #f39c12;
-  transform: scale(1.05);
-}
-
-/* Animation du chargement */
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Responsive design pour le contact */
-@media (max-width: 768px) {
-  .contact .info,
-  .contact .php-email-form {
-    padding: 20px;
-  }
-
-  .contact .info i {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-
-  .contact .info h4 {
-    padding-left: 50px;
-    font-size: 18px;
-  }
-
-  .contact .info p {
-    padding-left: 50px;
-    font-size: 13px;
-  }
-}
 /*--------------------------------------------------------------
 # Breadcrumbs
 --------------------------------------------------------------*/
@@ -1178,6 +1000,6 @@ tr:nth-child(even) {
   #footer {
     position: static;
     width: auto;
-    padding-right: 20px 15px;
+    padding: 20px 15px;
   }
 }

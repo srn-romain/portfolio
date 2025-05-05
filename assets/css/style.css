@@ -74,7 +74,6 @@ h6 {
   width: 300px;
   transition: all ease-in-out 0.5s;
   z-index: 9;
-  transition: all 0.5s;
   padding: 0 15px;
   background: #50644c;
   overflow-y: auto;
@@ -135,6 +134,29 @@ h6 {
 .container-fluid {
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.bio-description {
+  font-size: 14px;
+  color: #e4e4e4;
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
+}
+
+.location {
+  font-size: 13px;
+  color: #e4e4e4;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location i {
+  margin-right: 6px;
+  color: #f39c12;
+  font-size: 14px;
 }
 
 @media (max-width: 1199px) {

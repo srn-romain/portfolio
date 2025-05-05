@@ -130,7 +130,7 @@ function draw() {
     let u_modelViewMatrix = math.multiply(
       translation(x, 0, z),
       yRotation(rotationY),
-      xRotation(time * 100 * RAD + (i * 0.6))
+      xRotation(degToRad(-1)),
     );
     u_modelViewMatrix = cleanArray(u_modelViewMatrix);
 

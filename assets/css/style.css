@@ -486,7 +486,7 @@ h6 {
   }
 
   .logos-container {
-    justify-content: space-between; /* Ajuster l'espacement entre les images */
+    justify-content: space-between;
   }
 }
 

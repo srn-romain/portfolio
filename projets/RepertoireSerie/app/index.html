@@ -292,6 +292,7 @@
         loadSeries();
 
         // Afficher les séries par année
+        // Modifiez la fonction displaySeriesByYear() comme suit :
         function displaySeriesByYear() {
             yearsContainer.innerHTML = '';
 
@@ -318,6 +319,12 @@
             // Trier les années par ordre décroissant
             const sortedYears = Object.keys(seriesByYear).sort((a, b) => b - a);
 
+            // Ajouter le compteur total en haut de la page
+            const totalCounter = document.createElement('div');
+            totalCounter.className = 'bg-indigo-200 px-4 py-3 rounded-lg mb-6 text-center';
+            totalCounter.innerHTML = `<h2 class="text-xl font-bold text-indigo-800">Total: ${series.length} série${series.length > 1 ? 's' : ''}</h2>`;
+            yearsContainer.appendChild(totalCounter);
+
             // Créer les sections pour chaque année
             sortedYears.forEach(year => {
                 const yearSection = document.createElement('div');
@@ -329,7 +336,8 @@
 
                 const yearTitle = document.createElement('h2');
                 yearTitle.className = 'text-xl font-bold text-indigo-800';
-                yearTitle.textContent = year;
+                const seriesCount = seriesByYear[year].length;
+                yearTitle.textContent = `${year} (${seriesCount} série${seriesCount > 1 ? 's' : ''})`;
 
                 const toggleIcon = document.createElement('i');
                 toggleIcon.className = 'fas fa-chevron-down text-indigo-600';

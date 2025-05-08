@@ -371,6 +371,63 @@ h6 {
   transform: translateY(-3px);
 }
 
+/* Style pour la section À propos de moi */
+.about-text-container {
+  max-width: 1050px;
+  margin: 0 auto 30px;
+}
+
+.about-text {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: #444;
+  text-align: justify;
+}
+
+.about-text-container p:first-of-type {
+  font-size: 17px;
+}
+
+.about-skills-intro {
+  font-weight: 500;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.highlight-text {
+  background-color: rgba(80, 100, 76, 0.08);
+  padding: 15px 15px 15px 20px;
+  border-radius: 5px;
+  position: relative;
+  margin: 20px 0;
+}
+
+.highlight-text::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: #50644c;
+  border-radius: 3px 0 0 3px;
+}
+
+@media (max-width: 768px) {
+  .about-text {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .about-text-container p:first-of-type {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .profile-card {
     margin-left: 15px;
@@ -453,7 +510,7 @@ h6 {
 .logos-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centrer les images */
+  justify-content: center;
 }
 
 @media only screen and (max-width: 1290px) {
@@ -465,11 +522,11 @@ h6 {
   .formation-logo {
     margin-top: 10px;
     margin-left: 0;
-    width: 50px; /* Réduire la taille du logo sur mobile */
+    width: 50px;
   }
 
   .logos-container {
-    justify-content: space-around; /* Répartir les images */
+    justify-content: space-around;
   }
 
   .image-carrée {
@@ -605,7 +662,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Resume
+# Mon parcours
 --------------------------------------------------------------*/
 .resume .resume-title {
   font-size: 26px;

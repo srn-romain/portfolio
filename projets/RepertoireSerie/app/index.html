@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Collection de Séries</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .series-grid {
@@ -214,7 +217,20 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Éléments du DOM
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZ1Np0eIlW5ze4f-oZC-OTV1clf-SP1os",
+            authDomain: "macollectiondeseries.firebaseapp.com",
+            projectId: "macollectiondeseries",
+            storageBucket: "macollectiondeseries.firebasestorage.app",
+            messagingSenderId: "265508137810",
+            appId: "1:265508137810:web:7a0a56df38c8368a5be88b"
+        };
+
+        // Initialiser Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const seriesCollection = db.collection('series');
         const yearsContainer = document.getElementById('yearsContainer');
         const noSeriesMessage = document.getElementById('noSeriesMessage');
         const addSeriesBtn = document.getElementById('addSeriesBtn');
@@ -237,13 +253,43 @@
         const previewImage = document.getElementById('previewImage');
 
         // Mot de passe correct
-        const correctPassword = 'c0l0';
-
-        // Variables pour la suppression
+        const passwordHash = '7cfae86dbdef5b6712ca464daaa4a65fb1c528cc45d4473360b8e9b344c0d67e';
         let seriesToDeleteIndex = null;
 
-        // Charger les séries depuis le localStorage
-        let series = JSON.parse(localStorage.getItem('series')) || [];
+        // Charger les séries depuis Firestore
+        let series = [];
+
+        // Fonction de hashage SHA-256
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+        /*async function checkHash() {
+            const testHash = await sha256('test');
+            console.log('Hash :', testHash);
+        }
+        checkHash();*/
+
+        function loadSeries() {
+            seriesCollection.get().then((querySnapshot) => {
+                series = [];
+                querySnapshot.forEach((doc) => {
+                    series.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                displaySeriesByYear();
+            }).catch(error => {
+                console.error("Erreur lors du chargement des séries:", error);
+            });
+        }
+
+        // Appeler loadSeries au chargement
+        loadSeries();
 
         // Afficher les séries par année
         function displaySeriesByYear() {
@@ -301,8 +347,9 @@
                 seriesByYear[year].sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 // Ajouter les séries de cette année
-                seriesByYear[year].forEach((serie, index) => {
-                    const globalIndex = series.findIndex(s => s === serie);
+                seriesByYear[year].forEach((serie, localIndex) => {
+                    // Trouver l'index global de la série
+                    const globalIndex = series.findIndex(s => s.id === serie.id);
                     const serieCard = createSeriesCard(serie, globalIndex);
                     seriesGrid.appendChild(serieCard);
                 });
@@ -367,30 +414,41 @@
 
         // Ajouter une série
         function addSeries(name, date, image) {
-            const newSerie = { name, date, image };
-            series.push(newSerie);
-            localStorage.setItem('series', JSON.stringify(series));
-            displaySeriesByYear();
+            // Créer un nouvel objet série
+            const newSerie = {
+                name,
+                date,
+                // Pour l'image, vous avez deux options :
+                // 1. Stocker l'URL si l'image est en ligne
+                // 2. Pour simplifier, on garde l'image en base64 comme avant
+                image
+            };
 
-            // Ouvrir la section de l'année si elle était pliée
-            const dateObj = new Date(date);
-            const year = dateObj.getFullYear();
-            const yearSection = document.querySelector(`.year-section[data-year="${year}"]`);
-
-            if (yearSection && yearSection.classList.contains('collapsed')) {
-                yearSection.classList.remove('collapsed');
-                yearSection.classList.add('expanded');
-                const toggleIcon = yearSection.querySelector('.year-header i');
-                toggleIcon.classList.remove('fa-chevron-right');
-                toggleIcon.classList.add('fa-chevron-down');
-            }
+            // Ajouter à Firestore
+            seriesCollection.add(newSerie)
+                .then((docRef) => {
+                    console.log("Série ajoutée avec ID:", docRef.id);
+                    // Recharger les séries
+                    loadSeries();
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de l'ajout de la série:", error);
+                });
         }
 
         // Supprimer une série
         function deleteSeries(index) {
-            series.splice(index, 1);
-            localStorage.setItem('series', JSON.stringify(series));
-            displaySeriesByYear();
+            const serieId = series[index].id;
+
+            seriesCollection.doc(serieId).delete()
+                .then(() => {
+                    console.log("Série supprimée avec succès");
+                    // Recharger les séries
+                    loadSeries();
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de la suppression:", error);
+                });
         }
 
         // Afficher le modal de mot de passe avec un contexte
@@ -424,8 +482,10 @@
         });
 
         // Confirmer le mot de passe
-        confirmPassword.addEventListener('click', function () {
-            if (passwordInput.value === correctPassword) {
+        confirmPassword.addEventListener('click', async function () {
+            const inputHash = await sha256(passwordInput.value);
+
+            if (inputHash === passwordHash) {
                 passwordModal.classList.add('hidden');
                 passwordInput.value = '';
                 passwordError.classList.add('hidden');

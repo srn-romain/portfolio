@@ -531,12 +531,14 @@
                 <h3 class="font-bold text-lg break-words">${serie.name}</h3>
                 <p class="text-sm">${month} ${year}</p>
             </div>
-            <div class="absolute top-2 right-2 flex space-x-2">
-                <button class="bg-blue-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity edit-btn" data-index="${index}">
-                    <i class="fas fa-edit text-xs"></i>
+            <div class="absolute top-3 right-3 flex space-x-2">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg opacity-0 group-hover:opacity-90 transition-all transform hover:scale-110 edit-btn"
+                        data-index="${index}" title="Modifier la série">
+                    <i class="fas fa-edit"></i>
                 </button>
-                <button class="bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity delete-btn" data-index="${index}">
-                    <i class="fas fa-trash text-xs"></i>
+                <button class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg opacity-0 group-hover:opacity-90 transition-all transform hover:scale-110 delete-btn"
+                        data-index="${index}" title="Supprimer la série">
+                    <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>

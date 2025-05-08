@@ -459,18 +459,18 @@
             const year = date.getFullYear();
 
             serieCard.innerHTML = `
-                    <div class="relative">
-                        <img src="${serie.image}" alt="${serie.name}" class="w-full h-64 object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                        <div class="absolute bottom-0 left-0 p-4 text-white">
-                            <h3 class="font-bold text-lg truncate">${serie.name}</h3>
-                            <p class="text-sm">${month} ${year}</p>
-                        </div>
-                        <button class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity delete-btn" data-index="${index}">
-                            <i class="fas fa-trash text-xs"></i>
-                        </button>
-                    </div>
-                `;
+            <div class="relative">
+                <img src="${serie.image}" alt="${serie.name}" class="w-full h-64 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 p-4 text-white w-full">
+                    <h3 class="font-bold text-lg break-words">${serie.name}</h3>
+                    <p class="text-sm">${month} ${year}</p>
+                </div>
+                <button class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity delete-btn" data-index="${index}">
+                    <i class="fas fa-trash text-xs"></i>
+                </button>
+            </div>
+        `;
 
             // Ajouter l'événement de suppression
             const deleteBtn = serieCard.querySelector('.delete-btn');

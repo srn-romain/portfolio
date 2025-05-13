@@ -131,13 +131,25 @@
                         <ul>
                             <li><strong>Date du Projet</strong>: Septembre 2024</li>
                             <li><strong>Technologies utilisées</strong>: Python, PyGame</li>
-                            <li><strong>Accessibilité</strong>: <a download="" href="Gamejam2024-main.zip" target="_blank"><u>Télécharger le projet</u></a> (39,2 Mo)</li>
-                            <li><strong>Jaquette du jeu</strong>: <a download="" href="jaquette.png" target="_blank"><u>Disponible ici</u></a> (94,5 Ko)</li>
-                            <li><strong>Affiche présentation</strong>: <a download="" href="presentation.pdf" target="_blank"><u>Disponible ici</u></a> (276,2 Ko)</li>
                         </ul>
 
-                        <button class="btn-cv" onclick="history.back()">Retour</button>
+                        <div class="button-group">
+                            <!-- Première rangée -->
+                            <button class="btn-back" onclick="history.back()">
+                                <i class="bi bi-arrow-left"></i> Retour
+                            </button>
+                            <a href="Gamejam2024-main.zip" download class="btn-download-spe">
+                                <i class="bi bi-download"></i> Télécharger <span class="file-size">39,2 Mo</span>
+                            </a>
 
+                            <!-- Deuxième rangée -->
+                            <a href="jaquette.png" download class="btn-app-spe" target="_blank">
+                                <i class="bi bi-file-earmark-image"></i> Jaquette <span class="file-size">94,5 Ko</span>
+                            </a>
+                            <a href="presentation.pdf" download class="btn-app-spe" target="_blank">
+                                <i class="bi bi-file-earmark-pdf"></i> Présentation <span class="file-size">276,2 Ko</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="portfolio-description">
                         <h2>Quelques mots sur le projet</h2>

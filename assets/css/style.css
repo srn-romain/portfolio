@@ -1072,6 +1072,207 @@ tr:nth-child(even) {
   height: auto;
 }
 
+/* boutons des differents projets detail */
+
+.btn-app {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-app i {
+  margin-right: 8px;
+}
+
+.btn-app:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.btn-back {
+  background-color: #80c057;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-back i {
+  margin-right: 8px;
+}
+
+.btn-back:hover {
+  background-color: #a6d866;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-app-indispo {
+  background-color: #aaa;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-app-indispo i {
+  margin-right: 8px;
+}
+
+.btn-app-indispo:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.btn-app-indispo:hover::after {
+  content: "Disponible uniquement sur demande";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-back-spe {
+  background-color: #50644c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-back-spe i {
+  margin-right: 8px;
+}
+
+.btn-back-spe:hover {
+  background-color: #a6d866;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-download-spe {
+  background-color: #80c057;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-download-spe i {
+  margin-right: 8px;
+}
+
+.btn-download-spe:hover {
+  background-color: #a6d866;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.btn-app-spe {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.btn-app-spe i {
+  margin-right: 8px;
+}
+
+.btn-app-spe:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.file-size {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 5px;
+  font-weight: normal;
+}
+
+@media (max-width: 576px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn-back, .btn-download, .btn-app, .btn-app-indispo,
+  .btn-back, .btn-download-spe, .btn-app-spe {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .file-size {
+    display: inline-block;
+  }
+}
+
 /* fin section quiz cinema */
 /*--Fin Rajout--*/
 

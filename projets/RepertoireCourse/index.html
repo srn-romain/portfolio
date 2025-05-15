@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses à pied</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/heroicons@2.0.18/dist/24/outline/index.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1476231682824-37e0d921d6b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .blur-bg {
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-green-50 bg-opacity-90">
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-bold text-green-800">Mes Courses Nature</h1>
+            <p class="text-green-600">Toutes mes aventures en pleine nature</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <button id="addRaceBtn" class="flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Ajouter une course
+            </button>
+        </div>
+    </header>
+
+    <!-- Search and Filter -->
+    <div class="mb-8">
+        <div class="relative mb-4">
+            <input type="text" id="searchInput" placeholder="Rechercher une course..." class="w-full px-4 py-2 rounded-full border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-2.5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div id="yearFilters" class="flex flex-wrap gap-2">
+            <button class="year-filter px-3 py-1 rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition" data-year="all">Toutes</button>
+            <!-- Les filtres seront générés dynamiquement ici -->
+        </div>
+    </div>
+
+    <!-- Races Grid -->
+    <div id="racesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Races will be added here by JavaScript -->
+    </div>
+</div>
+
+<!-- Add/Edit Race Modal -->
+<div id="raceModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal">
+    <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
+    <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 z-10">
+        <div class="p-6">
+            <h3 id="modalTitle" class="text-2xl font-bold text-green-800 mb-4">Ajouter une course</h3>
+            <form id="raceForm">
+                <input type="hidden" id="raceId">
+                <div class="mb-4">
+                    <label for="raceName" class="block text-green-700 mb-2">Nom de la course</label>
+                    <input type="text" id="raceName" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceDate" class="block text-green-700 mb-2">Date</label>
+                    <input type="date" id="raceDate" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceDistance" class="block text-green-700 mb-2">Distance (km)</label>
+                    <input type="number" id="raceDistance" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceElevation" class="block text-green-700 mb-2">Dénivelé (m)</label>
+                    <input type="number" id="raceElevation" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceTime" class="block text-green-700 mb-2">Temps (hh:mm:ss)</label>
+                    <input type="text" id="raceTime" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="02:30:45" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceLocation" class="block text-green-700 mb-2">Lieu</label>
+                    <input type="text" id="raceLocation" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raceNotes" class="block text-green-700 mb-2">Notes</label>
+                    <textarea id="raceNotes" rows="3" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelBtn" class="px-4 py-2 text-gray-600 hover:text-gray-800 transition">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Race Details Modal -->
+<div id="detailsModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal">
+    <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
+    <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 z-10">
+        <div class="p-6">
+            <button id="closeDetailsBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 id="detailsTitle" class="text-2xl font-bold text-green-800 mb-2"></h3>
+            <p id="detailsDate" class="text-green-600 mb-4"></p>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="bg-green-50 p-3 rounded-lg">
+                    <p class="text-sm text-green-600">Distance</p>
+                    <p id="detailsDistance" class="font-semibold text-green-800"></p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg">
+                    <p class="text-sm text-green-600">Dénivelé</p>
+                    <p id="detailsElevation" class="font-semibold text-green-800"></p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg">
+                    <p class="text-sm text-green-600">Temps</p>
+                    <p id="detailsTime" class="font-semibold text-green-800"></p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg">
+                    <p class="text-sm text-green-600">Lieu</p>
+                    <p id="detailsLocation" class="font-semibold text-green-800"></p>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="text-sm text-green-600 mb-1">Notes</p>
+                <p id="detailsNotes" class="text-gray-700"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAQl3f8x9uafRTFIDvf6WtZPbjZtPbzU9M",
+        authDomain: "macollectiondecourses.firebaseapp.com",
+        projectId: "macollectiondecourses",
+        storageBucket: "macollectiondecourses.firebasestorage.app",
+        messagingSenderId: "749698169073",
+        appId: "1:749698169073:web:a3e784c97af0151eb49150"
+    };
+
+    // Initialiser Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Référence à Firestore
+    const db = firebase.firestore();
+    const racesCollection = db.collection('races');
+
+    // Charger les courses depuis Firebase
+    let races = [];
+
+    function loadRaces() {
+        racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><svg class="animate-spin h-10 w-10 text-green-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="mt-2 text-green-700">Chargement des courses...</p></div>';
+
+        racesCollection.get().then((querySnapshot) => {
+            races = [];
+            querySnapshot.forEach((doc) => {
+                races.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            // Générer les filtres d'années basés sur les données
+            generateYearFilters(races);
+            // Afficher toutes les courses
+            displayRaces(races);
+        }).catch((error) => {
+            console.error("Erreur lors du chargement des courses:", error);
+            racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><p class="text-red-600">Erreur lors du chargement des courses. Veuillez rafraîchir la page.</p></div>';
+        });
+    }
+
+    function generateYearFilters(races) {
+        const yearFiltersContainer = document.getElementById('yearFilters');
+        yearFiltersContainer.innerHTML = '';
+
+        // Toujours ajouter le filtre "Toutes"
+        const allFilter = document.createElement('button');
+        allFilter.className = 'year-filter px-3 py-1 rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition';
+        allFilter.dataset.year = 'all';
+        allFilter.textContent = 'Toutes';
+        allFilter.classList.add('bg-green-600', 'text-white');
+        yearFiltersContainer.appendChild(allFilter);
+
+        // Extraire les années uniques des courses
+        const years = [...new Set(races.map(race => {
+            const date = new Date(race.date);
+            return date.getFullYear();
+        }))];
+
+        // Trier les années par ordre décroissant (plus récentes d'abord)
+        years.sort((a, b) => b - a);
+
+        // Créer un bouton pour chaque année
+        years.forEach(year => {
+            const yearFilter = document.createElement('button');
+            yearFilter.className = 'year-filter px-3 py-1 rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition';
+            yearFilter.dataset.year = year.toString();
+            yearFilter.textContent = year.toString();
+            yearFiltersContainer.appendChild(yearFilter);
+        });
+
+        // Ajouter les écouteurs d'événements pour les nouveaux filtres
+        document.querySelectorAll('.year-filter').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.year-filter').forEach(btn =>
+                    btn.classList.remove('bg-green-600', 'text-white'));
+                button.classList.add('bg-green-600', 'text-white');
+                filterRacesByYear(button.dataset.year);
+            });
+        });
+    }
+
+    // DOM Elements
+    const racesContainer = document.getElementById('racesContainer');
+    const searchInput = document.getElementById('searchInput');
+    const addRaceBtn = document.getElementById('addRaceBtn');
+    const raceModal = document.getElementById('raceModal');
+    const detailsModal = document.getElementById('detailsModal');
+    const raceForm = document.getElementById('raceForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const closeDetailsBtn = document.getElementById('closeDetailsBtn');
+
+    // Display races
+    function displayRaces(racesToDisplay) {
+        racesContainer.innerHTML = '';
+
+        // Sort alphabetically
+        const sortedRaces = [...racesToDisplay].sort((a, b) => a.name.localeCompare(b.name));
+
+        sortedRaces.forEach(race => {
+            const raceDate = new Date(race.date);
+            const year = raceDate.getFullYear();
+
+            const raceCard = document.createElement('div');
+            raceCard.className = 'bg-white rounded-xl overflow-hidden shadow-md card-hover relative';
+            raceCard.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-green-800 mb-1">${race.name}</h3>
+                                <p class="text-green-600">${raceDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">${year}</span>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">${race.distance} km</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">+${race.elevation} m</span>
+                            </div>
+                            <button class="text-green-600 hover:text-green-800 transition" data-id="${race.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 flex space-x-2 opacity-0 hover:opacity-100 transition-opacity">
+                            <button class="edit-race p-1 bg-green-100 text-green-800 rounded-full hover:bg-green-200" data-id="${race.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </button>
+                            <button class="delete-race p-1 bg-red-100 text-red-800 rounded-full hover:bg-red-200" data-id="${race.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+            racesContainer.appendChild(raceCard);
+
+            // Add event listener for details
+            raceCard.querySelector('button[data-id]').addEventListener('click', () => showRaceDetails(race.id));
+
+            // Add event listeners for edit and delete
+            const editBtn = raceCard.querySelector('.edit-race');
+            const deleteBtn = raceCard.querySelector('.delete-race');
+
+            editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                editRace(race.id);
+            });
+
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteRace(race.id);
+            });
+        });
+    }
+
+    // Show race details
+    function showRaceDetails(id) {
+        const race = races.find(r => r.id === id);
+        if (!race) return;
+
+        const raceDate = new Date(race.date);
+
+        document.getElementById('detailsTitle').textContent = race.name;
+        document.getElementById('detailsDate').textContent = raceDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('detailsDistance').textContent = `${race.distance} km`;
+        document.getElementById('detailsElevation').textContent = `${race.elevation} m D+`;
+        document.getElementById('detailsTime').textContent = race.time;
+        document.getElementById('detailsLocation').textContent = race.location;
+        document.getElementById('detailsNotes').textContent = race.notes || 'Aucune note pour cette course.';
+
+        detailsModal.classList.remove('hidden');
+    }
+
+    // Add new race
+    function addRace() {
+        modalTitle.textContent = 'Ajouter une course';
+        raceForm.reset();
+        document.getElementById('raceId').value = '';
+        raceModal.classList.remove('hidden');
+    }
+
+    // Edit race
+    function editRace(id) {
+        const race = races.find(r => r.id === id);
+        if (!race) return;
+
+        modalTitle.textContent = 'Modifier la course';
+        document.getElementById('raceId').value = race.id;
+        document.getElementById('raceName').value = race.name;
+        document.getElementById('raceDate').value = race.date;
+        document.getElementById('raceDistance').value = race.distance;
+        document.getElementById('raceElevation').value = race.elevation;
+        document.getElementById('raceTime').value = race.time;
+        document.getElementById('raceLocation').value = race.location;
+        document.getElementById('raceNotes').value = race.notes || '';
+
+        raceModal.classList.remove('hidden');
+    }
+
+    // Supprimer une course
+    function deleteRace(id) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer cette course ?')) {
+            racesCollection.doc(id).delete()
+                .then(() => {
+                    loadRaces();
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de la suppression:", error);
+                    alert('Erreur lors de la suppression de la course.');
+                });
+        }
+    }
+
+    // Sauvegarder une course
+    function saveRace(e) {
+        e.preventDefault();
+
+        const id = document.getElementById('raceId').value;
+        const name = document.getElementById('raceName').value;
+        const date = document.getElementById('raceDate').value;
+        const distance = parseFloat(document.getElementById('raceDistance').value);
+        const elevation = parseInt(document.getElementById('raceElevation').value);
+        const time = document.getElementById('raceTime').value;
+        const location = document.getElementById('raceLocation').value;
+        const notes = document.getElementById('raceNotes').value;
+
+        if (!name || !date || isNaN(distance) || isNaN(elevation) || !time || !location) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            return;
+        }
+
+        const raceData = {
+            name,
+            date,
+            distance,
+            elevation,
+            time,
+            location,
+            notes
+        };
+
+        // Afficher un indicateur de chargement dans le bouton
+        const submitBtn = raceForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+        // Mettre à jour ou ajouter la course
+        let savePromise;
+
+        if (id) {
+            // Mise à jour
+            savePromise = racesCollection.doc(id).update(raceData);
+        } else {
+            // Ajout
+            savePromise = racesCollection.add(raceData);
+        }
+
+        savePromise
+            .then(() => {
+                // Actualiser la liste
+                loadRaces();
+                raceModal.classList.add('hidden');
+
+                // Réinitialiser le formulaire
+                raceForm.reset();
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la sauvegarde de la course:", error);
+                alert('Une erreur est survenue lors de la sauvegarde de la course.');
+            })
+            .finally(() => {
+                // Restaurer le bouton
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
+    }
+
+    // Filter races by year
+    function filterRacesByYear(year) {
+        if (year === 'all') {
+            displayRaces(races);
+            return;
+        }
+
+        const filteredRaces = races.filter(race => {
+            const raceDate = new Date(race.date);
+            return raceDate.getFullYear().toString() === year;
+        });
+
+        displayRaces(filteredRaces);
+    }
+
+    // Search races
+    function searchRaces(query) {
+        const filteredRaces = races.filter(race =>
+            race.name.toLowerCase().includes(query.toLowerCase()) ||
+            race.location.toLowerCase().includes(query.toLowerCase())
+        );
+
+        displayRaces(filteredRaces);
+    }
+
+    // Event listeners
+    addRaceBtn.addEventListener('click', addRace);
+    cancelBtn.addEventListener('click', () => raceModal.classList.add('hidden'));
+    closeDetailsBtn.addEventListener('click', () => detailsModal.classList.add('hidden'));
+    raceForm.addEventListener('submit', saveRace);
+
+    searchInput.addEventListener('input', (e) => {
+        searchRaces(e.target.value);
+    });
+
+    // Initialiser
+    loadRaces();
+</script>
+</body>
+</html>

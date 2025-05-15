@@ -32,6 +32,29 @@
         .blur-bg {
             backdrop-filter: blur(5px);
         }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-green-50 bg-opacity-90">
@@ -39,7 +62,7 @@
     <!-- Header -->
     <header class="flex flex-col md:flex-row justify-between items-center mb-8">
         <div>
-            <h1 class="text-3xl md:text-4xl font-bold text-green-800">Mes Courses Nature</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-green-800">📊 Carnet de courses</h1>
             <p id="statsText" class="text-green-600">Chargement des statistiques...</p>
         </div>
         <div class="mt-4 md:mt-0">
@@ -72,11 +95,11 @@
     </div>
 </div>
 
-<!-- Add/Edit Race Modal -->
+<!-- Modal d'ajout/édition -->
 <div id="raceModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal">
     <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
     <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 z-10">
-        <div class="p-6">
+        <div class="p-6 modal-content">
             <h3 id="modalTitle" class="text-2xl font-bold text-green-800 mb-4">Ajouter une course</h3>
             <form id="raceForm">
                 <input type="hidden" id="raceId">
@@ -108,6 +131,22 @@
                     <label for="raceNotes" class="block text-green-700 mb-2">Notes</label>
                     <textarea id="raceNotes" rows="3" class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
                 </div>
+                <div class="mb-4">
+                    <label for="racePhoto" class="block text-green-700 mb-2">Photo (optionnelle)</label>
+                    <div class="border-2 border-dashed border-green-300 rounded-lg p-4 text-center hover:border-green-500 transition">
+                        <input type="file" id="racePhoto" accept="image/*" class="hidden">
+                        <label for="racePhoto" class="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <p class="mt-1 text-sm text-green-600">Cliquez ou déposez une photo ici</p>
+                        </label>
+                        <div id="photoPreview" class="mt-3 hidden">
+                            <img id="previewImage" class="mx-auto max-h-40 rounded-lg" src="">
+                            <button type="button" id="removePhoto" class="mt-2 text-red-600 text-sm hover:text-red-800">Supprimer</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex justify-end space-x-3">
                     <button type="button" id="cancelBtn" class="px-4 py-2 text-gray-600 hover:text-gray-800 transition">Annuler</button>
                     <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Enregistrer</button>
@@ -117,11 +156,11 @@
     </div>
 </div>
 
-<!-- Race Details Modal -->
+<!-- Modal de détails -->
 <div id="detailsModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal">
     <div class="absolute inset-0 bg-black bg-opacity-50 blur-bg"></div>
     <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 z-10">
-        <div class="p-6">
+        <div class="p-6 modal-content">
             <button id="closeDetailsBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -152,6 +191,9 @@
             <div class="mb-4">
                 <p class="text-sm text-green-600 mb-1">Notes</p>
                 <p id="detailsNotes" class="text-gray-700"></p>
+            </div>
+            <div id="detailsPhotoContainer" class="mb-4 hidden">
+                <img id="detailsPhoto" class="w-full h-auto rounded-lg shadow-md" alt="Photo de la course">
             </div>
         </div>
     </div>
@@ -596,7 +638,7 @@
         });
     }
 
-    // Show race details
+    // Modifier la fonction showRaceDetails pour afficher la photo
     function showRaceDetails(id) {
         const race = races.find(r => r.id === id);
         if (!race) return;
@@ -610,6 +652,17 @@
         document.getElementById('detailsTime').textContent = race.time;
         document.getElementById('detailsLocation').textContent = race.location;
         document.getElementById('detailsNotes').textContent = race.notes || 'Aucune note pour cette course.';
+
+        // Gérer l'affichage de la photo
+        const photoContainer = document.getElementById('detailsPhotoContainer');
+        const photo = document.getElementById('detailsPhoto');
+
+        if (race.photo) {
+            photo.src = race.photo;
+            photoContainer.classList.remove('hidden');
+        } else {
+            photoContainer.classList.add('hidden');
+        }
 
         detailsModal.classList.remove('hidden');
     }
@@ -705,6 +758,31 @@
         raceModal.classList.remove('hidden');
     }
 
+    // Ajoutez cette fonction pour remplir le formulaire d'édition
+    function populateEditForm(raceId) {
+        const race = races.find(r => r.id === raceId);
+        if (!race) return;
+
+        document.getElementById('raceId').value = race.id;
+        document.getElementById('raceName').value = race.name;
+        document.getElementById('raceDate').value = race.date;
+        document.getElementById('raceDistance').value = race.distance;
+        document.getElementById('raceElevation').value = race.elevation;
+        document.getElementById('raceTime').value = race.time;
+        document.getElementById('raceLocation').value = race.location;
+        document.getElementById('raceNotes').value = race.notes || '';
+
+        // Gérer la photo existante
+        if (race.photo) {
+            photoData = race.photo;
+            previewImage.src = race.photo;
+            photoPreview.classList.remove('hidden');
+        } else {
+            photoData = null;
+            photoPreview.classList.add('hidden');
+        }
+    }
+
     // Sauvegarder une course
     function saveRace(e) {
         e.preventDefault();
@@ -732,6 +810,11 @@
             location,
             notes
         };
+
+        // Ajouter la photo seulement si elle existe
+        if (photoData) {
+            raceData.photo = photoData;
+        }
 
         // Afficher un indicateur de chargement dans le bouton
         const submitBtn = raceForm.querySelector('button[type="submit"]');
@@ -768,6 +851,80 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
             });
+    }
+
+    const racePhoto = document.getElementById('racePhoto');
+    const photoPreview = document.getElementById('photoPreview');
+    const previewImage = document.getElementById('previewImage');
+    const removePhoto = document.getElementById('removePhoto');
+    let photoData = null;
+
+    // Gestionnaire d'événement pour l'upload de photo
+    racePhoto.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoData = e.target.result; // Stocker les données de l'image
+                previewImage.src = e.target.result;
+                photoPreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Gestionnaire pour supprimer la photo
+    removePhoto.addEventListener('click', function() {
+        photoData = null;
+        racePhoto.value = '';
+        photoPreview.classList.add('hidden');
+    });
+
+    // Ajouter le support du glisser-déposer
+    const dropArea = document.querySelector('.border-dashed');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        dropArea.classList.add('border-green-500', 'bg-green-50');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('border-green-500', 'bg-green-50');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const file = dt.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            racePhoto.files = dt.files;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoData = e.target.result;
+                previewImage.src = e.target.result;
+                photoPreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     // Filter races by year

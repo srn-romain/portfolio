@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses à pied</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../../assets/img/favicon.png" rel="icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/heroicons@2.0.18/dist/24/outline/index.js"></script>
     <!-- Firebase SDK -->
@@ -39,7 +40,7 @@
     <header class="flex flex-col md:flex-row justify-between items-center mb-8">
         <div>
             <h1 class="text-3xl md:text-4xl font-bold text-green-800">Mes Courses Nature</h1>
-            <p class="text-green-600">Toutes mes aventures en pleine nature</p>
+            <p id="statsText" class="text-green-600">Chargement des statistiques...</p>
         </div>
         <div class="mt-4 md:mt-0">
             <button id="addRaceBtn" class="flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition">
@@ -156,6 +157,51 @@
     </div>
 </div>
 
+<!-- Modal Mot de passe -->
+<div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-gray-800">Authentification requise</h3>
+            <button id="closePasswordModal" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <p class="text-gray-600 mb-4">Veuillez entrer le mot de passe pour continuer</p>
+        <div class="mb-4">
+            <input type="password" id="passwordInput" class="w-full px-4 py-2 border rounded-lg" placeholder="Mot de passe">
+        </div>
+        <p id="passwordError" class="text-red-500 text-sm mb-4 hidden">Mot de passe incorrect</p>
+        <div class="flex justify-end space-x-3">
+            <button id="cancelAuthModal"
+                    class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                Annuler
+            </button>
+            <button id="confirmPassword"
+                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Confirmer
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div id="confirmDeleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold text-gray-800">Confirmation</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Êtes-vous sûr de vouloir supprimer cette course ?</p>
+        <div class="flex justify-end space-x-3">
+            <button id="cancelDelete" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                Annuler
+            </button>
+            <button id="confirmDelete" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Supprimer
+            </button>
+        </div>
+    </div>
+</div>
+
 <script>
     // Firebase configuration
     const firebaseConfig = {
@@ -196,6 +242,98 @@
             console.error("Erreur lors du chargement des courses:", error);
             racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><p class="text-red-600">Erreur lors du chargement des courses. Veuillez rafraîchir la page.</p></div>';
         });
+
+        racesCollection.get().then((querySnapshot) => {
+            races = [];
+            querySnapshot.forEach((doc) => {
+                races.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+
+            // Calculer et afficher les statistiques
+            updateStats(races);
+
+            // Générer les filtres d'années basés sur les données
+            generateYearFilters(races);
+
+            // Afficher toutes les courses
+            displayRaces(races);
+        }).catch((error) => {
+            console.error("Erreur lors du chargement des courses:", error);
+            racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><p class="text-red-600">Erreur lors du chargement des courses. Veuillez rafraîchir la page.</p></div>';
+        });
+    }
+
+    // Nouvelle fonction pour calculer et afficher les statistiques
+    function updateStats(racesData) {
+        // Initialiser les statistiques
+        let totalDistance = 0;
+        let totalElevation = 0;
+        let totalSeconds = 0;
+        const totalRaces = racesData.length;
+
+        // Calculer les totaux
+        racesData.forEach(race => {
+            totalDistance += parseFloat(race.distance) || 0;
+            totalElevation += parseInt(race.elevation) || 0;
+
+            // Convertir le temps (format hh:mm:ss) en secondes
+            if (race.time) {
+                const timeParts = race.time.split(':');
+                if (timeParts.length === 3) {
+                    const hours = parseInt(timeParts[0]) || 0;
+                    const minutes = parseInt(timeParts[1]) || 0;
+                    const seconds = parseInt(timeParts[2]) || 0;
+                    totalSeconds += hours * 3600 + minutes * 60 + seconds;
+                }
+            }
+        });
+
+        // Formater le temps total en heures et minutes
+        const totalHours = Math.floor(totalSeconds / 3600);
+        const remainingMinutes = Math.floor((totalSeconds % 3600) / 60);
+
+        // Arrondir la distance à 1 décimale
+        totalDistance = Math.round(totalDistance * 10) / 10;
+
+        // Mettre à jour le texte des statistiques
+        const statsElement = document.getElementById('statsText');
+        statsElement.innerHTML = `
+        <span class="font-semibold">${totalRaces}</span> courses |
+        <span class="font-semibold">${totalDistance}</span> km parcourus |
+        <span class="font-semibold">${totalElevation}</span> m de dénivelé |
+        <span class="font-semibold">${totalHours}h${remainingMinutes}</span> de course
+    `;
+    }
+
+    // Modifier la fonction filterRacesByYear pour mettre à jour les statistiques
+    function filterRacesByYear(year) {
+        if (year === 'all') {
+            updateStats(races);
+            displayRaces(races);
+            return;
+        }
+
+        const filteredRaces = races.filter(race => {
+            const raceDate = new Date(race.date);
+            return raceDate.getFullYear().toString() === year;
+        });
+
+        updateStats(filteredRaces);
+        displayRaces(filteredRaces);
+    }
+
+    // Modifier la fonction searchRaces pour mettre à jour les statistiques
+    function searchRaces(query) {
+        const filteredRaces = races.filter(race =>
+            race.name.toLowerCase().includes(query.toLowerCase()) ||
+            race.location.toLowerCase().includes(query.toLowerCase())
+        );
+
+        updateStats(filteredRaces);
+        displayRaces(filteredRaces);
     }
 
     function generateYearFilters(races) {
@@ -249,6 +387,132 @@
     const modalTitle = document.getElementById('modalTitle');
     const cancelBtn = document.getElementById('cancelBtn');
     const closeDetailsBtn = document.getElementById('closeDetailsBtn');
+    const passwordModal = document.getElementById('passwordModal');
+    const closePasswordModal = document.getElementById('closePasswordModal');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    const passwordHash = '7cfae86dbdef5b6712ca464daaa4a65fb1c528cc45d4473360b8e9b344c0d67e';
+    // Références pour le modal de confirmation de suppression
+    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+    const cancelDelete = document.getElementById('cancelDelete');
+    const confirmDelete = document.getElementById('confirmDelete');
+    let raceIdToDelete = null;
+
+    // Gérer l'événement de clic sur le bouton d'ajout
+    addRaceBtn.addEventListener('click', () => {
+        showPasswordModal('add');
+    });
+
+    // Fonction pour afficher le modal de confirmation de suppression
+    function showConfirmDeleteModal(raceId) {
+        raceIdToDelete = raceId;
+        confirmDeleteModal.classList.remove('hidden');
+    }
+
+    // Gestionnaire pour annuler la suppression
+    cancelDelete.addEventListener('click', () => {
+        confirmDeleteModal.classList.add('hidden');
+        raceIdToDelete = null;
+    });
+
+    // Gestionnaire pour confirmer la suppression
+    confirmDelete.addEventListener('click', () => {
+        if (raceIdToDelete) {
+            // Afficher un indicateur de chargement
+            confirmDelete.disabled = true;
+            confirmDelete.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+            racesCollection.doc(raceIdToDelete).delete()
+                .then(() => {
+                    loadRaces();
+                    confirmDeleteModal.classList.add('hidden');
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de la suppression:", error);
+                    alert('Erreur lors de la suppression de la course.');
+                })
+                .finally(() => {
+                    confirmDelete.disabled = false;
+                    confirmDelete.textContent = 'Supprimer';
+                    raceIdToDelete = null;
+                });
+        }
+    });
+
+    // Fonction de hashage SHA-256
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
+
+    // Fermer le modal de mot de passe
+    closePasswordModal.addEventListener('click', () => {
+        passwordModal.classList.add('hidden');
+        passwordInput.value = '';
+        passwordError.classList.add('hidden');
+    });
+
+    // Confirmer le mot de passe
+    // Confirmer le mot de passe pour toutes les actions protégées
+    confirmPassword.addEventListener('click', async function () {
+        const inputHash = await sha256(passwordInput.value);
+
+        if (inputHash === passwordHash) {
+            passwordModal.classList.add('hidden');
+            passwordInput.value = '';
+            passwordError.classList.add('hidden');
+
+            // Récupérer le contexte et l'ID de la course si applicable
+            const context = passwordModal.dataset.context;
+            const raceId = passwordModal.dataset.raceId;
+
+            // Selon le contexte, ouvrir le bon modal
+            if (context === 'add') {
+                // Afficher le modal d'ajout de course
+                modalTitle.textContent = 'Ajouter une course';
+                raceForm.reset();
+                document.getElementById('raceId').value = '';
+                raceModal.classList.remove('hidden');
+                document.getElementById('raceName').focus();
+            }
+            else if (context === 'edit') {
+                // Charger et afficher le formulaire d'édition
+                const raceToEdit = races.find(r => r.id === raceId);
+                if (raceToEdit) {
+                    modalTitle.textContent = 'Modifier la course';
+                    document.getElementById('raceId').value = raceToEdit.id;
+                    document.getElementById('raceName').value = raceToEdit.name;
+                    document.getElementById('raceDate').value = raceToEdit.date;
+                    document.getElementById('raceDistance').value = raceToEdit.distance;
+                    document.getElementById('raceElevation').value = raceToEdit.elevation;
+                    document.getElementById('raceTime').value = raceToEdit.time;
+                    document.getElementById('raceLocation').value = raceToEdit.location;
+                    document.getElementById('raceNotes').value = raceToEdit.notes || '';
+
+                    raceModal.classList.remove('hidden');
+                    document.getElementById('raceName').focus();
+                }
+            }
+            else if (context === 'delete' && raceId) {
+                showConfirmDeleteModal(raceId);
+            }
+        } else {
+            // Mot de passe incorrect
+            passwordError.classList.remove('hidden');
+            passwordInput.focus();
+        }
+    });
+
+    // Permettre la validation du mot de passe avec la touche Entrée
+    passwordInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            confirmPassword.click();
+        }
+    });
 
     // Display races
     function displayRaces(racesToDisplay) {
@@ -262,59 +526,71 @@
             const year = raceDate.getFullYear();
 
             const raceCard = document.createElement('div');
-            raceCard.className = 'bg-white rounded-xl overflow-hidden shadow-md card-hover relative';
+            raceCard.className = 'bg-white rounded-xl overflow-hidden shadow-md card-hover relative group cursor-pointer';
             raceCard.innerHTML = `
-                    <div class="p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xl font-bold text-green-800 mb-1">${race.name}</h3>
-                                <p class="text-green-600">${raceDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                            </div>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">${year}</span>
-                        </div>
-                        <div class="mt-4 flex justify-between items-center">
-                            <div class="flex space-x-2">
-                                <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">${race.distance} km</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">+${race.elevation} m</span>
-                            </div>
-                            <button class="text-green-600 hover:text-green-800 transition" data-id="${race.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="absolute top-4 right-4 flex space-x-2 opacity-0 hover:opacity-100 transition-opacity">
-                            <button class="edit-race p-1 bg-green-100 text-green-800 rounded-full hover:bg-green-200" data-id="${race.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                </svg>
-                            </button>
-                            <button class="delete-race p-1 bg-red-100 text-red-800 rounded-full hover:bg-red-200" data-id="${race.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl font-bold text-green-800 mb-1">${race.name}</h3>
+                        <p class="text-green-600">${raceDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                     </div>
-                `;
+                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">${year}</span>
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div class="flex space-x-2">
+                        <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">${race.distance} km</span>
+                        <span class="px-2 py-1 bg-green-50 text-green-800 text-xs rounded-full">+${race.elevation} m</span>
+                    </div>
+                    <button class="details-btn text-green-600 hover:text-green-800 transition" data-id="${race.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button class="edit-race p-1 bg-green-100 text-green-800 rounded-full hover:bg-green-200" data-id="${race.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </button>
+                    <button class="delete-race p-1 bg-red-100 text-red-800 rounded-full hover:bg-red-200" data-id="${race.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `;
 
             racesContainer.appendChild(raceCard);
 
-            // Add event listener for details
-            raceCard.querySelector('button[data-id]').addEventListener('click', () => showRaceDetails(race.id));
+            // Rendre toute la carte cliquable
+            raceCard.addEventListener('click', (e) => {
+                // Ne pas déclencher si on clique sur les boutons d'édition/suppression
+                if (!e.target.closest('.edit-race') && !e.target.closest('.delete-race')) {
+                    showRaceDetails(race.id);
+                }
+            });
 
-            // Add event listeners for edit and delete
+            // Ajouter un écouteur d'événement pour le bouton détails
+            const detailsBtn = raceCard.querySelector('.details-btn');
+            detailsBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Évite de déclencher l'événement de la carte
+                showRaceDetails(race.id);
+            });
+
+            // Ajouter des écouteurs d'événements pour éditer et supprimer
             const editBtn = raceCard.querySelector('.edit-race');
             const deleteBtn = raceCard.querySelector('.delete-race');
 
             editBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                editRace(race.id);
+                e.stopPropagation(); // Empêche le déclenchement du clic sur la carte
+                showPasswordModal('edit', race.id);
             });
 
             deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                deleteRace(race.id);
+                e.stopPropagation(); // Empêche le déclenchement du clic sur la carte
+                showPasswordModal('delete', race.id);
             });
         });
     }
@@ -337,44 +613,95 @@
         detailsModal.classList.remove('hidden');
     }
 
+    // Fonction pour afficher le modal de mot de passe avec différents contextes
+    function showPasswordModal(context, raceId = null) {
+        passwordModal.dataset.context = context;
+        if (raceId) {
+            passwordModal.dataset.raceId = raceId;
+        } else {
+            passwordModal.dataset.raceId = '';
+        }
+        passwordModal.classList.remove('hidden');
+        passwordInput.value = '';
+        passwordError.classList.add('hidden');
+        passwordInput.focus();
+    }
+
+    // Confirmer le mot de passe pour toutes les actions protégées
+    confirmPassword.addEventListener('click', async () => {
+        // Comparer le hash du mot de passe saisi avec le hash stocké
+        const inputHash = await sha256(passwordInput.value);
+
+        if (inputHash === passwordHash) {
+            // Mot de passe correct
+            passwordModal.classList.add('hidden');
+            passwordInput.value = '';
+            passwordError.classList.add('hidden');
+
+            // Récupérer le contexte et l'ID de la course si applicable
+            const context = passwordModal.dataset.context;
+            const raceId = passwordModal.dataset.raceId;
+
+            // Exécuter l'action appropriée selon le contexte
+            switch (context) {
+                case 'add':
+                    // Afficher le modal d'ajout de course
+                    modalTitle.textContent = 'Ajouter une course';
+                    raceForm.reset();
+                    document.getElementById('raceId').value = '';
+                    raceModal.classList.remove('hidden');
+                    document.getElementById('raceName').focus();
+                    break;
+                case 'edit':
+                    // Charger et afficher le formulaire d'édition
+                    const raceToEdit = races.find(r => r.id === raceId);
+                    if (raceToEdit) {
+                        modalTitle.textContent = 'Modifier la course';
+                        document.getElementById('raceId').value = raceToEdit.id;
+                        document.getElementById('raceName').value = raceToEdit.name;
+                        document.getElementById('raceDate').value = raceToEdit.date;
+                        document.getElementById('raceDistance').value = raceToEdit.distance;
+                        document.getElementById('raceElevation').value = raceToEdit.elevation;
+                        document.getElementById('raceTime').value = raceToEdit.time;
+                        document.getElementById('raceLocation').value = raceToEdit.location;
+                        document.getElementById('raceNotes').value = raceToEdit.notes || '';
+
+                        raceModal.classList.remove('hidden');
+                        document.getElementById('raceName').focus();
+                    }
+                    break;
+                case 'delete':
+                    // Supprimer la course
+                    if (raceId) {
+                        // On n'utilise pas confirm() ici, on va afficher notre propre modal
+                        showConfirmDeleteModal(raceId);
+                    }
+                    break;
+            }
+        } else {
+            // Mot de passe incorrect
+            passwordError.classList.remove('hidden');
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    });
+
+    // Référence au bouton d'annulation d'authentification
+    const cancelAuthModal = document.getElementById('cancelAuthModal');
+
+    // Gestionnaire d'événements pour annuler l'authentification
+    cancelAuthModal.addEventListener('click', function() {
+        passwordModal.classList.add('hidden');
+        passwordInput.value = '';
+        passwordError.classList.add('hidden');
+    });
+
     // Add new race
     function addRace() {
         modalTitle.textContent = 'Ajouter une course';
         raceForm.reset();
         document.getElementById('raceId').value = '';
         raceModal.classList.remove('hidden');
-    }
-
-    // Edit race
-    function editRace(id) {
-        const race = races.find(r => r.id === id);
-        if (!race) return;
-
-        modalTitle.textContent = 'Modifier la course';
-        document.getElementById('raceId').value = race.id;
-        document.getElementById('raceName').value = race.name;
-        document.getElementById('raceDate').value = race.date;
-        document.getElementById('raceDistance').value = race.distance;
-        document.getElementById('raceElevation').value = race.elevation;
-        document.getElementById('raceTime').value = race.time;
-        document.getElementById('raceLocation').value = race.location;
-        document.getElementById('raceNotes').value = race.notes || '';
-
-        raceModal.classList.remove('hidden');
-    }
-
-    // Supprimer une course
-    function deleteRace(id) {
-        if (confirm('Êtes-vous sûr de vouloir supprimer cette course ?')) {
-            racesCollection.doc(id).delete()
-                .then(() => {
-                    loadRaces();
-                })
-                .catch((error) => {
-                    console.error("Erreur lors de la suppression:", error);
-                    alert('Erreur lors de la suppression de la course.');
-                });
-        }
     }
 
     // Sauvegarder une course
@@ -467,9 +794,15 @@
         displayRaces(filteredRaces);
     }
 
+    // Écouteur pour le bouton Annuler
+    cancelBtn.addEventListener('click', () => {
+        // Fermer le modal
+        raceModal.classList.add('hidden');
+        // Réinitialiser le formulaire
+        raceForm.reset();
+    });
+
     // Event listeners
-    addRaceBtn.addEventListener('click', addRace);
-    cancelBtn.addEventListener('click', () => raceModal.classList.add('hidden'));
     closeDetailsBtn.addEventListener('click', () => detailsModal.classList.add('hidden'));
     raceForm.addEventListener('submit', saveRace);
 

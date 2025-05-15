@@ -276,23 +276,6 @@
                     ...doc.data()
                 });
             });
-            // Générer les filtres d'années basés sur les données
-            generateYearFilters(races);
-            // Afficher toutes les courses
-            displayRaces(races);
-        }).catch((error) => {
-            console.error("Erreur lors du chargement des courses:", error);
-            racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><p class="text-red-600">Erreur lors du chargement des courses. Veuillez rafraîchir la page.</p></div>';
-        });
-
-        racesCollection.get().then((querySnapshot) => {
-            races = [];
-            querySnapshot.forEach((doc) => {
-                races.push({
-                    id: doc.id,
-                    ...doc.data()
-                });
-            });
 
             // Calculer et afficher les statistiques
             updateStats(races);
@@ -435,7 +418,6 @@
     const passwordInput = document.getElementById('passwordInput');
     const passwordError = document.getElementById('passwordError');
     const passwordHash = '7cfae86dbdef5b6712ca464daaa4a65fb1c528cc45d4473360b8e9b344c0d67e';
-    // Références pour le modal de confirmation de suppression
     const confirmDeleteModal = document.getElementById('confirmDeleteModal');
     const cancelDelete = document.getElementById('cancelDelete');
     const confirmDelete = document.getElementById('confirmDelete');
@@ -499,7 +481,6 @@
     });
 
     // Confirmer le mot de passe
-    // Confirmer le mot de passe pour toutes les actions protégées
     confirmPassword.addEventListener('click', async function () {
         const inputHash = await sha256(passwordInput.value);
 
@@ -518,26 +499,23 @@
                 modalTitle.textContent = 'Ajouter une course';
                 raceForm.reset();
                 document.getElementById('raceId').value = '';
+
+                // Réinitialiser l'état de la photo
+                photoData = null;
+                photoPreview.classList.add('hidden');
+
                 raceModal.classList.remove('hidden');
                 document.getElementById('raceName').focus();
             }
             else if (context === 'edit') {
-                // Charger et afficher le formulaire d'édition
-                const raceToEdit = races.find(r => r.id === raceId);
-                if (raceToEdit) {
-                    modalTitle.textContent = 'Modifier la course';
-                    document.getElementById('raceId').value = raceToEdit.id;
-                    document.getElementById('raceName').value = raceToEdit.name;
-                    document.getElementById('raceDate').value = raceToEdit.date;
-                    document.getElementById('raceDistance').value = raceToEdit.distance;
-                    document.getElementById('raceElevation').value = raceToEdit.elevation;
-                    document.getElementById('raceTime').value = raceToEdit.time;
-                    document.getElementById('raceLocation').value = raceToEdit.location;
-                    document.getElementById('raceNotes').value = raceToEdit.notes || '';
+                // Préparer le formulaire pour l'édition
+                modalTitle.textContent = 'Modifier la course';
 
-                    raceModal.classList.remove('hidden');
-                    document.getElementById('raceName').focus();
-                }
+                // Appeler la fonction de remplissage de formulaire
+                populateEditForm(raceId);
+
+                raceModal.classList.remove('hidden');
+                document.getElementById('raceName').focus();
             }
             else if (context === 'delete' && raceId) {
                 showConfirmDeleteModal(raceId);
@@ -681,65 +659,6 @@
         passwordInput.focus();
     }
 
-    // Confirmer le mot de passe pour toutes les actions protégées
-    confirmPassword.addEventListener('click', async () => {
-        // Comparer le hash du mot de passe saisi avec le hash stocké
-        const inputHash = await sha256(passwordInput.value);
-
-        if (inputHash === passwordHash) {
-            // Mot de passe correct
-            passwordModal.classList.add('hidden');
-            passwordInput.value = '';
-            passwordError.classList.add('hidden');
-
-            // Récupérer le contexte et l'ID de la course si applicable
-            const context = passwordModal.dataset.context;
-            const raceId = passwordModal.dataset.raceId;
-
-            // Exécuter l'action appropriée selon le contexte
-            switch (context) {
-                case 'add':
-                    // Afficher le modal d'ajout de course
-                    modalTitle.textContent = 'Ajouter une course';
-                    raceForm.reset();
-                    document.getElementById('raceId').value = '';
-                    raceModal.classList.remove('hidden');
-                    document.getElementById('raceName').focus();
-                    break;
-                case 'edit':
-                    // Charger et afficher le formulaire d'édition
-                    const raceToEdit = races.find(r => r.id === raceId);
-                    if (raceToEdit) {
-                        modalTitle.textContent = 'Modifier la course';
-                        document.getElementById('raceId').value = raceToEdit.id;
-                        document.getElementById('raceName').value = raceToEdit.name;
-                        document.getElementById('raceDate').value = raceToEdit.date;
-                        document.getElementById('raceDistance').value = raceToEdit.distance;
-                        document.getElementById('raceElevation').value = raceToEdit.elevation;
-                        document.getElementById('raceTime').value = raceToEdit.time;
-                        document.getElementById('raceLocation').value = raceToEdit.location;
-                        document.getElementById('raceNotes').value = raceToEdit.notes || '';
-
-                        raceModal.classList.remove('hidden');
-                        document.getElementById('raceName').focus();
-                    }
-                    break;
-                case 'delete':
-                    // Supprimer la course
-                    if (raceId) {
-                        // On n'utilise pas confirm() ici, on va afficher notre propre modal
-                        showConfirmDeleteModal(raceId);
-                    }
-                    break;
-            }
-        } else {
-            // Mot de passe incorrect
-            passwordError.classList.remove('hidden');
-            passwordInput.value = '';
-            passwordInput.focus();
-        }
-    });
-
     // Référence au bouton d'annulation d'authentification
     const cancelAuthModal = document.getElementById('cancelAuthModal');
 
@@ -758,7 +677,6 @@
         raceModal.classList.remove('hidden');
     }
 
-    // Ajoutez cette fonction pour remplir le formulaire d'édition
     function populateEditForm(raceId) {
         const race = races.find(r => r.id === raceId);
         if (!race) return;
@@ -772,13 +690,16 @@
         document.getElementById('raceLocation').value = race.location;
         document.getElementById('raceNotes').value = race.notes || '';
 
-        // Gérer la photo existante
+        // Réinitialiser d'abord la gestion de photos
+        photoData = null;
+        racePhoto.value = '';
+
+        // Vérifier si la course a une photo et l'afficher
         if (race.photo) {
-            photoData = race.photo;
+            photoData = race.photo; // Important : stocker l'image existante dans photoData
             previewImage.src = race.photo;
             photoPreview.classList.remove('hidden');
         } else {
-            photoData = null;
             photoPreview.classList.add('hidden');
         }
     }
@@ -825,11 +746,26 @@
         // Mettre à jour ou ajouter la course
         let savePromise;
 
+        // Dans la fonction saveRace
         if (id) {
-            // Mise à jour
+            // Si on modifie une course existante
+            const currentRace = races.find(r => r.id === id);
+
+            // Si photoData est null et qu'il y avait une photo avant, on retire la photo
+            if (photoData === null && currentRace && currentRace.photo) {
+                // On supprime explicitement la photo
+                raceData.photo = firebase.firestore.FieldValue.delete();
+            } else if (photoData) {
+                // Si une photo est fournie (nouvelle ou conservée), on l'utilise
+                raceData.photo = photoData;
+            }
+
             savePromise = racesCollection.doc(id).update(raceData);
         } else {
-            // Ajout
+            // Si on ajoute une nouvelle course
+            if (photoData) {
+                raceData.photo = photoData;
+            }
             savePromise = racesCollection.add(raceData);
         }
 
@@ -875,8 +811,9 @@
 
     // Gestionnaire pour supprimer la photo
     removePhoto.addEventListener('click', function() {
-        photoData = null;
+        photoData = null; // mettre à null pour indiquer la suppression
         racePhoto.value = '';
+        previewImage.src = '';
         photoPreview.classList.add('hidden');
     });
 

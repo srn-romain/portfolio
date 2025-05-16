@@ -536,10 +536,21 @@
 
     // Display races
     function displayRaces(racesToDisplay) {
-        racesContainer.innerHTML = '';
+        // Tri des courses par date (plus récentes en haut)
+        const sortedRaces = [...racesToDisplay].sort((a, b) => {
+            // Convertir les dates en objets Date pour la comparaison
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
 
-        // Sort alphabetically
-        const sortedRaces = [...racesToDisplay].sort((a, b) => a.name.localeCompare(b.name));
+            // Ordre décroissant (plus récent en premier)
+            return dateB - dateA;
+        });
+
+        if (sortedRaces.length === 0) {
+            racesContainer.innerHTML = '<div class="col-span-3 text-center py-12"><p class="text-gray-500">Aucune course trouvée</p></div>';
+            return;
+        }
+        racesContainer.innerHTML = '';
 
         sortedRaces.forEach(race => {
             const raceDate = new Date(race.date);
@@ -864,7 +875,7 @@
         }
     }
 
-    // Filter races by year
+    // Modifier la fonction filterRacesByYear
     function filterRacesByYear(year) {
         if (year === 'all') {
             displayRaces(races);
@@ -879,7 +890,7 @@
         displayRaces(filteredRaces);
     }
 
-    // Search races
+    // Modifier la fonction searchRaces
     function searchRaces(query) {
         const filteredRaces = races.filter(race =>
             race.name.toLowerCase().includes(query.toLowerCase()) ||

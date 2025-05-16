@@ -115,15 +115,19 @@
                         <h3>Information sur le parcours</h3>
                         <ul>
                             <li><strong>Date des expériences </strong>: Août 2021 - Aujourd'hui</li>
+                            <li><strong>Technologies utilisées</strong>: HTML5/CSS3, JavaScript & Bootstrap</li>
                         </ul>
 
                         <div class="button-group">
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="https://srn-romain.github.io/recap-bafa/" target="_blank" class="btn-app">
+                            <a href="https://srn-romain.github.io/recap-bafa/" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Voir l'application
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -147,6 +151,30 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Architecture web statique</b> : Structure HTML modulaire et optimisée pour la maintenabilité</li>
+                    <li><b>Design responsive</b> : Adaptation fluide à tous les formats d'écran avec media queries</li>
+                    <li><b>CSS </b> : Utilisation des fonctionnalités tel que les flexbox, grid & variables afin de permettre une mise en page flexible</li>
+                    <li><b>JavaScript vanilla</b> : Fonctionnalités interactives légères pour améliorer l'expérience utilisateur</li>
+                    <li><b>Optimisation SEO</b> : Structure sémantique et métadonnées pour un meilleur référencement naturel</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

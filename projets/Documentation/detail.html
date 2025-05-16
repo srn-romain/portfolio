@@ -111,16 +111,19 @@
                         <h3>Information sur le projet</h3>
                         <ul>
                             <li><strong>Date du Project</strong>: Mai 2023</li>
-                            <li><strong>Technologies utilisées</strong>: Word et C#</li>
+                            <li><strong>Technologies utilisées</strong>: C#</li>
                         </ul>
 
                         <div class="button-group">
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="doc.pdf" target="_blank" class="btn-app">
+                            <a href="doc.pdf" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Voir la documentation
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -139,6 +142,31 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Analyse technique</b> : Décomposition méthodique du langage C# et de ses fonctionnalités clés</li>
+                    <li><b>Documentation structurée</b> : Organisation hiérarchique des concepts avec progression logique</li>
+                    <li><b>Exemples de code</b> : Illustrations pratiques des concepts théoriques avec snippets optimisés</li>
+                    <li><b>Programmation orientée objet</b> : Focus sur les paradigmes OOP essentiels (héritage, encapsulation, polymorphisme)</li>
+                    <li><b>Architecture .NET</b> : Présentation de l'écosystème et de ses interactions avec le langage</li>
+                    <li><b>Bonnes pratiques</b> : Recommandations de développement pour un code maintenable et performant</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

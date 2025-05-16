@@ -121,6 +121,9 @@
                             <a href="ProjetGsbFraisLaravel.zip" download class="btn-download-spe">
                                 <i class="bi bi-download"></i> Télécharger <span class="file-size">689,8 Ko</span>
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -143,6 +146,31 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Architecture MVC</b> : Implémentation du pattern Model-View-Controller avec Laravel</li>
+                    <li><b>Système d'authentification</b> : Gestion sécurisée des rôles et permissions (visiteurs et comptables)</li>
+                    <li><b>ORM Eloquent</b> : Modélisation relationnelle et requêtes optimisées sur la base de données</li>
+                    <li><b>API REST</b> : Création d'endpoints pour la communication asynchrone avec le front-end</li>
+                    <li><b>Blade templating</b> : Conception de vues modulaires et réutilisables</li>
+                    <li><b>Validation des données</b> : Sécurisation des entrées utilisateur et gestion des erreurs</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

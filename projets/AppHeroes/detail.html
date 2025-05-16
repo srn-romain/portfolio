@@ -137,9 +137,12 @@
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="https://duel-de-hero-a72bf.web.app/" target="_blank" class="btn-app">
+                            <a href="https://duel-de-hero-a72bf.web.app/" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Voir l'application
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -169,6 +172,31 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Architecture MVC</b> : Organisation du code en composants avec séparation des responsabilités</li>
+                    <li><b>Services et injection de dépendances</b> : Gestion centralisée des données et des opérations</li>
+                    <li><b>Intégration Firebase</b> : Authentification et stockage de données en temps réel</li>
+                    <li><b>Routing Angular</b> : Navigation fluide entre les différentes vues de l'application</li>
+                    <li><b>Reactive Forms</b> : Validation et gestion avancée des formulaires</li>
+                    <li><b>RxJS</b> : Programmation réactive pour la gestion asynchrone des flux de données</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

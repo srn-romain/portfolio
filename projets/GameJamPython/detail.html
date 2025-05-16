@@ -149,6 +149,10 @@
                             <a href="presentation.pdf" download class="btn-app-spe" target="_blank">
                                 <i class="bi bi-file-earmark-pdf"></i> Présentation <span class="file-size">276,2 Ko</span>
                             </a>
+
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -176,6 +180,31 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Architecture logicielle</b> : Conception modulaire avec séparation client/serveur et patterns de jeu</li>
+                    <li><b>Programmation réseau</b> : Implémentation de communications TCP/IP pour le multijoueur en temps réel</li>
+                    <li><b>Développement PyGame</b> : Gestion des sprites, animations, collisions et moteur de jeu 2D</li>
+                    <li><b>Génération procédurale</b> : Algorithmes de création dynamique de labyrinthes évolutifs</li>
+                    <li><b>Gestion du temps réel</b> : Synchronisation des événements et mécaniques de jeu chronométrées</li>
+                    <li><b>Travail collaboratif</b> : Coordination avec une équipe pluridisciplinaire</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

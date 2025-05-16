@@ -116,16 +116,19 @@
                         <ul>
                             <li><strong>Date du projet</strong>: Novembre 2022</li>
                             <li><strong>Auteur</strong>: Romain SIEURIN</li>
-                            <li><strong>Technologies utilisées</strong>: HTML, CSS</li>
+                            <li><strong>Technologies utilisées</strong>: HTML5/CSS3 & Bootstrap</li>
                         </ul>
 
                         <div class="button-group">
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="https://stalwart-marzipan-31fceb.netlify.app/" target="_blank" class="btn-app">
+                            <a href="https://stalwart-marzipan-31fceb.netlify.app/" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Voir l'application
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -156,6 +159,30 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Structure HTML5 sémantique</b> : Organisation du contenu avec les balises appropriées pour l'accessibilité et le SEO</li>
+                    <li><b>CSS3 avancé</b> : Mise en page responsive avec flexbox et grid pour une adaptation à tous les appareils</li>
+                    <li><b>Optimisation des médias</b> : Traitement et intégration efficace des images pour améliorer les performances</li>
+                    <li><b>Navigation intuitive</b> : Architecture de l'information avec catégorisation claire des recettes</li>
+                    <li><b>Déploiement web</b> : Mise en ligne sur Netlify avec configuration d'un domaine</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

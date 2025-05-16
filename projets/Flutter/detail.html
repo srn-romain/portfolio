@@ -122,9 +122,12 @@
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="app/index.html" target="_blank" class="btn-app">
+                            <a href="app/index.html" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Jouer au démineur
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -154,6 +157,30 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Programmation Dart</b> : Application des concepts POO avancés et gestion d'état efficace</li>
+                    <li><b>Architecture Flutter</b> : Conception modulaire avec séparation des préoccupations (UI, logique, données)</li>
+                    <li><b>Gestion d'état</b> : Implémentation de patterns Observer/Provider pour la réactivité de l'interface</li>
+                    <li><b>Persistance des données</b> : Stockage local des scores et préférences utilisateur</li>
+                    <li><b>Animations et transitions</b> : Expérience utilisateur fluide avec animations personnalisées</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

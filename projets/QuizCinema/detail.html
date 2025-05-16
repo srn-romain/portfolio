@@ -119,16 +119,19 @@
                         <h3>Information sur le projet</h3>
                         <ul>
                             <li><strong>Date du Projet</strong>: Décembre 2024</li>
-                            <li><strong>Technologies utilisées</strong>: IA, HTML, CSS & JavaScript</li>
+                            <li><strong>Technologies utilisées</strong>: HTML5/CSS3 & JavaScript</li>
                         </ul>
 
                         <div class="button-group">
                             <button class="btn-back" onclick="history.back()">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </button>
-                            <a href="app/index.html" target="_blank" class="btn-app">
+                            <a href="app/index.html" target="_blank" class="btn-app-spe-doc">
                                 <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz
                             </a>
+                            <button class="btn-docs" onclick="openDocsModal()">
+                                <i class="bi bi-file-text"></i> Documentation technique
+                            </button>
                         </div>
                     </div>
                     <div class="portfolio-description">
@@ -153,6 +156,32 @@
     </section><!-- End Portfolio Details Section -->
 
 </main><!-- End #main -->
+
+<!-- Modal pour la documentation technique -->
+<div id="docsModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentation technique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>JavaScript avancé</b> : Manipulation dynamique du DOM et gestion d'états avec des patterns modernes</li>
+                    <li><b>Architecture modulaire</b> : Organisation du code en composants réutilisables et maintenables</li>
+                    <li><b>LocalStorage API</b> : Persistance des données utilisateur et des scores entre les sessions</li>
+                    <li><b>Animations CSS</b> : Transitions fluides et retours visuels pour une expérience utilisateur engageante</li>
+                    <li><b>Responsive design</b> : Interface adaptative pour une utilisation optimale sur tous les appareils</li>
+                    <li><b>Système de génération PDF</b> : Fonctionnalité d'export des résultats pour partage</li>
+                    <li><b>Architecture SPA</b> : Application monopage avec navigation dynamique sans rechargement de page</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer">

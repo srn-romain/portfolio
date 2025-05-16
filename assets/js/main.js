@@ -322,3 +322,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+/*--------------------------------------------------------------
+#  Modale documentation technique
+--------------------------------------------------------------*/
+function openDocsModal() {
+  const myModal = new bootstrap.Modal(document.getElementById('docsModal'));
+  myModal.show();
+};

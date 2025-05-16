@@ -640,7 +640,15 @@
         document.getElementById('detailsElevation').textContent = `${race.elevation} m D+`;
         document.getElementById('detailsTime').textContent = race.time;
         document.getElementById('detailsLocation').textContent = race.location;
-        document.getElementById('detailsNotes').textContent = race.notes || 'Aucune note pour cette course.';
+
+        // Gérer l'affichage des notes
+        const notesSection = document.querySelector('#detailsModal .mb-4:has(#detailsNotes)');
+        if (race.notes && race.notes.trim() !== '') {
+            notesSection.classList.remove('hidden');
+            document.getElementById('detailsNotes').textContent = race.notes;
+        } else {
+            notesSection.classList.add('hidden');
+        }
 
         // Gérer l'affichage de la photo
         const photoContainer = document.getElementById('detailsPhotoContainer');

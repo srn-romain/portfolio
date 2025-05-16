@@ -1199,6 +1199,7 @@ tr:nth-child(even) {
   padding: 10px 15px;
   border-radius: 5px;
   text-decoration: none;
+  justify-content: center;
   font-weight: 600;
   display: inline-flex;
   align-items: center;

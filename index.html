@@ -29,26 +29,25 @@
 </head>
 
   <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-
+<button class="bi bi-list mobile-nav-toggle d-xl-none" aria-label="Ouvrir le menu"></button>
   <!-- ======= Header ======= -->
-  <header id="header">
+  <header id="header" role="banner">
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/avatar.jpeg" alt="" class="img-fluid square">
+        <img src="assets/img/avatar.jpeg" alt="Photo de profil de Romain SIEURIN" class="img-fluid square">
         <h1 class="text-light"><a href="index.html">Romain SIEURIN</a></h1>
         <p class="bio-description">Étudiant en 3ième année de BUT Informatique | Alternant chez G2S</p>
         <p class="location"><i class="bi bi-geo-alt"></i><a href="https://maps.app.goo.gl/Nqpyoe8KmxmHMswDA" class="locationbio"> Lyon</a> &nbsp;/&nbsp;<a href="https://maps.app.goo.gl/UsTE7nGfjCzLA7VE7"  class="locationbio"> Grenoble </a></p>
         <div class="social-links mt-3 text-center">
-          <a href="mailto:romain.sieurin@etu.univ-grenoble-alpes.fr" class="email" target="_blank"><i class="bx bx-envelope"></i></a>
-          <a href="https://github.com/srn-romain" class="github" target="_blank"><i class="bx bxl-github"></i></a>
-          <a href="https://www.linkedin.com/in/romain-sieurin/" class="linkedin" target="_blank"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://stackoverflow.com/users/22588074/srn-romain" class="stack-overflow" target="_blank"><i class="bx bxl-stack-overflow"></i></a>
+          <a href="mailto:romain.sieurin@etu.univ-grenoble-alpes.fr" class="email" target="_blank" aria-label="Envoyer un email à Romain"><i class="bx bx-envelope" aria-hidden="true"></i></a>
+          <a href="https://github.com/srn-romain" class="github" target="_blank" aria-label="Profil github de Romain"><i class="bx bxl-github"></i></a>
+          <a href="https://www.linkedin.com/in/romain-sieurin/" class="linkedin" target="_blank" aria-label="Profil linkedin de Romain"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://stackoverflow.com/users/22588074/srn-romain" class="stack-overflow" target="_blank" aria-label="Profil stack overflow de Romain"><i class="bx bxl-stack-overflow"></i></a>
         </div>
       </div>
 
-      <nav id="navbar" class="nav-menu navbar">
+      <nav id="navbar" class="nav-menu navbar" role="navigation">
         <ul>
           <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Accueil</span></a></li>
           <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>À propos de moi</span></a></li>
@@ -80,7 +79,7 @@
     </div>
   </section><!-- End Hero -->
 <body>
-  <main id="main">
+  <main id="main" role="main">
 
     <section id="about" class="about">
       <div class="container">
@@ -204,10 +203,10 @@
         <div class="row" data-aos="fade-up">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">Tous les projets</li>
-              <li data-filter=".filter-entre">Entreprise</li>
-              <li data-filter=".filter-form">Formation</li>
-              <li data-filter=".filter-perso">Perso</li>
+              <li data-filter="*" class="filter-active" aria-selected="true">Tous les projets</li>
+              <li data-filter=".filter-entre" aria-selected="false">Entreprise</li>
+              <li data-filter=".filter-form" aria-selected="false">Formation</li>
+              <li data-filter=".filter-perso" aria-selected="false">Perso</li>
             </ul>
           </div>
         </div>
@@ -216,7 +215,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/RepertoireCourse/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo16.png" class="img-fluid zoomable" alt="">
+                <img src="assets/img/projets/Photo16.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Répertoire Courses">
               <div class="portfolio-info">
                 <h4>Répertoire Courses</h4>
                 <p>Projet Perso</p>
@@ -227,7 +226,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/G2S/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo0.jpg" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo0.jpg" class="img-fluid zoomable" aria-label="Voir les détails du projet G2S">
               <div class="portfolio-info">
                 <h4>Alternance 3ieme année BUT</h4>
                 <p>Groupama Supports & Services</p>
@@ -238,7 +237,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/Bafa/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo11.jpeg" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo11.jpeg" class="img-fluid zoomable" aria-label="Voir les détails du projet Bafa">
               <div class="portfolio-info">
                 <h4>Animation BAFA & BAFD</h4>
                 <p>Projet Perso</p>
@@ -249,7 +248,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/Flutter/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo15.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo15.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Flutter">
               <div class="portfolio-info">
                 <h4>Flutter</h4>
                 <p>Université Grenoble Alpes</p>
@@ -260,7 +259,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/WebGL/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo1.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo1.png" class="img-fluid zoomable" aria-label="Voir les détails du projet WebGL">
               <div class="portfolio-info">
                 <h4>Visualisation 3D</h4>
                 <p>Université Grenoble Alpes</p>
@@ -271,7 +270,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/QuizCinema/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo13.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo13.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Quiz Cinema">
               <div class="portfolio-info">
                 <h4>Quiz Cinéma</h4>
                 <p>Projet Perso</p>
@@ -282,7 +281,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/AppHeroes/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo2.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo2.png" class="img-fluid zoomable" aria-label="Voir les détails du projet App Heroes">
               <div class="portfolio-info">
                 <h4>Tower Of Heroes</h4>
                 <p>Université Grenoble Alpes</p>
@@ -293,7 +292,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GameJamPython/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo3.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo3.png" class="img-fluid zoomable" aria-label="Voir les détails du projet GameJam Python">
               <div class="portfolio-info">
                 <h4>Game Jam 2024 - Explorace</h4>
                 <p>Université Grenoble Alpes</p>
@@ -304,7 +303,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-perso" onclick="window.location='projets/RepertoireSerie/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo14.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo14.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Repertoire Serie">
               <div class="portfolio-info">
                 <h4>Répertoire Série</h4>
                 <p>Projet Perso</p>
@@ -315,7 +314,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Azenn/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo4.jpeg" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo4.jpeg" class="img-fluid zoomable" aria-label="Voir les détails du projet Azenn">
               <div class="portfolio-info">
                 <h4>Stage 2eme année BTS</h4>
                 <p>Exertis Azenn</p>
@@ -326,7 +325,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/GSB/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo5.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo5.png" class="img-fluid zoomable" aria-label="Voir les détails du projet GSB">
               <div class="portfolio-info">
                 <h4>Projet GSB</h4>
                 <p>BTS sio</p>
@@ -337,7 +336,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/BookMesVacs/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo6.jpeg" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo6.jpeg" class="img-fluid zoomable" aria-label="Voir les détails du projet BookMesVacs">
               <div class="portfolio-info">
                 <h4>Projet BookMesVacs</h4>
                 <p>BTS sio</p>
@@ -348,7 +347,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/Norsys/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo7.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo7.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Norsys">
               <div class="portfolio-info">
                 <h4>Stage 1ere année BTS</h4>
                 <p>Norsys</p>
@@ -359,7 +358,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/Documentation/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo8.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo8.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Documentation c#">
               <div class="portfolio-info">
                 <h4>Documentation technique C#</h4>
                 <p>BTS sio</p>
@@ -370,7 +369,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-form" onclick="window.location='projets/FruitsLegumes/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo9.png" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo9.png" class="img-fluid zoomable" aria-label="Voir les détails du projet Fruits & Legumes">
               <div class="portfolio-info">
                 <h4>Recettes & Cie</h4>
                 <p>BTS sio</p>
@@ -381,7 +380,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-entre" onclick="window.location='projets/StageTroisieme/detail.html';" style="cursor: pointer;">
             <div class="portfolio-wrap">
-              <img src="assets/img/projets/Photo12.jpg" class="img-fluid zoomable" alt="">
+              <img src="assets/img/projets/Photo12.jpg" class="img-fluid zoomable" aria-label="Voir les détails du projet Stage Troisieme">
               <div class="portfolio-info">
                 <h4>Stage de Troisième</h4>
                 <p>Inetum</p>
@@ -526,7 +525,7 @@
               <!-- Modale 1 -->
               <div id="modal1" class="modalspe">
                 <div class="modal__contentspe">
-                  <button class="modal__closespe">&times;</button>
+                  <button class="modal__closespe" aria-label="Fermer la fenêtre">&times;</button>
                   <h2 style="color: #a6d866;">Liste de toutes mes expériences BAFA</h2>
                   <p><i>Cliquez sur le lieu avec votre souris pour l'ouvrir dans Google map et sur le logo ou le nom de l'organisme pour en savoir davantage.</i><br>
                   <div id="mobile-message">Le tableau est réduit. Faites défiler horizontalement pour voir l'intégralité du contenu</div></p>
@@ -1031,13 +1030,13 @@
           <button class="btn-cv">Télécharger mon CV</button>
         </a>
       </div>
-      
+
     </section><!-- End Resume Section -->
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <footer id="footer" role="contentinfo">
     <div class="container">
 
       <div class="credits">
@@ -1055,7 +1054,9 @@
     </div>
   </footer><!-- End  Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center" aria-label="Retour en haut de la page">
+    <i class="bi bi-arrow-up-short" aria-hidden="true"></i>
+  </a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -1071,6 +1072,6 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <!-- Licensing information: https://bootstrapmade.com/license/ -->
-  
+
 </body>
 </html>

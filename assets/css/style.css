@@ -1098,30 +1098,6 @@ tr:nth-child(even) {
   color: white;
 }
 
-.btn-back {
-  background-color: #80c057;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-back i {
-  margin-right: 8px;
-}
-
-.btn-back:hover {
-  background-color: #a6d866;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .btn-app-indispo {
   background-color: #aaa;
   color: white;
@@ -1163,166 +1139,142 @@ tr:nth-child(even) {
 
 .button-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-.btn-back-spe {
-  background-color: #50644c;
-  color: white;
+.button-group button,
+.button-group a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 15px;
   border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-group i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.btn-back {
+  background-color: rgb(128, 192, 87);
+  color: white;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  transition: all 0.3s ease;
-  border: none;
   cursor: pointer;
-  flex: 1;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
 }
 
-.btn-back-spe i {
-  margin-right: 8px;
-}
-
-.btn-back-spe:hover {
+.btn-back:hover {
   background-color: #a6d866;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-docs {
+  background-color: #173b6c;
+}
+
+.btn-docs:hover {
+  background-color: #2a5998;
+  transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-app-spe-doc {
   background-color: #f39c12;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
   justify-content: center;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  flex: 1;
-}
-
-.btn-app-spe-doc i {
-  margin-right: 8px;
 }
 
 .btn-app-spe-doc:hover {
   background-color: #e67e00;
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: white;
 }
 
 .btn-download-spe {
   background-color: #80c057;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  flex: 1;
-}
-
-.btn-download-spe i {
-  margin-right: 8px;
+  justify-content: space-between;
 }
 
 .btn-download-spe:hover {
   background-color: #a6d866;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-size {
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-left: 5px;
+  font-weight: normal;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .btn-app-spe {
   background-color: #f39c12;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 5px;
-}
-
-.btn-app-spe i {
-  margin-right: 8px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .btn-app-spe:hover {
   background-color: #e67e00;
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: white;
 }
 
-.file-size {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  margin-left: 5px;
-  font-weight: normal;
+.button-group button,
+.button-group a {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
-.btn-docs {
-  background-color: #173b6c;
-  color: #fff;
-  padding: 8px 25px;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  transition: 0.3s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 5px;
+.btn-back,
+.btn-docs,
+.btn-app-spe-doc,
+.btn-download-spe,
+.btn-app-spe,
+.btn-app,
+.btn-app-indispo,
+.btn-back-spe {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
-.btn-docs:hover {
-  background-color: #2a5998;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: white;
-}
-
-.btn-docs i {
-  margin-right: 8px;
-}
-
-@media (max-width: 576px) {
+@media (min-width: 768px) {
   .button-group {
-    flex-direction: column;
+    margin-top: 25px;
   }
 
-  .btn-back, .btn-download, .btn-app, .btn-app-indispo,
-  .btn-back, .btn-download-spe, .btn-app-spe {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .file-size {
-    display: inline-block;
+  .button-group button,
+  .button-group a {
+    font-size: 16px;
+    padding: 12px 18px;
+    font-weight:700;
   }
 }
 

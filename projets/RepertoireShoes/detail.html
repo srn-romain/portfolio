@@ -138,17 +138,16 @@
                         <h2>Quelques mots sur le projet</h2>
                         <p>
                             Mon projet est un répertoire personnel de ma collection de chaussures. Chaque paire est
-                            enregistrée dans Firebase avec une photo de la chaussure, un logo de la marque, ainsi que
-                            des informations détaillées comme la marque, le modèle et la taille.<br>
+                            enregistrée dans Firebase avec le nom du modèle, la marque & son logo, la taille et une
+                            photo de la chaussure.<br>
 
                             J'ai développé plusieurs fonctionnalités pratiques : je peux ajouter facilement de nouvelles
                             paires en téléchargeant les images nécessaires, modifier les informations d'une paire
                             existante ou la supprimer si besoin. Pour sécuriser ces actions, j'ai mis en place un
                             système d'authentification par mot de passe avec hachage SHA-256.<br>
 
-                            Les chaussures sont présentées sous forme de cartes visuelles, triées par modèle pour une
-                            navigation facile. Un système de recherche permet de filtrer instantanément par marque ou
-                            modèle, et des filtres rapides par marque facilitent l'exploration de la collection.
+                            Les chaussures sont présentées sous forme de cartes visuelles et peuvent être triées par
+                            marques pour une navigation plus simple.
                         </p>
                     </div>
                 </div>
@@ -172,10 +171,9 @@
             <div class="modal-body">
                 <ul>
                     <li><b>Firebase Realtime Database</b> : Stockage et synchronisation des données en temps réel</li>
-                    <li><b>Firebase Storage</b> : Gestion efficace du téléchargement et stockage des images</li>
-                    <li><b>Drag & Drop API</b> : Implémentation d'une interface intuitive de glisser-déposer pour les images</li>
-                    <li><b>Architecture SPA</b> : Application monopage avec routage client-side sans rechargement</li>
-                    <li><b>Système d'authentification</b> : Protection des fonctionnalités administratives avec authentification</li>
+                    <li><b>Stockage d'images en Base64</b> : Images enregistrées sous forme de chaînes de caractères encodées (format data:image/jpeg;base64)</li>
+                    <li><b>Architecture SPA</b> : Application monopage</li>
+                    <li><b>Système d'authentification</b> : Protection des fonctionnalités avec authentification par mot de passe avec hachage SHA-256</li>
                 </ul>
             </div>
             <div class="modal-footer">

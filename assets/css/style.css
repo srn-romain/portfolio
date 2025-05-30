@@ -29,6 +29,24 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table-container th,
+.table-container td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-container img {
+  display: block;
+  margin: 0 auto;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/

@@ -330,3 +330,32 @@ function openDocsModal() {
   const myModal = new bootstrap.Modal(document.getElementById('docsModal'));
   myModal.show();
 };
+
+/*--------------------------------------------------------------
+#  Formations complémentaires
+--------------------------------------------------------------*/
+// Système d'accordéon pour les sections repliables
+document.addEventListener('DOMContentLoaded', function() {
+  // Sélectionner tous les éléments déclencheurs
+  const collapseTriggers = document.querySelectorAll('.collapse-trigger');
+
+  // Initialiser l'état des sections (toutes fermées au départ)
+  document.querySelectorAll('.collapse-content').forEach(content => {
+    content.classList.remove('show');
+  });
+
+  // Ajouter un écouteur d'événements à chaque déclencheur
+  collapseTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      // Récupérer l'ID du contenu à afficher/masquer
+      const targetId = this.getAttribute('data-target');
+      const targetContent = document.getElementById(targetId);
+
+      // Basculer la classe active sur le déclencheur
+      this.classList.toggle('active');
+
+      // Basculer la classe show sur le contenu
+      targetContent.classList.toggle('show');
+    });
+  });
+});

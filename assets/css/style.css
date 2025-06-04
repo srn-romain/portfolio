@@ -925,6 +925,64 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+/*FORMATION COMPLEMENTAIRES*/
+
+/* Style pour les titres repliables */
+.collapse-trigger {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.collapse-icon {
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.collapse-trigger.active .collapse-icon {
+  transform: rotate(-180deg);
+}
+
+.collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.collapse-content.show {
+  max-height: 2000px;
+}
+
+.complementary-title {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px dashed #aaa;
+  color: #50644c;
+}
+
+.complementary-education {
+  background-color: #f0f7e6;
+  border-radius: 10px;
+  padding: 15px;
+  border-left: 4px solid #50644c;
+}
+
+.complementary-item {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.complementary-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.complementary-item h4 {
+  color: #50644c;
+}
+
 /*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/

@@ -656,6 +656,73 @@ section {
   transform: scale(1.05);
 }
 
+.skill-badge::after {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  white-space: nowrap;
+  pointer-events: none;
+  background-color: #50644c;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles spécifiques pour chaque compétence */
+.skill-badge[data-skill="uneEtoile"]:hover::after {
+  content: "★☆☆☆☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="deuxEtoile"]:hover::after {
+  content: "★★☆☆☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="troisEtoile"]:hover::after {
+  content: "★★★☆☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="quatreEtoile"]:hover::after {
+  content: "★★★★☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="cinqEtoile"]:hover::after {
+  content: "★★★★★";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="teamwork"]:hover::after {
+  content: "★★★★☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="adaptation"]:hover::after {
+  content: "★★★★★";
+  opacity: 1;
+  color: #FFD700;
+}
+
+.skill-badge[data-skill="organization"]:hover::after {
+  content: "★★★★☆";
+  opacity: 1;
+  color: #FFD700;
+}
+
 .skill-icon {
   width: 20px;
   height: 20px;

@@ -516,7 +516,7 @@ h6 {
   width: 60px;
   height: 60px;
   object-fit: cover;
-  margin: 10px;
+  margin: 6px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
@@ -531,7 +531,15 @@ h6 {
   justify-content: center;
 }
 
-@media only screen and (max-width: 1290px) {
+@media screen and (min-width: 1291px) and (max-width: 1344px) {
+  .image-carrée {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 1290px) {
   .resume-header {
     flex-direction: column;
     align-items: flex-start;
@@ -550,6 +558,7 @@ h6 {
   .image-carrée {
     width: 50px;
     height: 50px;
+    margin: 5px;
   }
 }
 
@@ -561,6 +570,13 @@ h6 {
 
   .logos-container {
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 411px) {
+  .image-carrée {
+    max-width: 58px;
+    margin: 3px;
   }
 }
 

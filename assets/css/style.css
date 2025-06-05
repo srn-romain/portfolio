@@ -553,7 +553,6 @@ h6 {
   }
 }
 
-/* Media query pour les très petits écrans (moins de 480px) */
 @media only screen and (max-width: 480px) {
   .image-carrée {
     width: 40px;
@@ -902,11 +901,11 @@ section {
 
 .table-container {
   width: 100%;
-  overflow-x: auto; /* Permet la barre de défilement horizontale */
+  overflow-x: auto;
 }
 
 table {
-  min-width: 800px; /* Largeur minimale pour éviter le rétrécissement */
+  min-width: 800px;
   border-collapse: collapse;
 }
 
@@ -1354,12 +1353,12 @@ tr:nth-child(even) {
 }
 
 .btn-download-spe {
-  background-color: #80c057;
+  background-color: #f39c12;
   justify-content: space-between;
 }
 
 .btn-download-spe:hover {
-  background-color: #a6d866;
+  background-color: #e67e00;
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -1368,7 +1367,6 @@ tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
   font-size: 0.85em;
-  font-weight: 600;
   margin-left: 5px;
   font-weight: normal;
   padding: 2px 6px;

@@ -689,53 +689,34 @@ section {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Styles spécifiques pour chaque compétence */
 .skill-badge[data-skill="uneEtoile"]:hover::after {
   content: "★☆☆☆☆";
   opacity: 1;
-  color: #FFD700;
+  color: #f39c12;
 }
 
 .skill-badge[data-skill="deuxEtoile"]:hover::after {
   content: "★★☆☆☆";
   opacity: 1;
-  color: #FFD700;
+  color: #f39c12;
 }
 
 .skill-badge[data-skill="troisEtoile"]:hover::after {
   content: "★★★☆☆";
   opacity: 1;
-  color: #FFD700;
+  color: #f39c12;
 }
 
 .skill-badge[data-skill="quatreEtoile"]:hover::after {
   content: "★★★★☆";
   opacity: 1;
-  color: #FFD700;
+  color: #f39c12;
 }
 
 .skill-badge[data-skill="cinqEtoile"]:hover::after {
   content: "★★★★★";
   opacity: 1;
-  color: #FFD700;
-}
-
-.skill-badge[data-skill="teamwork"]:hover::after {
-  content: "★★★★☆";
-  opacity: 1;
-  color: #FFD700;
-}
-
-.skill-badge[data-skill="adaptation"]:hover::after {
-  content: "★★★★★";
-  opacity: 1;
-  color: #FFD700;
-}
-
-.skill-badge[data-skill="organization"]:hover::after {
-  content: "★★★★☆";
-  opacity: 1;
-  color: #FFD700;
+  color: #f39c12;
 }
 
 .skill-icon {

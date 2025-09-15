@@ -521,6 +521,10 @@ h6 {
   border-radius: 5px;
 }
 
+a:hover .formation-logo {
+    border: 2px solid #f39c12;
+}
+
 .image-carrée:hover {
   border: 2px solid black;
 }

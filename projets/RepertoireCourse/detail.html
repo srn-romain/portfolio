@@ -147,8 +147,11 @@
                             Cette application est un carnet de suivi pour les courses à pied. Il est possible
                             d'enregistrer et visualiser les courses. Le site est développée avec JavaScript, Tailwind CSS
                             et une base de données Firebase.<br>
-                            Chaque course peut être enregistrée avec sa date, distance, dénivelé, chrono, lieu et photos.
-                            L'application permet de filtrer les courses par année ou de rechercher par nom/lieu.<br>
+                            Chaque course peut être enregistrée avec beaucoup de données pour permettre une visualisation
+                            de la progression du courreur. On peut retouver entre autres la date de la course, la distance,
+                            la dénivelé, le chrono, le lieu, le tracée GPX de la course, son prix, des images...
+                            L'application permet un CRUD sur les courses, une modale de statistique au globales sur les
+                            courses, un système de wishlist des futures courses, un filtre des données etc...<br>
                             Le stockage des images utilise l'encodage base64 directement dans la base de données
                         </p>
                         <p style="font-style: italic; color: orange;">Note : Ce projet personnel est en constante évolution. Il est possible que les captures d'écran ne soient pas à jour.</p>
@@ -177,6 +180,8 @@
                     <li><b>Stockage d'images en Base64</b> : Images enregistrées sous forme de chaînes de caractères encodées (format data:image/jpeg;base64)</li>
                     <li><b>JavaScript</b> : Implémentation de fonctionnalités interactives (calcul de performance, suivi d'entraînement)</li>
                     <li><b>Optimisation mobile-first</b> : Application optimisée pour une utilisation sur smartphone et tablette</li>
+                    <li><b>Système d'authentification</b> : Protection des fonctionnalités avec système de compte
+                        géré via firebase authentification</li>
                 </ul>
             </div>
             <div class="modal-footer">

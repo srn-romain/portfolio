@@ -149,15 +149,14 @@
                                 Cette application est un carnet de suivi pour les événements (concerts et one-man
                                 shows). Il
                                 est possible d'enregistrer, modifier, supprimer et visualiser les événements ainsi que
-                                d'afficher un détail complet en modal.<br><br>
+                                d'afficher un détail complet via une modale de détail des shows.<br><br>
                                 Le site est développé avec JavaScript, Tailwind CSS et utilise Firebase comme base de
-                                données. Chaque événement peut être enregistré avec son type, artiste, nom du show,
-                                date,
-                                lieu, durée, affiche etc.<br><br>
-                                L'application permet de rechercher par texte, filtrer par année, et gère une wishlist
-                                séparée avec favoris. L'accès à certaines fonctions sont protégé par un mot de passe
-                                haché.
-                                Les images sont encodées en base64 et stockées directement dans Firestore.
+                                données. Chaque événement peut être enregistré avec tout un tas de données comme le nom
+                                de l'artiste, le nom du show, la date, le lieu, la durée, une affiche etc...<br><br>
+                                L'application permet entre autres de rechercher, filtrer, gère une wishlist, une modale
+                                de statistique, une gestion des favoris. L'accès à certaines fonctions sont protégé par
+                                un mot de passe haché.
+                                Les images sont encodées en base64 et stockées directement dans Firebase.
                             </p>
                             <p style="font-style: italic; color: orange;">Note : Ce projet personnel est en constante
                                 évolution. Il est possible que les captures d'écran ne soient pas à jour.</p>
@@ -187,8 +186,8 @@
                         <li><b>Stockage d'images en Base64</b> : Images enregistrées sous forme de chaînes de caractères
                             encodées (format data:image/jpeg;base64)</li>
                         <li><b>Architecture SPA</b> : Application monopage</li>
-                        <li><b>Système d'authentification</b> : Protection des fonctionnalités avec authentification par
-                            mot de passe avec hachage</li>
+                        <li><b>Système d'authentification</b> : Protection des fonctionnalités avec système de compte
+                            géré via firebase authentification</li>
                     </ul>
                 </div>
                 <div class="modal-footer">

@@ -1,0 +1,16 @@
+{
+  "name": "Portfolio Romain SIEURIN",
+  "short_name": "Romain Portfolio",
+  "description": "Portfolio de Romain SIEURIN - étudiant en Master Informatique",
+  "start_url": "/portfolio/index.html",
+  "display": "standalone",
+  "background_color": "#040b14",
+  "theme_color": "#149ddd",
+  "icons": [
+    {
+      "src": "/portfolio/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

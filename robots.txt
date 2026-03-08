@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://srn-romain.github.io/portfolio/sitemap.xml

@@ -27,9 +27,9 @@
   ],
   "icons": [
     {
-      "src": "favicon.webp",
-      "sizes": "any",
-      "type": "image/webp",
+      "src": "favicon.png",
+      "sizes": "192x192 384x384 512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
@@ -42,8 +42,8 @@
       "url": "/portfolio/index.html",
       "icons": [
         {
-          "src": "favicon.webp",
-          "sizes": "any"
+          "src": "favicon.png",
+          "sizes": "192x192"
         }
       ]
     }

@@ -4,18 +4,48 @@
   "description": "Portfolio de Romain SIEURIN - étudiant en Master Informatique",
   "start_url": "/portfolio/index.html",
   "display": "standalone",
-  "background_color": "#040b14",
+  "orientation": "portrait-primary",
   "theme_color": "#149ddd",
+  "background_color": "#f0fdf4",
+  "lang": "fr",
+  "categories": [
+    "portfolio",
+    "romain",
+    "sieurin",
+    "informatique",
+    "etudiant",
+    "master",
+    "developpement",
+    "web",
+    "mobile",
+    "ia",
+    "data",
+    "cybersecurite",
+    "projet",
+    "cv",
+    "contact"
+  ],
   "icons": [
     {
-      "src": "assets/img/favicon.webp",
-      "sizes": "192x192",
-      "type": "image/webp"
-    },
+      "src": "favicon.webp",
+      "sizes": "any",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
     {
-      "src": "assets/img/favicon.webp",
-      "sizes": "512x512",
-      "type": "image/webp"
+      "name": "Portfolio Romain SIEURIN",
+      "short_name": "Romain Portfolio",
+      "description": "Accéder à votre portfolio",
+      "url": "/portfolio/index.html",
+      "icons": [
+        {
+          "src": "favicon.webp",
+          "sizes": "any"
+        }
+      ]
     }
   ]
 }

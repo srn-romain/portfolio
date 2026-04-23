@@ -37,37 +37,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/Documentation/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/Flutter/app/index.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://srn-romain.github.io/portfolio/projets/Flutter/detail.html</loc>
     <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/FruitsLegumes/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://srn-romain.github.io/portfolio/projets/G2S/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/GSB/detail.html</loc>
     <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -85,12 +61,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/QuizCinema/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://srn-romain.github.io/portfolio/projets/RecetteCuisine/detail.html</loc>
     <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -98,24 +68,6 @@
   </url>
   <url>
     <loc>https://srn-romain.github.io/portfolio/projets/RepertoireCourse/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/RepertoireSerie/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/RepertoireShoes/detail.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srn-romain.github.io/portfolio/projets/RepertoireShow/detail.html</loc>
     <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

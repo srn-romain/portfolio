@@ -80,7 +80,7 @@
                     <li><a href="../../index.html#portfolio" style="color: #f39c12">Accueil</a></li>
                     <li>Quiz</li>
                 </ol>
-                <h2>Quiz Cinéma</h2>
+                <h2>Quiz</h2>
             </div>
 
         </div>
@@ -112,10 +112,6 @@
                                 <img src="Photo4.png" alt="illustrationProjet4" style="width: 70%; height: auto;">
                             </div>
 
-                            <div class="swiper-slide" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="Photo5.png" alt="illustrationProjet5" style="width: 70%; height: auto;">
-                            </div>
-
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -134,7 +130,10 @@
                                 <i class="bi bi-arrow-left"></i> Retour
                             </a>
                             <a href="https://srn-romain.github.io/QuizCinema/" target="_blank" class="btn-app-spe-doc">
-                                <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz
+                                <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz ciné
+                            </a>
+                            <a href="https://srn-romain.github.io/wikigame/" target="_blank" class="btn-app-spe-doc">
+                                <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz wikipedia
                             </a>
                             <button class="btn-docs" onclick="openDocsModal()">
                                 <i class="bi bi-file-text"></i> Documentation technique
@@ -144,15 +143,16 @@
                     <div class="portfolio-description">
                         <h2>Quelques mots sur le projet</h2>
                         <p>
-                            Avec l'aide de l'IA j'ai réalisé un projet qui mélange deux, de mes centres d'intérêts : le développement web
-                            et les séries. L’idée ? Un site de quiz où le but est de deviner la série à partir de quatre
-                            personnages affichés à l’écran. Simple, mais addictif !<br><br>
+                            J'ai conçu deux projets de jeux web qui illustrent mon intérêt pour le développement et la
+                            culture générale. Le premier est un site de quiz développé en HTML, CSS et JavaScript, où
+                            l'utilisateur doit identifier une série à partir de quatre personnages. Ce projet intègre
+                            des fonctionnalités avancées comme un système de badges, des filtres de difficulté et
+                            l'exportation des scores en PDF.<br><br>
 
-                            Le site est développé en HTML, CSS et JavaScript, avec une base de données sur un fichier json.<br><br>
-
-                            Les joueurs peuvent choisir leur niveau de difficulté, filtrer le quiz, débloquer des badges
-                            en fonction de leurs performances, et même partager leurs résultats sous forme de
-                            PDF.
+                            Le second, inspiré de <i>Pédantix</i>, propose de retrouver une page Wikipédia en devinant les mots
+                            qui la composent. Il inclut un défi quotidien réinitialisé à midi, un mode compétition en
+                            temps réel avec des amis et un système de classement pour suivre ses performances via un
+                            compte utilisateur.
                         </p>
                     </div>
                 </div>
@@ -173,6 +173,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
             <div class="modal-body">
+                <!-- Partie 1 : Quiz Séries -->
+                <h3>Projet 1 : Quiz Séries</h3>
                 <ul>
                     <li><b>JavaScript</b> : Manipulation dynamique du DOM et gestion d'états avec des patterns</li>
                     <li><b>Architecture modulaire</b> : Organisation du code en composants réutilisables</li>
@@ -181,6 +183,22 @@
                     <li><b>Responsive design</b> : Interface adaptative pour une utilisation possible sur tous les appareils</li>
                     <li><b>Système de génération PDF</b> : Fonctionnalité d'export des résultats pour partage</li>
                     <li><b>Architecture SPA</b> : Application monopage avec navigation dynamique sans rechargement de page</li>
+                    <li><b>Base de données</b> : Site développé en HTML/CSS/JS avec stockage sur un fichier JSON</li>
+                </ul>
+
+                <br>
+
+                <!-- Partie 2 : Wiki-Challenge -->
+                <h3>Projet 2 : Wiki-Challenge</h3>
+                <ul>
+                    <li><b>Firebase & Firestore</b> : Gestion du multijoueur temps réel et synchronisation du Défi du Jour</li>
+                    <li><b>Wikipedia API</b> : Intégration dynamique et optimisation des requêtes pour le chargement des articles</li>
+                    <li><b>Algorithme Unicode</b> : Traitement avancé des mots accentués et normalisation textuelle via Regex</li>
+                    <li><b>Architecture SPA</b> : Application monopage avec navigation fluide sans rechargement</li>
+                    <li><b>Modularité ES6</b> : Code organisé en modules indépendants pour une maintenance facilitée</li>
+                    <li><b>Firebase Auth</b> : Gestion des profils utilisateurs et des sessions anonymes ou persistantes</li>
+                    <li><b>Responsive Design</b> : Interface adaptative et ergonomie mobile (Navbar et Sidebar dynamiques)</li>
+                    <li><b>Logique Temps Réel</b> : Calcul instantané des scores et gestion des états de jeu synchronisés</li>
                 </ul>
             </div>
             <div class="modal-footer">

@@ -78,9 +78,9 @@
             <div class="d-flex justify-content-between align-items-center">
                 <ol>
                     <li><a href="../../index.html#portfolio" style="color: #f39c12">Accueil</a></li>
-                    <li>Quiz</li>
+                    <li>WikiGame</li>
                 </ol>
-                <h2>Quiz</h2>
+                <h2>WikiGame</h2>
             </div>
 
         </div>
@@ -97,19 +97,19 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="Photo1.png" alt="illustrationProjet1" style="width: 70%; height: auto;">
+                                <img src="Photo1.png" alt="illustrationProjet1">
                             </div>
 
                             <div class="swiper-slide" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="Photo2.png" alt="illustrationProjet2" style="width: 70%; height: auto;">
+                                <img src="Photo2.png" alt="illustrationProjet2">
                             </div>
 
                             <div class="swiper-slide" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="Photo3.png" alt="illustrationProjet3" style="width: 70%; height: auto;">
+                                <img src="Photo3.png" alt="illustrationProjet3">
                             </div>
 
                             <div class="swiper-slide" style="display: flex; justify-content: center; align-items: center;">
-                                <img src="Photo4.png" alt="illustrationProjet4" style="width: 70%; height: auto;">
+                                <img src="Photo4.png" alt="illustrationProjet4">
                             </div>
 
                         </div>
@@ -129,11 +129,8 @@
                             <a href="../../index.html#portfolio" class="btn-back">
                                 <i class="bi bi-arrow-left"></i> Retour
                             </a>
-                            <a href="https://srn-romain.github.io/QuizCinema/" target="_blank" class="btn-app-spe-doc">
-                                <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz ciné
-                            </a>
                             <a href="https://srn-romain.github.io/wikigame/" target="_blank" class="btn-app-spe-doc">
-                                <i class="bi bi-box-arrow-up-right"></i> Jouer au quiz wikipedia
+                                <i class="bi bi-box-arrow-up-right"></i> Jouer au WikiGame
                             </a>
                             <button class="btn-docs" onclick="openDocsModal()">
                                 <i class="bi bi-file-text"></i> Documentation technique
@@ -143,16 +140,12 @@
                     <div class="portfolio-description">
                         <h2>Quelques mots sur le projet</h2>
                         <p>
-                            J'ai conçu deux projets de jeux web qui illustrent mon intérêt pour le développement et la
-                            culture générale. Le premier est un site de quiz développé en HTML, CSS et JavaScript, où
-                            l'utilisateur doit identifier une série à partir de quatre personnages. Ce projet intègre
-                            des fonctionnalités avancées comme un système de badges, des filtres de difficulté et
-                            l'exportation des scores en PDF.<br><br>
-
-                            Le second, inspiré de <i>Pédantix</i>, propose de retrouver une page Wikipédia en devinant les mots
-                            qui la composent. Il inclut un défi quotidien réinitialisé à midi, un mode compétition en
-                            temps réel avec des amis et un système de classement pour suivre ses performances via un
-                            compte utilisateur.
+                            Le Wikigame est un jeu de décryptage où vous devez identifier un article Wikipédia dont tous
+                            les mots ont été initialement masqués par des blocs noirs. En proposant des termes dans la
+                            barre de saisie, vous révélez instantanément chaque occurrence de ces mots au sein du texte,
+                            ce qui vous permet de reconstruire progressivement le contexte par déduction. La victoire
+                            est acquise dès que vous parvenez à découvrir l'intégralité du titre principal de l'article
+                            mystère.
                         </p>
                     </div>
                 </div>
@@ -173,23 +166,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
             <div class="modal-body">
-                <!-- Partie 1 : Quiz Séries -->
-                <h3>Projet 1 : Quiz Séries</h3>
-                <ul>
-                    <li><b>JavaScript</b> : Manipulation dynamique du DOM et gestion d'états avec des patterns</li>
-                    <li><b>Architecture modulaire</b> : Organisation du code en composants réutilisables</li>
-                    <li><b>LocalStorage API</b> : Persistance des données utilisateur et des scores entre les sessions</li>
-                    <li><b>Animations CSS</b> : Transitions et retours visuels</li>
-                    <li><b>Responsive design</b> : Interface adaptative pour une utilisation possible sur tous les appareils</li>
-                    <li><b>Système de génération PDF</b> : Fonctionnalité d'export des résultats pour partage</li>
-                    <li><b>Architecture SPA</b> : Application monopage avec navigation dynamique sans rechargement de page</li>
-                    <li><b>Base de données</b> : Site développé en HTML/CSS/JS avec stockage sur un fichier JSON</li>
-                </ul>
-
-                <br>
-
-                <!-- Partie 2 : Wiki-Challenge -->
-                <h3>Projet 2 : Wiki-Challenge</h3>
                 <ul>
                     <li><b>Firebase & Firestore</b> : Gestion du multijoueur temps réel et synchronisation du Défi du Jour</li>
                     <li><b>Wikipedia API</b> : Intégration dynamique et optimisation des requêtes pour le chargement des articles</li>

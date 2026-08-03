@@ -1,7 +1,7 @@
 {
   "name": "Portfolio Romain SIEURIN",
-  "short_name": "Romain Portfolio",
-  "description": "Portfolio de Romain SIEURIN - étudiant en Master Informatique",
+  "short_name": "Portfolio",
+  "description": "Portfolio de Romain SIEURIN - étudiant en Informatique",
   "start_url": "/portfolio/index.html",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -36,8 +36,8 @@
   "screenshots": [],
   "shortcuts": [
     {
-      "name": "Portfolio Romain SIEURIN",
-      "short_name": "Romain Portfolio",
+      "name": "Portfolio Romain",
+      "short_name": "Portfolio",
       "description": "Accéder à votre portfolio",
       "url": "/portfolio/index.html",
       "icons": [
